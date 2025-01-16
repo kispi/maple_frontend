@@ -1,0 +1,18 @@
+{
+  "MAPLE": {
+    "kr": "메이플",
+    "en": "Maple"
+  },
+  "ANOTHER_SITES": {
+    "en": "Another Sites",
+    "kr": "다른 사이트들"
+  },
+  "CONTACTS": {
+    "en": "Contacts",
+    "kr": "연락처"
+  },
+  "SHORT_ABOUT": {
+    "kr": "Nexon API를 이용해 제작된 서비스되며, Nexon의 공식 서비스가 아닙니다.",
+    "en": "This service is made using Nexon API and is not an official service of Nexon."
+  }
+}

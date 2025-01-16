@@ -1,0 +1,67 @@
+.app-header {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-base);
+  left: 0;
+  right: 0;
+  z-index: 2;
+
+  .layout-centered {
+    display: flex;
+    align-items: center;
+    padding: 12px var(--app-default-page-padding);
+    gap: 8px;
+    height: var(--app-header-height);
+  }
+
+  .nav-toggler {
+    font-size: 24px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .header-functions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-left: auto;
+
+    .header-function {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      cursor: pointer;
+  
+      &:hover {
+        background: var(--border-base);
+      }
+    }
+  }
+
+  .post-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 16px;
+    padding: 0 16px;
+    max-width: 160px;
+
+    input {
+      height: 32px;
+    }
+  }
+
+  i {
+    cursor: pointer;
+  }
+}
+
+body.theme-dark .app-header {
+  background: rgba(0, 0, 0, 0.25);
+}

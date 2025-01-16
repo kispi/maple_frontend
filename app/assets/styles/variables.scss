@@ -1,0 +1,12 @@
+@import 'colors';
+
+:root {
+  --app-header-height: 48px;
+  --app-default-page-padding: 16px;
+  --app-nav-width: 200px;
+  --app-max-width: 1200px;
+
+  @media (min-width: 768px) {
+    --app-default-page-padding: 24px;
+  }
+}

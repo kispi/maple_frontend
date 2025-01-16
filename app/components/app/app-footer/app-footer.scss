@@ -1,0 +1,43 @@
+.app-footer {
+  background: var(--background-light);
+
+  .layout-centered {
+    padding: 40px var(--app-default-page-padding);
+  }
+
+  .grid {
+    display: grid;
+    gap: 8px;
+
+    a {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    &.outer {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      padding: 8px;
+      gap: 48px;
+    }
+  }
+
+  .category-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .bottom {
+    margin-top: 24px;
+    padding: 8px;
+    display: grid;
+    gap: 8px;
+  }
+
+  @media (min-width: 767px) {
+    .bottom {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

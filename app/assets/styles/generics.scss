@@ -1,0 +1,128 @@
+// Using these classes means you are doing final stylization, so it must be !important.
+
+@mixin spaceLoop($className, $styleName, $offset) {
+  $i: 0;
+  @while $i <= 80 {
+    #{$className + $i} { 
+      #{$styleName}: #{$i + 'px'} !important;
+    }
+    $i: $i + $offset;
+  }
+}
+
+@include spaceLoop('.m-t-', 'margin-top', 4);
+@include spaceLoop('.m-r-', 'margin-right', 4);
+@include spaceLoop('.m-b-', 'margin-bottom', 4);
+@include spaceLoop('.m-l-', 'margin-left', 4);
+@include spaceLoop('.m-', 'margin', 4);
+
+@include spaceLoop('.p-t-', 'padding-top', 4);
+@include spaceLoop('.p-r-', 'padding-right', 4);
+@include spaceLoop('.p-b-', 'padding-bottom', 4);
+@include spaceLoop('.p-l-', 'padding-left', 4);
+@include spaceLoop('.p-', 'padding', 4);
+
+.m-a {
+  margin: auto;
+}
+
+.m-l-a {
+  margin-left: auto;
+}
+
+@mixin fontSizes() {
+  $i: 10;
+  @while $i <= 40 {
+    .f-#{$i} {
+      font-size: #{$i} + 'px' !important;
+    }
+    $i: $i + 1;
+  }
+}
+@include fontSizes(); // f-10, f-11, f-12, ... , f-24
+
+@mixin fontWeights() {
+  $weight: 300;
+  @while $weight <= 900 {
+    .f-#{$weight} {
+      font-weight: #{$weight} !important;
+    }
+    $weight: $weight + 100;
+  }
+}
+@include fontWeights(); // f-300, f-400, ... , f-900
+
+@mixin gaps() {
+  $i: 0;
+  @while $i <= 80 {
+    .g-#{$i} {
+      gap: #{$i} + 'px' !important;
+    }
+    $i: $i + 4;
+  }
+}
+@include gaps(); // g-0, g-4, g-8, ... , g-40
+
+$colors:
+  --brand-primary,
+  --white,
+  --bitcoin,
+  --black,
+  --gs-22,
+  --gs-88,
+  --success,
+  --danger,
+  --price-up,
+  --price-down,
+  --price-up-bybit,
+  --price-down-bybit,
+  --text-stress,
+  --text-light,
+  --text-base,
+  --border-base,
+  --gs-bb;
+
+@each $color in $colors {
+  .c-#{str-slice($color, 3)} {
+    color: var($color) !important;
+  }
+
+  .bg-#{str-slice($color, 3)} {
+    background: var($color) !important;
+  }
+}
+
+.p-relative { position: relative !important; }
+.p-absolute { position: absolute !important; }
+
+.o-0 { opacity: 0 !important; }
+
+.o-50 { opacity: 0.5 !important; }
+
+.h-100 { height: 100% !important; }
+
+.w-100 { width: 100% !important; }
+
+.display-inline-block {
+  display: inline-block !important;
+}
+
+.display-block {
+  display: block !important;
+}
+
+.display-table {
+  display: table !important;
+}
+
+.display-none {
+  display: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.no-select {
+  user-select: none;
+}

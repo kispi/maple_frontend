@@ -1,0 +1,23 @@
+@import 'variables';
+@import 'animation';
+@import 'base';
+@import 'button';
+@import 'components';
+@import 'font-awesome';
+@import 'form';
+@import 'flex';
+@import 'generics';
+@import 'modals';
+@import 'text';
+@import 'third-parties/index.scss';
+
+.layout-centered {
+  max-width: var(--app-max-width);
+  margin: auto;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}

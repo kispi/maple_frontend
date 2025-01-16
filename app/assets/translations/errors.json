@@ -1,0 +1,14 @@
+{
+  "NOT_FOUND": {
+    "en": "Not found",
+    "kr": "존재하지 않는 항목입니다"
+  },
+  "BAD_REQUEST": {
+    "en": "Bad Request",
+    "kr": "잘못된 요청입니다"
+  },
+  "ERROR_API_SERVER": {
+    "en": "There seems to be a problem with the API server 😢",
+    "kr": "API 서버에 문제가 있는 것 같아요 😢"
+  }
+}

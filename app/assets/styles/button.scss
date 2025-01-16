@@ -1,0 +1,96 @@
+.btn {
+  text-overflow: ellipsis;
+  position: relative;
+  padding: 4px 8px;
+  touch-action: manipulation;
+  user-select: none;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  img,
+  i {
+    pointer-events: none;
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  &:not(.disabled):not(:disabled) {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    pointer-events: none;
+  }
+}
+
+.btn-primary {
+  background: var(--black);
+  color: var(--white);
+
+  &:not(.disabled):not(:disabled) {
+    &:hover {
+      background: var(--gs-44);
+    }
+  }
+}
+
+.btn-light {
+  background: var(--background-light);
+  color: var(--text-stress);
+
+  &:not(.disabled):not(:disabled) {
+    &:hover {
+      background: var(--border-base);
+    }
+  }
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-default {
+  background: var(--white);
+  color: var(--black);
+
+  &:not(.disabled):not(:disabled) {
+    &:hover {
+      background: var(--gs-e0);
+    }
+  }
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.btn-small {
+  font-size: 12px;
+  padding: 4px 12px;
+}
+
+.btn-brd {
+  background: none;
+  border: 1px solid var(--border-base);
+  color: var(--text-stress);
+
+  &:not(.disabled):not(:disabled) {
+    &:hover {
+      border: 1px solid var(--border-light);
+    }
+  }
+}
