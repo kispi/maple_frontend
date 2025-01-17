@@ -39,22 +39,26 @@
   flex: 1 1 0 !important;
 }
   
-.flex-wrap {
+.flex-shrink {
   flex: 0 0 auto !important;
 }
 
-.items-start {
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.align-start {
   align-items: flex-start;
 }
 
-.items-center {
+.align-center {
   align-items: center;
 }
 
-.items-end {
+.align-end {
   align-items: flex-end;
 }
 
-.items-baseline {
+.align-baseline {
   align-items: baseline;
 }

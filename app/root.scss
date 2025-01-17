@@ -1,0 +1,49 @@
+@use './view-main.scss';
+
+.view-not-found {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  button {
+    padding: 8px 24px;
+    font-size: 20px;
+    margin: auto;
+  }
+
+  img {
+    max-width: 480px;
+  }
+}
+
+.app-body {
+  min-height: calc(100vh - 250px);
+  display: flex;
+
+  .app-nav {
+    flex: 0 0 auto;
+  }
+
+  main {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+  }
+
+  .app-nav,
+  main {
+    padding:
+      calc(var(--app-header-height) + var(--app-default-page-padding))
+      var(--app-default-page-padding)
+      80px;
+  }
+}
+
+@media print {
+  .app-nav,
+  .app-header {
+    display: none;
+  }
+}

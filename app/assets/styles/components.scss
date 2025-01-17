@@ -36,3 +36,28 @@
     }
   }
 }
+
+.card {
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--typical-shadow);
+}
+
+.badge-bordered {
+  border: 1px solid var(--border-base);
+  border-radius: 24px;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.badge-fill {
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 500;
+
+  &.red {
+    background: var(--danger-light-bg);
+    color: var(--danger-light);
+  }
+}

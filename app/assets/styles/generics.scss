@@ -1,3 +1,4 @@
+@use "sass:string";
 // Using these classes means you are doing final stylization, so it must be !important.
 
 @mixin spaceLoop($className, $styleName, $offset) {
@@ -64,30 +65,23 @@
 @include gaps(); // g-0, g-4, g-8, ... , g-40
 
 $colors:
-  --brand-primary,
   --white,
   --bitcoin,
   --black,
-  --gs-22,
-  --gs-88,
   --success,
   --danger,
-  --price-up,
-  --price-down,
-  --price-up-bybit,
-  --price-down-bybit,
-  --text-stress,
+  --text-base,
   --text-light,
   --text-base,
   --border-base,
-  --gs-bb;
+  --border-light;
 
 @each $color in $colors {
-  .c-#{str-slice($color, 3)} {
+  .c-#{string.slice($color, 3)} {
     color: var($color) !important;
   }
 
-  .bg-#{str-slice($color, 3)} {
+  .bg-#{string.slice($color, 3)} {
     background: var($color) !important;
   }
 }

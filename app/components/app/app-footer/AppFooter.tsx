@@ -1,19 +1,5 @@
-import { useRouter } from '~/hooks'
 import helpers from '~/helpers'
 import './app-footer.scss'
-
-const MyLink = ({ href, children }: { href: string, children: React.ReactNode }) => {
-  const { push } = useRouter()
-
-  return <a
-    onClick={e => {
-      e.preventDefault()
-      push(href)
-    }}
-    href={href}>
-    {children}
-  </a>
-}
 
 const AppFooter = ({ className }: { className?: string }) => {
   return <div className={`app-footer ${className}`}>

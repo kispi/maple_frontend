@@ -13,6 +13,7 @@ import AppFooter from './components/app/app-footer/AppFooter'
 import useAppStore from './store/app'
 import '~/assets/styles/index.scss'
 import './font-awesome.css'
+import './root.scss'
 
 const createGoogleFontUrl = (itemStrings: string[]) => {
   const items = itemStrings.join('&')

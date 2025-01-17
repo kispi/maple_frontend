@@ -1,0 +1,26 @@
+.card-character-basic {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .image-container {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 1px solid var(--border-base);
+    flex: 0 0 auto;
+    overflow: hidden;
+  }
+
+  .basic-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

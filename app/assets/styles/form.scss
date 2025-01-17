@@ -1,25 +1,3 @@
-.input-wrapper,
-.textarea-wrapper {
-  border: 1px solid var(--border-base);
-
-  &.focus,
-  &.active {
-    border: 1px solid var(--text-stress);
-  }
-
-  input,
-  textarea {
-    padding: 0;
-    border: 0;
-    background: none;
-
-    &:focus,
-    &:active {
-      border: 0;
-    }
-  }
-}
-
 textarea {
   resize: none;
 }
@@ -27,7 +5,8 @@ textarea {
 input,
 textarea {
   border: 1px solid var(--border-base);
-  padding: 8px;
+  border-radius: 4px;
+  padding: var(--dropdown-padding);
   transition: none;
   font-size: 14px;
 
@@ -47,11 +26,45 @@ textarea {
   }
 }
 
+.input-wrapper,
+.textarea-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-base);
+  border-radius: 4px;
+  padding: 0 var(--dropdown-padding);
+
+  .prefix,
+  .suffix,
+  i {
+    white-space: nowrap;
+    color: var(--border-base);
+  }
+
+  &.focus,
+  &.active {
+    border: 1px solid var(--text-base);
+  }
+
+  input,
+  textarea {
+    padding: var(--dropdown-padding) 0;
+    border: 0;
+    background: none;
+
+    &:focus,
+    &:active {
+      border: 0;
+    }
+  }
+}
+
 body.theme-dark {
   input,
   textarea,
   select {
-    color: var(--text-stress);
+    color: var(--text-base);
     background: var(--background-light);
   }
 

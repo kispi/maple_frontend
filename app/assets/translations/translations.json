@@ -14,5 +14,29 @@
   "SHORT_ABOUT": {
     "kr": "Nexon API를 이용해 제작된 서비스되며, Nexon의 공식 서비스가 아닙니다.",
     "en": "This service is made using Nexon API and is not an official service of Nexon."
+  },
+  "PLACEHOLDER_SEARCH_CHARACTER": {
+    "kr": "캐릭터 이름을 입력하세요",
+    "en": "Enter character name"
+  },
+  "INFO_DATE": {
+    "kr": "데이터 기준",
+    "en": "Date of inquiry"
+  },
+  "REALTIME": {
+    "kr": "실시간",
+    "en": "Realtime"
+  },
+  "DOJANG": {
+    "kr": "무릉도장",
+    "en": "Dojang"
+  },
+  "UNION": {
+    "kr": "유니온",
+    "en": "Union"
+  },
+  "ARTIFACT": {
+    "kr": "아티팩트",
+    "en": "Artifact"
   }
 }

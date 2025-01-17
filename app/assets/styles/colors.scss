@@ -1,62 +1,118 @@
 :root {
-  --brand-primary:          rgba(22, 179, 252, 1);
-  --brand-primary-hover:    rgba(22, 179, 252, 0.5);
-  --brand-primary-hover-bg: rgba(22, 179, 252, 0.2);
+  --bitcoin:    #ffbb11;
 
-  --bitcoin:             #ffbb11;
-  --white:               #ffffff;
-  --black:               #000000;
-  --gs-14:               #141414;
-  --gs-22:               #222222;
-  --gs-44:               #444444;
-  --gs-66:               #666666;
-  --gs-88:               #888888;
-  --gs-bb:               #bbbbbb;
-  --gs-e0:               #e0e0e0;
-  --gs-bybit:            #17181e;
-  --success:             var(--price-up-bybit);
-  --warning:             rgb(255, 108, 71, 1);
-  --danger:              rgba(255, 32, 32, 1);
-  --price-up-upbit:      #d60000;
-  --price-down-upbit:    #0051c7;
-  --price-up-upbit-bg:   rgba(214, 0, 0, 0.1);
-  --price-down-upbit-bg: rgba(0, 81, 199, 0.1);
-  --price-up-bybit:      rgba(36, 204, 100, 1);
-  --price-down-bybit:    rgba(254, 64, 64, 1);
-  --price-up-bybit-bg:   rgba(36, 174, 100, 0.1);
-  --price-down-bybit-bg: rgba(224, 64, 64, 0.1);
-  --price-up-bybit-bg-20:   rgba(36, 174, 100, 0.2);
-  --price-down-bybit-bg-20: rgba(224, 64, 64, 0.2);
+  --purple-900: #413069;
+  --purple-800: #4F378B;
+  --purple-700: #6347A9;
+  --purple-600: #785BBE;
+  --purple-500: #8968D9;
+  --purple-400: #B39AEF;
+  --purple-300: #C8B4F8;
+  --purple-200: #E7DFFC;
+  --purple-100: #F5F1FD;
+  --purple-50:  #F8F6FE;
+
+  --blue-900:   #00244D;
+  --blue-800:   #00326B;
+  --blue-700:   #04458F;
+  --blue-600:   #0C54AC;
+  --blue-500:   #2375D7;
+  --blue-400:   #61A2EF;
+  --blue-300:   #95C6EE;
+  --blue-200:   #C2E0FA;
+  --blue-100:   #EBF6FF;
+  --blue-50:    #F5F7FF;
+
+  --cyan-900:   #164E63;
+  --cyan-800:   #0E7490;
+  --cyan-700:   #0D8EAD;
+  --cyan-600:   #1BA4BB;
+  --cyan-500:   #22B3C9;
+  --cyan-400:   #6BCAD6;
+  --cyan-300:   #96E4ED;
+  --cyan-200:   #B9EEF3;
+  --cyan-100:   #DFFAFB;
+
+  --black:      #000000;
+  --gray-900:   #1C2740;
+  --gray-800:   #273344;
+  --gray-700:   #3A4455;
+  --gray-600:   #545F6E;
+  --gray-500:   #788191;
+  --gray-400:   #AAB0BB;
+  --gray-300:   #D1D5DB;
+  --gray-200:   #E5E7EB;
+  --gray-100:   #F0F2F4;
+  --gray-50:    #F6F7F8;
+  --white:      #FFFFFF;
+
+  --gray-maple: #211F1F;
+
+  --gray-900-03:    rgba(28, 39, 64, 0.03);
+  --gray-900-06:    rgba(28, 39, 64, 0.06);
+  --typical-shadow: rgba(68, 68, 68, 0.16);
+
+  --red-900:    #4D0000;
+  --red-800:    #751515;
+  --red-700:    #A01717;
+  --red-600:    #B82E2E;
+  --red-500:    #D44040;
+  --red-200:    #FBDADA;
+  --red-100:    #FEF0F0;
+
+  --amber-900:  #472D00;
+  --amber-800:  #805000;
+  --amber-700:  #996000;
+  --amber-600:  #C67F06;
+  --amber-500:  #EC9C14;
+  --amber-400:  #F5B851;
+  --amber-300:  #FCD38D;
+  --amber-200:  #FDE8C4;
+  --amber-100:  #FFF6E5;
+  --amber-50:   #F6F4E9;
+
+  --green-900:  #0B2D19;
+  --green-800:  #0B411F;
+  --green-700:  #155B2F;
+  --green-600:  #1A7A3D;
+  --green-500:  #1C9749;
+  --green-400:  #5FB982;
+  --green-300:  #A3DBB8;
+  --green-200:  #C9EED6;
+  --green-100:  #E8F7ED;
+
+  --primary:        var(--purple-500);
+  --secondary:      var(--blue-500);
+
+  --success:         var(--shipment-shipped-green);
+  --warning:         var(--amber-500);
+  --warning-dark:    var(--amber-600);
+  --warning-bg:      var(--amber-100);
+  --danger:          var(--red-600);
+  --danger-light:    var(--red-500);
+  --danger-light-bg: var(--red-100);
 }
 
 body {
   color:                 var(--text-base);
   background:            var(--background-base);
-  --text-stress:         var(--black);
-  --text-base:           rgba(0, 0, 0, 0.9);
-  --text-light:          var(--gs-88);
-  --border-base:         var(--gs-e0);
-  --border-light:        rgba(0, 0, 0, 0.25);
+
+  --text-base:           var(--gray-900);
+  --text-light:          var(--gray-500);
+
+  --border-base:         var(--gray-300);
+  --border-light:        var(--gray-200);
+  
   --background-base:     var(--white);
   --background-light:    rgba(0, 0, 0, 0.05);
-  --price-up:            var(--price-up-upbit);
-  --price-down:          var(--price-down-upbit);
-  --price-up-bg:         var(--price-up-upbit-bg);
-  --price-down-bg:       var(--price-down-upbit-bg);
-  --bg-chat-message:     rgba(240, 240, 240, 1);
 
   &.theme-dark {
-    --text-stress:       var(--white);
-    --text-base:         rgba(255, 255, 255, 0.9);
-    --border-base:       var(--gs-44);
-    --border-light:      rgba(255, 255, 255, 0.25);
-    --background-base:   var(--gs-bybit);
-    --background-light:  rgba(255, 255, 255, 0.05);
+    --text-base:         var(--white);
 
-    --price-up:          var(--price-up-bybit);
-    --price-down:        var(--price-down-bybit);
-    --price-up-bg:       var(--price-up-bybit-bg);
-    --price-down-bg:     var(--price-down-bybit-bg);
-    --bg-chat-message:   rgba(57, 57, 57, 1);
+    --border-base:       var(--gray-700);
+    --border-light:      var(--gray-800);
+
+    --background-base:   var(--gray-maple);
+    --background-light:  rgba(255, 255, 255, 0.05);
   }
 }

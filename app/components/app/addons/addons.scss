@@ -23,7 +23,7 @@
 
     .fa-chevron-left {
       &:hover {
-        color: var(--text-stress);
+        color: var(--text-base);
       }
     }
 
@@ -38,7 +38,7 @@
       cursor: pointer;
 
       i {
-        color: var(--text-stress);
+        color: var(--text-base);
       }
 
       &:hover {
