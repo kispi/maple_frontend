@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
+import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
 import helpers from '~/helpers'
 import useMapleStore from '~/store/maple'
 
@@ -11,7 +12,11 @@ const Index = () => {
   const selectedCharacter = useMemo(() => characters[characterName], [characters, characterName])
 
   const getCharacterInfo = async (characterName: string) => {
-    loadCharacter(characterName)
+    try {
+      await loadCharacter(characterName)
+    } catch (e) {
+      helpers.toast.error(e.data.message)
+    }
   }
 
   return (
@@ -32,13 +37,15 @@ const Index = () => {
           }}
         />
       </div>
-      {selectedCharacter && <div>
+      {selectedCharacter && <div className="flex g-24 m-t-16">
         <CardCharacterInfo
           characterBasic={selectedCharacter.basic}
           characterDojang={selectedCharacter.dojang}
           characterUnion={selectedCharacter.union}
         />
-        <div className="items">아이템 영역</div>
+        <CardCharacterItemEquipment
+          characterItemEquipment={selectedCharacter.itemEquipment}
+        />
       </div>}
     </div>
   )

@@ -33,9 +33,9 @@ export const CardCharacterInfo = ({
           <span>{characterBasic.character_class}</span> | <span>{characterBasic.character_level} <small>({characterBasic.character_exp_rate}%)</small></span>
         </div>
         <div className="badges">
-          <span className="badge-fill red">{helpers.$t('DOJANG')} {characterDojang.dojang_best_floor}층</span>
-          <span className="badge-fill red">{helpers.$t('UNION')} {characterUnion.union_level}</span>
-          <span className="badge-fill red">{helpers.$t('ARTIFACT')} {characterUnion.union_artifact_level}</span>
+          <span className="badge-fill bg-danger c-white">{helpers.$t('DOJANG')} {characterDojang.dojang_best_floor}층</span>
+          <span className="badge-fill bg-danger c-white">{helpers.$t('UNION')} {characterUnion.union_level}</span>
+          <span className="badge-fill bg-danger c-white">{helpers.$t('ARTIFACT')} {characterUnion.union_artifact_level}</span>
         </div>
       </div>
     </div>

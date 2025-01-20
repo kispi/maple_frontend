@@ -9,6 +9,7 @@ import type { LinksFunction, MetaFunction } from '@remix-run/node'
 import { createMetaTags } from './assets/constants/meta'
 import AppHeader from './components/app/app-header/AppHeader'
 import AppNav from './components/app/app-nav/AppNav'
+import AppAddons from './components/app/addons/AppAddons'
 import AppFooter from './components/app/app-footer/AppFooter'
 import useAppStore from './store/app'
 import '~/assets/styles/index.scss'
@@ -61,6 +62,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {settings.showNav && <AppNav />}
           <main>{children}</main>
         </div>
+        <AppAddons />
         <AppFooter />
         <ScrollRestoration />
         <Scripts />

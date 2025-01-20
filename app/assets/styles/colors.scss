@@ -1,6 +1,4 @@
 :root {
-  --bitcoin:    #ffbb11;
-
   --purple-900: #413069;
   --purple-800: #4F378B;
   --purple-700: #6347A9;
@@ -91,6 +89,12 @@
   --danger:          var(--red-600);
   --danger-light:    var(--red-500);
   --danger-light-bg: var(--red-100);
+
+  --bitcoin:        #FFBB11;
+  --legendary:      #A4C700;
+  --unique:         #E89C09;
+  --epic:           #7F66D3;
+  --rare:           #3CC1D7;
 }
 
 body {
