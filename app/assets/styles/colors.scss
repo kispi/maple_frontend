@@ -90,11 +90,16 @@
   --danger-light:    var(--red-500);
   --danger-light-bg: var(--red-100);
 
-  --bitcoin:        #FFBB11;
-  --legendary:      #A4C700;
-  --unique:         #E89C09;
-  --epic:           #7F66D3;
-  --rare:           #3CC1D7;
+  --bitcoin:         #FFBB11;
+  --legendary:       rgba(164, 199, 0);
+  --unique:          rgba(232, 156, 9);
+  --epic:            rgba(127, 102, 211);
+  --rare:            rgba(60, 193, 215);
+
+  --legendary-light: rgba(164, 199, 0, 0.1);
+  --unique-light:    rgba(232, 156, 9, 0.1);
+  --epic-light:      rgba(127, 102, 211, 0.1);
+  --rare-light:      rgba(60, 193, 215, 0.1);
 }
 
 body {

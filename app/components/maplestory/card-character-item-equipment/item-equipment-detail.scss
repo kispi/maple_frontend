@@ -1,0 +1,58 @@
+.item-equipment-detail {
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 8px;
+  padding: 24px 16px;
+  max-width: 280px;
+  border: 3px double var(--border-light);
+  color: var(--white);
+  font-size: 12px;
+
+  .item-basic {
+    text-align: center;
+    margin: 8px 0;
+
+    .soul-name {
+      color: var(--legendary);
+      font-size: 16px;
+      font-weight: 600;
+    }
+  
+    .item-name {
+      font-weight: 700;
+      font-size: 16px;
+    }
+  
+    .potential-option-grade {
+    }
+  }
+  
+  .item-image-container {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, var(--gray-300), var(--gray-700));
+    padding: 8px;
+    border-radius: 8px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .base-equipment-level {
+    color: yellow;
+    font-size: 10px;
+
+    i  {
+      transform: scale(0.5);
+      margin-right: 4px;
+    }
+  }
+
+  .hr {
+    width: calc(100% + 32px);
+    margin: 0 -16px;
+    border-bottom: 1px dashed var(--gray-700);
+  }
+}

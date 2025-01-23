@@ -1,11 +1,15 @@
 import { useMemo, useState } from 'react'
 import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
 import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
+import { ItemEquipmentDetail } from '~/components/maplestory/card-character-item-equipment/ItemEquipmentDetail'
+import { ItemEquipment } from '~/types/item-equipment'
 import helpers from '~/helpers'
 import useMapleStore from '~/store/maple'
 
 const Index = () => {
   const [characterName, setCharacterName] = useState('')
+
+  const [selectedItemEquipment, setSelectedItemEquipment] = useState<ItemEquipment | null>(null)
 
   const { characters, loadCharacter } = useMapleStore()
 
@@ -43,9 +47,13 @@ const Index = () => {
           characterDojang={selectedCharacter.dojang}
           characterUnion={selectedCharacter.union}
         />
-        <CardCharacterItemEquipment
-          characterItemEquipment={selectedCharacter.itemEquipment}
-        />
+        <div className="flex-row g-24">
+          <CardCharacterItemEquipment
+            characterItemEquipment={selectedCharacter.itemEquipment}
+            setSelectedItemEquipment={setSelectedItemEquipment}
+          />
+          {selectedItemEquipment && <ItemEquipmentDetail itemEquipment={selectedItemEquipment}/>}
+        </div>
       </div>}
     </div>
   )

@@ -12,13 +12,28 @@ const GradeBadge = ({ grade }: { grade: string }) => {
   return <span className={`badge-fill c-white f-400 f-10 ${gradeColor()}`}>{grade}</span>
 }
 
+const gradeClass = (grades: string[]) => {
+  if (grades.includes('레전드리')) return 'legendary'
+  if (grades.includes('유니크')) return 'unique'
+  if (grades.includes('에픽')) return 'epic'
+  if (grades.includes('레어')) return 'rare'
+  return ''
+}
+
 export const CharacterItemEquipmentSummary = ({
   itemEquipment,
+  setSelectedItemEquipment,
 }: {
   itemEquipment: ItemEquipment,
+  setSelectedItemEquipment: (itemEquipment: ItemEquipment) => void,
 }) => {
-  return <div className="character-item-equipment-summary">
-    <img src={itemEquipment.item_icon} alt={itemEquipment.item_name} />
+  return <div
+    onClick={() => setSelectedItemEquipment(itemEquipment)}
+    className="character-item-equipment-summary">
+    <div
+      className={`image-container ${gradeClass([itemEquipment.potential_option_grade, itemEquipment.additional_potential_option_grade])}`}>
+      <img src={itemEquipment.item_icon} alt={itemEquipment.item_name} />
+    </div>
     <div className="item-info">
       <div>
         {itemEquipment.item_name && <span className="item-name">{itemEquipment.item_name}</span>}
@@ -35,12 +50,15 @@ export const CharacterItemEquipmentSummary = ({
 
 export const CardCharacterItemEquipment = ({
   characterItemEquipment,
+  setSelectedItemEquipment,
 }: {
   characterItemEquipment: CharacterItemEquipment,
+  setSelectedItemEquipment: (itemEquipment: ItemEquipment) => void,
 }) => {
   return <div className="card-character-item-equipment card">
     {characterItemEquipment.item_equipment.map((itemEquipment, index) => (
       <CharacterItemEquipmentSummary
+        setSelectedItemEquipment={setSelectedItemEquipment}
         key={index}
         itemEquipment={itemEquipment}
       />

@@ -9,7 +9,6 @@
 @use 'generics';
 @use 'modals';
 @use 'text';
-@use 'third-parties/index.scss';
 
 .layout-centered {
   max-width: var(--app-max-width);
