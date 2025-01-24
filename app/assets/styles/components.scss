@@ -40,7 +40,8 @@
 .card {
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px var(--typical-shadow);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-base);
 }
 
 .badge-bordered {

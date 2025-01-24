@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { useLoaderData } from '@remix-run/react'
+import { useMemo, useRef, useState } from 'react'
+import { useLoaderData, useSearchParams } from '@remix-run/react'
 import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
 import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
 import { $http, DefaultError } from '~/modules/axios'
@@ -9,15 +9,15 @@ import useAppStore from '~/store/app'
 
 export const loader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url)
-  const characterName = url.searchParams.get('character_name')
-  if (!characterName) return { characters: {} }
+  const name = url.searchParams.get('name')
+  if (!name) return { characters: {} }
 
   try {
-    const data = await $http.get('maple/info', { params: { character_name: characterName }}) as CharacterInfo
+    const data = await $http.get('maple/info', { params: { character_name: name }}) as CharacterInfo
     const preparedCharacter = data
     return { preparedCharacter }
   } catch (e) {
-    return { preparedCharacter: {} }
+    return { preparedCharacter: null }
   }
 }
 
@@ -26,17 +26,22 @@ const Index = () => {
 
   const { characters, loadCharacter } = useMapleStore()
 
+  const [, setSearchParams] = useSearchParams()
+
   const { preparedCharacter } = useLoaderData<typeof loader>()
 
   const { isMobile } = useAppStore()
+
+  const refInput = useRef<HTMLInputElement>(null)
 
   const selectedCharacter = useMemo(() => {
     return characters[characterName] || preparedCharacter
   }, [preparedCharacter, characters, characterName])
 
-  const getCharacterInfo = async (characterName: string) => {
+  const getCharacterInfo = async (name: string) => {
     try {
-      await loadCharacter(characterName)
+      await loadCharacter(name)
+      setSearchParams({ name })
     } catch (e) {
       helpers.toast.error((e as DefaultError).data.message)
     }
@@ -50,6 +55,7 @@ const Index = () => {
           className="far fa-search cursor-pointer"
         />
         <input
+          ref={refInput}
           type="text"
           placeholder={helpers.$t('PLACEHOLDER_SEARCH_CHARACTER')}
           value={characterName}
@@ -59,6 +65,13 @@ const Index = () => {
             if (e.key === 'Enter') getCharacterInfo(characterName)
           }}
         />
+        {characterName && <i
+          className="far fa-times cursor-pointer"
+          onClick={() => {
+            setCharacterName('')
+            if (refInput.current) refInput.current.focus()
+          }}
+        />}
       </div>
       {selectedCharacter && <div className="flex g-24 m-t-16">
         <CardCharacterInfo

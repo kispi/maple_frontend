@@ -41,7 +41,7 @@
 
   &:not(.disabled):not(:disabled) {
     &:hover {
-      background: var(--gs-44);
+      background: var(--gray-500);
     }
   }
 }
@@ -68,7 +68,7 @@
 
   &:not(.disabled):not(:disabled) {
     &:hover {
-      background: var(--gs-e0);
+      background: var(--gs-border-base);
     }
   }
 }

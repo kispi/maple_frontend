@@ -102,7 +102,7 @@ const useAppStore = create<AppState>((set) => ({
   setScrollTop: (scrollTop) => set({ scrollTop }),
 
   settings: {
-    theme: 'light',
+    theme: 'dark',
     locale: 'kr',
     nickname: '',
     showNav: false,

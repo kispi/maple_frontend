@@ -7,7 +7,7 @@
   color: var(--white);
   font-size: 12px;
   height: fit-content;
-  line-height: 1.4;
+  line-height: 1.5;
 
   span.plus {
     margin: 0 1px;
@@ -75,5 +75,10 @@
   .stat-inline {
     display: flex;
     gap: 4px;
+  }
+
+  .potential-option,
+  .additional-potential-option {
+    padding-left: 4px;
   }
 }
