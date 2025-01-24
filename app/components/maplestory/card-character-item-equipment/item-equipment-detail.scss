@@ -1,13 +1,13 @@
 .item-equipment-detail {
   background: rgba(0, 0, 0, 0.9);
   border-radius: 8px;
-  padding: 16px;
-  max-width: 280px;
+  padding: 16px 12px;
+  width: 320px;
   border: 3px double var(--border-light);
   color: var(--white);
-  font-size: 13px;
+  font-size: 12px;
   height: fit-content;
-  font-family: 'Dotum';
+  line-height: 1.4;
 
   span.plus {
     margin: 0 1px;
@@ -45,7 +45,7 @@
 
   .base-equipment-level {
     color: yellow;
-    font-size: 10px;
+    font-size: 11px;
 
     i  {
       transform: scale(0.5);

@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { CharacterItemEquipment, ItemEquipment } from '~/types/item-equipment'
+import { ItemEquipmentDetail } from './ItemEquipmentDetail'
 import helpers from '~/helpers'
 import './card-character-item-equipment.scss'
 
@@ -15,43 +17,66 @@ const GradeBadge = ({ grade }: { grade: string }) => {
 
 export const CharacterItemEquipmentSummary = ({
   itemEquipment,
-  setSelectedItemEquipment,
 }: {
   itemEquipment: ItemEquipment,
-  setSelectedItemEquipment: (itemEquipment: ItemEquipment) => void,
 }) => {
-  return <div
-    onClick={() => setSelectedItemEquipment(itemEquipment)}
-    className="character-item-equipment-summary">
+  const [selectedItemEquipment, setSelectedItemEquipment] = useState<ItemEquipment | null>(null)
+
+  const setSelectedItemEquipmentAsNull = (e: MouseEvent) => {
+    if ((e.target as HTMLElement).closest('.item-equipment-detail-container')) return
+
+    setSelectedItemEquipment(null)
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', setSelectedItemEquipmentAsNull)
+
+    return () => {
+      document.removeEventListener('click', setSelectedItemEquipmentAsNull)
+    }
+  })
+
+  return <>
     <div
-      className={`image-container ${helpers.logic.gradeClass([itemEquipment.potential_option_grade, itemEquipment.additional_potential_option_grade])}`}>
-      <img src={itemEquipment.item_icon} alt={itemEquipment.item_name} />
-    </div>
-    <div className="item-info">
-      <div>
-        {itemEquipment.item_name && <span className="item-name">{itemEquipment.item_name}</span>}
-        {itemEquipment.starforce > "0" && <span className="starforce"><i className="fa fa-star c-bitcoin m-r-4" />{itemEquipment.starforce}</span>}
+      onClick={() => setSelectedItemEquipment(itemEquipment)}
+      className="character-item-equipment-summary">
+      <div
+        className={`image-container ${helpers.logic.gradeClass([itemEquipment.potential_option_grade, itemEquipment.additional_potential_option_grade])}`}>
+        <img src={itemEquipment.item_icon} alt={itemEquipment.item_name} />
       </div>
-      <div>
-        {itemEquipment.potential_option_grade && <GradeBadge grade={itemEquipment.potential_option_grade} />}
-        {itemEquipment.additional_potential_option_grade && <GradeBadge grade={itemEquipment.additional_potential_option_grade} />}
-        {itemEquipment.special_ring_level > 0 && <span className="badge-fill bg-border-base c-black c-white f-400 f-10">Lv.{itemEquipment.special_ring_level}</span>}
+      <div className="item-info">
+        <div>
+          {itemEquipment.item_name && <span className="item-name">{itemEquipment.item_name}</span>}
+          {itemEquipment.starforce > "0" && <span className="starforce"><i className="fa fa-star c-bitcoin m-r-4" />{itemEquipment.starforce}</span>}
+        </div>
+        <div>
+          {itemEquipment.potential_option_grade && <GradeBadge grade={itemEquipment.potential_option_grade} />}
+          {itemEquipment.additional_potential_option_grade && <GradeBadge grade={itemEquipment.additional_potential_option_grade} />}
+          {itemEquipment.special_ring_level > 0 && <span className="badge-fill bg-border-base c-black c-white f-400 f-10">Lv.{itemEquipment.special_ring_level}</span>}
+        </div>
       </div>
     </div>
-  </div>
+    {selectedItemEquipment && <div
+      className="item-equipment-detail-container"
+      style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      }}>
+      <ItemEquipmentDetail itemEquipment={selectedItemEquipment}/>
+    </div>}
+  </>
 }
 
 export const CardCharacterItemEquipment = ({
   characterItemEquipment,
-  setSelectedItemEquipment,
 }: {
   characterItemEquipment: CharacterItemEquipment,
-  setSelectedItemEquipment: (itemEquipment: ItemEquipment) => void,
 }) => {
   return <div className="card-character-item-equipment card">
     {characterItemEquipment.item_equipment.map((itemEquipment, index) => (
       <CharacterItemEquipmentSummary
-        setSelectedItemEquipment={setSelectedItemEquipment}
         key={index}
         itemEquipment={itemEquipment}
       />

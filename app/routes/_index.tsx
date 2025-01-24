@@ -1,23 +1,38 @@
 import { useMemo, useState } from 'react'
+import { useLoaderData } from '@remix-run/react'
 import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
 import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
-import { ItemEquipmentDetail } from '~/components/maplestory/card-character-item-equipment/ItemEquipmentDetail'
-import { ItemEquipment } from '~/types/item-equipment'
-import { DefaultError } from '~/modules/axios'
+import { $http, DefaultError } from '~/modules/axios'
 import helpers from '~/helpers'
-import useMapleStore from '~/store/maple'
+import useMapleStore, { CharacterInfo } from '~/store/maple'
 import useAppStore from '~/store/app'
+
+export const loader = async ({ request }: { request: Request }) => {
+  const url = new URL(request.url)
+  const characterName = url.searchParams.get('character_name')
+  if (!characterName) return { characters: {} }
+
+  try {
+    const data = await $http.get('maple/info', { params: { character_name: characterName }}) as CharacterInfo
+    const preparedCharacter = data
+    return { preparedCharacter }
+  } catch (e) {
+    return { preparedCharacter: {} }
+  }
+}
 
 const Index = () => {
   const [characterName, setCharacterName] = useState('')
 
-  const [selectedItemEquipment, setSelectedItemEquipment] = useState<ItemEquipment | null>(null)
-
   const { characters, loadCharacter } = useMapleStore()
+
+  const { preparedCharacter } = useLoaderData<typeof loader>()
 
   const { isMobile } = useAppStore()
 
-  const selectedCharacter = useMemo(() => characters[characterName], [characters, characterName])
+  const selectedCharacter = useMemo(() => {
+    return characters[characterName] || preparedCharacter
+  }, [preparedCharacter, characters, characterName])
 
   const getCharacterInfo = async (characterName: string) => {
     try {
@@ -54,11 +69,7 @@ const Index = () => {
         <div className={`g-24 ${isMobile ? 'flex' : 'flex-row align-start'}`}>
           <CardCharacterItemEquipment
             characterItemEquipment={selectedCharacter.itemEquipment}
-            setSelectedItemEquipment={setSelectedItemEquipment}
           />
-          {selectedItemEquipment && <ItemEquipmentDetail
-            itemEquipment={selectedItemEquipment}
-          />}
         </div>
       </div>}
     </div>

@@ -1,0 +1,17 @@
+{
+  "name": "메이플스토리 캐릭터 정보",
+  "lang": "ko-KR",
+  "theme_color": "#A4C700",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "favicon/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
