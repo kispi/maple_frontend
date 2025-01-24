@@ -59,7 +59,7 @@ export const CharacterItemEquipmentSummary = ({
     {selectedItemEquipment && <div
       className="item-equipment-detail-container"
       style={{
-        position: 'absolute',
+        position: 'fixed',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
