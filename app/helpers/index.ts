@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import dom from './dom'
 import image from './image'
 import localStorage from './local-storage'
+import logic from './logic'
 import modal from './modal'
 import template from './template'
 import toast from './toast'
@@ -13,6 +14,7 @@ const helpers = {
   dom,
   image,
   localStorage,
+  logic,
   modal,
   template,
   toast,

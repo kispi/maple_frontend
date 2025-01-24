@@ -29,7 +29,7 @@ const AppHeader = () => {
           e.preventDefault()
           push('/')
         }}>
-        {isMobile ? <AppLogo/> : 'maple.coinsect.io'}
+        maple.coinsect.io
       </a>
       <div className="header-functions">
         <div

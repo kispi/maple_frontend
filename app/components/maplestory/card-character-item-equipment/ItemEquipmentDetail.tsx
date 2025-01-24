@@ -1,5 +1,7 @@
 import { ItemEquipment } from '~/types/item-equipment'
 import './item-equipment-detail.scss'
+import helpers from '~/helpers'
+import { useEffect } from 'react'
 
 const maxStars = (lev: number, isSuperial?: boolean) => {
   if (isSuperial) {
@@ -20,6 +22,8 @@ const maxStars = (lev: number, isSuperial?: boolean) => {
 }
 
 const CStarforce = ({ numStars, reqLev }: { numStars: number, reqLev: number }) => {
+  if (numStars === 0) return null
+
   const maxStarCount = maxStars(reqLev) // 레벨에 따른 최대 별 개수
   const filledStars = Math.min(numStars, maxStarCount) // 노란별 개수
   const emptyStars = maxStarCount - filledStars // 빈 별 개수
@@ -56,17 +60,49 @@ const CStarforce = ({ numStars, reqLev }: { numStars: number, reqLev: number }) 
   )
 }
 
+const GradeBadge = ({ grade }: { grade: string }) => {
+  const gradeColor = () => {
+    if (grade === '레전드리') return 'legendary'
+    if (grade === '유니크') return 'unique'
+    if (grade === '에픽') return 'epic'
+    if (grade === '레어') return 'rare'
+    return ''
+  }
+
+  return <span className={`grade-badge bg-${gradeColor()}`}>{gradeColor()[0].toUpperCase()}</span>
+}
+
+const StatInline = ({ itemEquipment, statKey }: { itemEquipment: ItemEquipment, statKey: string }) => {
+  const stat = itemEquipment.item_total_option[statKey as keyof typeof itemEquipment.item_total_option]
+  const baseStat = itemEquipment.item_base_option[statKey as keyof typeof itemEquipment.item_base_option]
+  const addStat = itemEquipment.item_add_option[statKey as keyof typeof itemEquipment.item_add_option]
+  const etcStat = itemEquipment.item_etc_option[statKey as keyof typeof itemEquipment.item_etc_option]
+  const starforceStat = itemEquipment.item_starforce_option[statKey as keyof typeof itemEquipment.item_starforce_option as keyof typeof itemEquipment.item_starforce_option]
+
+  if (!stat || stat === '0') return null
+
+  const enchanted = baseStat !== stat
+  return <div className="stat-inline">
+    <span className={`${enchanted ? 'c-rare' : ''}`}>{helpers.translate(statKey.toUpperCase())} : <span className="plus">+</span>{stat}{statKey === 'all_stat' ? '%' : ''}</span>
+    {enchanted && <span>(
+      {baseStat}{statKey === 'all_stat' ? '%' : ''}
+      {addStat && parseInt(addStat) ? <span className="c-legendary"><span className="plus">+</span>{addStat}{statKey === 'all_stat' ? '%' : ''}</span> : ''}
+      {etcStat && parseInt(etcStat) ? <span style={{ color: 'var(--gray-500)' }}><span className="plus">+</span>{etcStat}</span> : ''}
+      {starforceStat && parseInt(starforceStat) ? <span className="c-unique"><span className="plus">+</span>{starforceStat}</span> : ''}
+    )</span>}
+  </div>
+}
+
 export const ItemEquipmentDetail = ({
   itemEquipment,
 }: {
   itemEquipment: ItemEquipment,
 }) => {
-  console.log(itemEquipment)
   return <div className="item-equipment-detail">
     <CStarforce numStars={parseInt(itemEquipment.starforce)} reqLev={itemEquipment.item_base_option.base_equipment_level} />
     <div className="item-basic">
       {itemEquipment.soul_name && <div className="soul-name">{itemEquipment.soul_name.split(' 소울 적용')[0]}</div>}
-      <div className="item-name">{itemEquipment.item_name} {itemEquipment.scroll_upgrade && `(+${itemEquipment.scroll_upgrade})`}</div>
+      <div className="item-name">{itemEquipment.item_name} {helpers.logic.upgradeable(itemEquipment) && `(+${itemEquipment.scroll_upgrade})`}</div>
       {itemEquipment.potential_option_grade && <div className="potential-option-grade">({itemEquipment.potential_option_grade} 아이템)</div>}
     </div>
     <div className="hr" />
@@ -82,5 +118,46 @@ export const ItemEquipmentDetail = ({
       </div>
     </div>
     <div className="hr" />
+    <div className="item-options total">
+      <div className="item-slot-part">
+        {itemEquipment.item_equipment_slot === '무기' ? '무기' : '장비'}분류: {itemEquipment.item_equipment_part}
+      </div>
+      {['str', 'dex', 'int', 'luk', 'max_hp', 'max_mp', 'attack_power', 'magic_power', 'armor', 'speed', 'jump', 'all_stat']
+        .map((key: string) => <StatInline key={key} itemEquipment={itemEquipment} statKey={key} />)}
+      {itemEquipment.golden_hammer_flag === '적용' && <div className="golden-hammer-flag">황금 망치 재련 적용</div>}
+      {helpers.logic.upgradeable(itemEquipment) ?
+        <div className="scroll-upgradeable-count">업그레이드 가능 횟수 : {itemEquipment.scroll_upgradeable_count} <span className="c-unique">(복구 가능 횟수 : {itemEquipment.scroll_resilience_count})</span></div> :
+        ''}
+      {parseInt(itemEquipment.cuttable_count) <= 10 && <div className="cuttable-count c-unique">가위 사용 가능 횟수 : {itemEquipment.cuttable_count}회</div>}
+    </div>
+    {itemEquipment.potential_option_1 && <>
+      <div className="hr" />
+      <div className="item-options potential">
+        <div className="flex-row align-center g-4">
+          <GradeBadge grade={itemEquipment.potential_option_grade} /><span className={`c-${helpers.logic.gradeClass([itemEquipment.potential_option_grade])}`}>잠재옵션</span>
+        </div>
+        {itemEquipment.potential_option_1 && <div className="potential-option">{itemEquipment.potential_option_1}</div>}
+        {itemEquipment.potential_option_2 && <div className="potential-option">{itemEquipment.potential_option_2}</div>}
+        {itemEquipment.potential_option_3 && <div className="potential-option">{itemEquipment.potential_option_3}</div>}
+      </div>
+    </>}
+    {itemEquipment.additional_potential_option_1 && <>
+      <div className="hr" />
+      <div className="item-options additional-potential">
+      <div className="flex-row align-center g-4">
+          <GradeBadge grade={itemEquipment.additional_potential_option_grade} /><span className={`c-${helpers.logic.gradeClass([itemEquipment.additional_potential_option_grade])}`}>잠재옵션</span>
+        </div>
+        {itemEquipment.additional_potential_option_1 && <div className="additional-potential-option">+ {itemEquipment.additional_potential_option_1}</div>}
+        {itemEquipment.additional_potential_option_2 && <div className="additional-potential-option">+ {itemEquipment.additional_potential_option_2}</div>}
+        {itemEquipment.additional_potential_option_3 && <div className="additional-potential-option">+ {itemEquipment.additional_potential_option_3}</div>}
+      </div>
+    </>}
+    {itemEquipment.soul_option && <>
+      <div className="hr" />
+      <div className="item-options soul">
+        <div className="c-legendary">{itemEquipment.soul_name}</div>
+        <div className="soul-option">{itemEquipment.soul_option}</div>
+      </div>
+    </>}
   </div>
 }

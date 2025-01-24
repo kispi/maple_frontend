@@ -46,5 +46,37 @@
   "ARTIFACT": {
     "kr": "아티팩트",
     "en": "Artifact"
+  },
+  "MAX_HP": {
+    "kr": "최대 HP",
+    "en": "Max HP"
+  },
+  "MAX_MP": {
+    "kr": "최대 MP",
+    "en": "Max MP"
+  },
+  "ATTACK_POWER": {
+    "kr": "공격력",
+    "en": "Attack Power"
+  },
+  "MAGIC_POWER": {
+    "kr": "마력",
+    "en": "Magic Power"
+  },
+  "ARMOR": {
+    "kr": "방어력",
+    "en": "Armor"
+  },
+  "SPEED": {
+    "kr": "이동속도",
+    "en": "Speed"
+  },
+  "JUMP": {
+    "kr": "점프력",
+    "en": "Jump"
+  },
+  "ALL_STAT": {
+    "kr": "올스탯",
+    "en": "All Stat"
   }
 }

@@ -3,8 +3,10 @@ import { CardCharacterInfo } from '~/components/maplestory/card-character-info/C
 import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
 import { ItemEquipmentDetail } from '~/components/maplestory/card-character-item-equipment/ItemEquipmentDetail'
 import { ItemEquipment } from '~/types/item-equipment'
+import { DefaultError } from '~/modules/axios'
 import helpers from '~/helpers'
 import useMapleStore from '~/store/maple'
+import useAppStore from '~/store/app'
 
 const Index = () => {
   const [characterName, setCharacterName] = useState('')
@@ -13,13 +15,15 @@ const Index = () => {
 
   const { characters, loadCharacter } = useMapleStore()
 
+  const { isMobile } = useAppStore()
+
   const selectedCharacter = useMemo(() => characters[characterName], [characters, characterName])
 
   const getCharacterInfo = async (characterName: string) => {
     try {
       await loadCharacter(characterName)
     } catch (e) {
-      helpers.toast.error(e.data.message)
+      helpers.toast.error((e as DefaultError).data.message)
     }
   }
 
@@ -47,12 +51,14 @@ const Index = () => {
           characterDojang={selectedCharacter.dojang}
           characterUnion={selectedCharacter.union}
         />
-        <div className="flex-row g-24">
+        <div className={`g-24 ${isMobile ? 'flex' : 'flex-row align-start'}`}>
           <CardCharacterItemEquipment
             characterItemEquipment={selectedCharacter.itemEquipment}
             setSelectedItemEquipment={setSelectedItemEquipment}
           />
-          {selectedItemEquipment && <ItemEquipmentDetail itemEquipment={selectedItemEquipment}/>}
+          {selectedItemEquipment && <ItemEquipmentDetail
+            itemEquipment={selectedItemEquipment}
+          />}
         </div>
       </div>}
     </div>

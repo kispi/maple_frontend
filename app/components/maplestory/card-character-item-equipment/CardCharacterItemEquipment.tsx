@@ -1,4 +1,5 @@
 import { CharacterItemEquipment, ItemEquipment } from '~/types/item-equipment'
+import helpers from '~/helpers'
 import './card-character-item-equipment.scss'
 
 const GradeBadge = ({ grade }: { grade: string }) => {
@@ -12,14 +13,6 @@ const GradeBadge = ({ grade }: { grade: string }) => {
   return <span className={`badge-fill c-white f-400 f-10 ${gradeColor()}`}>{grade}</span>
 }
 
-const gradeClass = (grades: string[]) => {
-  if (grades.includes('레전드리')) return 'legendary'
-  if (grades.includes('유니크')) return 'unique'
-  if (grades.includes('에픽')) return 'epic'
-  if (grades.includes('레어')) return 'rare'
-  return ''
-}
-
 export const CharacterItemEquipmentSummary = ({
   itemEquipment,
   setSelectedItemEquipment,
@@ -31,7 +24,7 @@ export const CharacterItemEquipmentSummary = ({
     onClick={() => setSelectedItemEquipment(itemEquipment)}
     className="character-item-equipment-summary">
     <div
-      className={`image-container ${gradeClass([itemEquipment.potential_option_grade, itemEquipment.additional_potential_option_grade])}`}>
+      className={`image-container ${helpers.logic.gradeClass([itemEquipment.potential_option_grade, itemEquipment.additional_potential_option_grade])}`}>
       <img src={itemEquipment.item_icon} alt={itemEquipment.item_name} />
     </div>
     <div className="item-info">

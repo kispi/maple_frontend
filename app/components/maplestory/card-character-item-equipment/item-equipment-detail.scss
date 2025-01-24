@@ -1,15 +1,21 @@
 .item-equipment-detail {
   background: rgba(0, 0, 0, 0.9);
   border-radius: 8px;
-  padding: 24px 16px;
+  padding: 16px;
   max-width: 280px;
   border: 3px double var(--border-light);
   color: var(--white);
-  font-size: 12px;
+  font-size: 13px;
+  height: fit-content;
+  font-family: 'Dotum';
+
+  span.plus {
+    margin: 0 1px;
+  }
 
   .item-basic {
     text-align: center;
-    margin: 8px 0;
+    margin-bottom: 8px;
 
     .soul-name {
       color: var(--legendary);
@@ -20,9 +26,6 @@
     .item-name {
       font-weight: 700;
       font-size: 16px;
-    }
-  
-    .potential-option-grade {
     }
   }
   
@@ -52,7 +55,25 @@
 
   .hr {
     width: calc(100% + 32px);
-    margin: 0 -16px;
+    margin: 4px -16px;
     border-bottom: 1px dashed var(--gray-700);
+  }
+
+  .grade-badge {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 3px double var(--gray-500);
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 10px;
+  }
+
+  .stat-inline {
+    display: flex;
+    gap: 4px;
   }
 }

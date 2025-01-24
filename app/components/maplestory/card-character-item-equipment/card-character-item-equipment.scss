@@ -1,6 +1,7 @@
 .c-starforce {
   display: grid;
   gap: 8px; /* 행 간격 */
+  margin-bottom: 8px;
 
   .stars-row {
     display: flex;
@@ -20,7 +21,7 @@
 
 .card-character-item-equipment {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 8px;
 }
 
@@ -48,22 +49,18 @@
     }
 
     &.legendary {
-      background: var(--legendary-light);
       border: 1px solid var(--legendary);
     }
 
     &.unique {
-      background: var(--unique-light);
       border: 1px solid var(--unique);
     }
 
     &.epic {
-      background: var(--epic-light);
       border: 1px solid var(--epic);
     }
 
     &.rare {
-      background: var(--rare-light);
       border: 1px solid var(--rare);
     }
   }
