@@ -1,8 +1,9 @@
 import { useMemo, useRef, useState } from 'react'
 import { useLoaderData, useSearchParams } from '@remix-run/react'
+import { $http, DefaultError } from '~/modules/axios'
 import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
 import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
-import { $http, DefaultError } from '~/modules/axios'
+import { CardCharacterContentsExp } from '~/components/maplestory/card-character-contents-exp/CardCharacterContentsExp'
 import helpers from '~/helpers'
 import useMapleStore, { CharacterInfo } from '~/store/maple'
 import useAppStore from '~/store/app'
@@ -74,15 +75,10 @@ const Index = () => {
         />}
       </div>
       {selectedCharacter && <div className="flex g-24 m-t-16">
-        <CardCharacterInfo
-          characterBasic={selectedCharacter.basic}
-          characterDojang={selectedCharacter.dojang}
-          characterUnion={selectedCharacter.union}
-        />
+        <CardCharacterInfo character={selectedCharacter} />
+        <CardCharacterContentsExp character={selectedCharacter} />
         <div className={`g-24 ${isMobile ? 'flex' : 'flex-row align-start'}`}>
-          <CardCharacterItemEquipment
-            characterItemEquipment={selectedCharacter.itemEquipment}
-          />
+          <CardCharacterItemEquipment character={selectedCharacter} />
         </div>
       </div>}
     </div>

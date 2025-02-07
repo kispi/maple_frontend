@@ -78,5 +78,13 @@
   "ALL_STAT": {
     "kr": "올스탯",
     "en": "All Stat"
+  },
+  "DAILY_CONTENTS": {
+    "kr": "일일 컨텐츠",
+    "en": "Daily Contents"
+  },
+  "WEEKLY_CONTENTS": {
+    "kr": "주간 컨텐츠",
+    "en": "Weekly Contents"
   }
 }

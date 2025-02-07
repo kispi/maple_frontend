@@ -1,7 +1,6 @@
 import { ItemEquipment } from '~/types/item-equipment'
 import './item-equipment-detail.scss'
 import helpers from '~/helpers'
-import { useEffect } from 'react'
 
 const maxStars = (lev: number, isSuperial?: boolean) => {
   if (isSuperial) {

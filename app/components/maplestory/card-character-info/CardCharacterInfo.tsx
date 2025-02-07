@@ -1,41 +1,35 @@
-import { CharacterBasic } from '~/types/basic'
-import { CharacterDojang } from '~/types/dojang'
-import { Union } from '~/types/union'
+import { CharacterInfo } from '~/store/maple'
 import helpers from '~/helpers'
 import './card-character-info.scss'
 
 export const CardCharacterInfo = ({
-  characterBasic,
-  characterDojang,
-  characterUnion,
+  character,
 }: {
-  characterBasic: CharacterBasic,
-  characterDojang: CharacterDojang,
-  characterUnion: Union,
+  character: CharacterInfo,
 }) => {
-  return <div className="card-character-basic card">
+  return <div className="card-character-info card">
     <div className="f-12">
-      {helpers.$t('INFO_DATE')}: {characterBasic.date ? helpers.dayjs(characterBasic.date).format('YYYY-MM-DD') : helpers.$t('REALTIME')}
+      {helpers.$t('INFO_DATE')}: {character.basic.date ? helpers.dayjs(character.basic.date).format('YYYY-MM-DD') : helpers.$t('REALTIME')}
     </div>
     <div className="flex-row align-center g-16">
       <div className="image-container">
         <img
-          src={characterBasic.character_image}
-          alt={characterBasic.character_name}
+          src={character.basic.character_image}
+          alt={character.basic.character_name}
         />
       </div>
       <div className="basic-info">
         <div className="badges">
-          <span className="f-16 f-700">{characterBasic.character_name}</span>
-          <span className="badge-bordered">{characterBasic.world_name}{characterBasic.character_guild_name && `@${characterBasic.character_guild_name}`}</span>
+          <span className="f-16 f-700">{character.basic.character_name}</span>
+          <span className="badge-bordered">{character.basic.world_name}{character.basic.character_guild_name && `@${character.basic.character_guild_name}`}</span>
         </div>
         <div>
-          <span>{characterBasic.character_class}</span> | <span>{characterBasic.character_level} <small>({characterBasic.character_exp_rate}%)</small></span>
+          <span>{character.basic.character_class}</span> | <span>{character.basic.character_level} <small>({character.basic.character_exp_rate}%)</small></span>
         </div>
         <div className="badges">
-          <span className="badge-fill bg-danger c-white">{helpers.$t('DOJANG')} {characterDojang.dojang_best_floor}층</span>
-          <span className="badge-fill bg-danger c-white">{helpers.$t('UNION')} {characterUnion.union_level}</span>
-          <span className="badge-fill bg-danger c-white">{helpers.$t('ARTIFACT')} {characterUnion.union_artifact_level}</span>
+          <span className="badge-fill bg-danger c-white">{helpers.$t('DOJANG')} {character.dojang.dojang_best_floor}층</span>
+          <span className="badge-fill bg-danger c-white">{helpers.$t('UNION')} {character.union.union_level}</span>
+          <span className="badge-fill bg-danger c-white">{helpers.$t('ARTIFACT')} {character.union.union_artifact_level}</span>
         </div>
       </div>
     </div>

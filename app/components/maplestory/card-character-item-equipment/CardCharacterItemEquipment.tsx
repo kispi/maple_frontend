@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { CharacterItemEquipment, ItemEquipment } from '~/types/item-equipment'
+import { ItemEquipment } from '~/types/item-equipment'
 import { ItemEquipmentDetail } from './ItemEquipmentDetail'
+import { CharacterInfo } from '~/store/maple'
 import helpers from '~/helpers'
 import './card-character-item-equipment.scss'
 
@@ -70,12 +71,12 @@ export const CharacterItemEquipmentSummary = ({
 }
 
 export const CardCharacterItemEquipment = ({
-  characterItemEquipment,
+  character,
 }: {
-  characterItemEquipment: CharacterItemEquipment,
+  character: CharacterInfo,
 }) => {
   return <div className="card-character-item-equipment card">
-    {characterItemEquipment.item_equipment.map((itemEquipment, index) => (
+    {character.itemEquipment.item_equipment.map((itemEquipment, index) => (
       <CharacterItemEquipmentSummary
         key={index}
         itemEquipment={itemEquipment}

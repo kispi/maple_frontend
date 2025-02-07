@@ -1,0 +1,41 @@
+.card-character-contents-exp {
+  .contents-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .content {
+    h4 {
+      margin-bottom: 12px;
+    }
+  }
+
+  .content-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .content-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .key {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    img {
+      width: 24px;
+    }
+  }
+}

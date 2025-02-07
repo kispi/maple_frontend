@@ -37,17 +37,19 @@ export type CharacterInfo = {
 }
 
 type MapleState = {
+  currentCharacter?: CharacterInfo
   characters: Record<string, CharacterInfo>
   loadCharacter: (characterName: string) => Promise<unknown>
 }
 
 const useMapleStore = create<MapleState>((set, get) => ({
+  currentCharacter: undefined,
   characters: {},
   loadCharacter: async (characterName: string) => {
     try {
       const data = await $http.get('maple/info', { params: { character_name: characterName }}) as CharacterInfo
       const newCharacters = { ...get().characters, [characterName]: data }
-      set({ characters: newCharacters })
+      set({ characters: newCharacters, currentCharacter: data })
       return data
     } catch (e) {
       return Promise.reject(e)
