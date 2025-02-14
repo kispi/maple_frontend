@@ -5,16 +5,28 @@
     gap: 16px;
   }
 
-  .contents {
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .foldable {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--background-light);
+      border-radius: 8px;
+    }
   }
 
   .content {
-    h4 {
-      margin-bottom: 12px;
-    }
+    background: var(--background-light);
+    padding: 8px;
+    border-radius: 8px;
   }
 
   .content-body {

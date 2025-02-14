@@ -213,39 +213,39 @@ const anglerCompanyData = {
 const asPercent = (value: number) => Math.round(value * 1000000) / 10000
 
 const dailyQuestsData = [
-  { key: 'vanishing_journey', exp: 732132258, region: 'arcane_river' },
-  { key: 'chuchu_island', exp: 2141658246, region: 'arcane_river' },
-  { key: 'lachelein', exp: 3189098250, region: 'arcane_river' },
-  { key: 'arcana', exp: 3305187639, region: 'arcane_river' },
-  { key: 'morass', exp: 4398266165, region: 'arcane_river' },
-  { key: 'esfera', exp: 4530843954, region: 'arcane_river' },
-  { key: 'moonbridge', exp: 8397548775, region: 'tenebris' },
-  { key: 'labyrinth_of_suffering', exp: 9057690000, region: 'tenebris' },
-  { key: 'limen', exp: 10225741680, region: 'tenebris' },
-  { key: 'cernium', exp: 16455682080, region: 'grandis' },
-  { key: 'hotel_arcus', exp: 19371792600, region: 'grandis' },
-  { key: 'odium', exp: 23246151120, region: 'grandis' },
-  { key: 'shangri_la', exp: 32127015480, region: 'grandis' },
-  { key: 'arteria', exp: 38593455264, region: 'grandis' },
-  { key: 'carcion', exp: 45635222880, region: 'grandis' },
-  { key: 'tallahart', exp: 89730912960, region: 'grandis' },
+  { key: 'vanishing_journey', exp: 732132258, region: 'arcane_river', reqLev: 200, img: 'vanishing_journey.webp' },
+  { key: 'chuchu_island', exp: 2141658246, region: 'arcane_river', reqLev: 210, img: 'chuchu_island.webp' },
+  { key: 'lachelein', exp: 3189098250, region: 'arcane_river', reqLev: 220, img: 'lachelein.webp' },
+  { key: 'arcana', exp: 3305187639, region: 'arcane_river', reqLev: 225, img: 'arcana.webp' },
+  { key: 'morass', exp: 4398266165, region: 'arcane_river', reqLev: 230, img: 'morass.webp' },
+  { key: 'esfera', exp: 4530843954, region: 'arcane_river', reqLev: 235, img: 'esfera.webp' },
+  { key: 'moonbridge', exp: 8397548775, region: 'tenebris', reqLev: 245, img: 'tenebris.png' },
+  { key: 'labyrinth_of_suffering', exp: 9057690000, region: 'tenebris', reqLev: 250, img: 'tenebris.png' },
+  { key: 'limen', exp: 10225741680, region: 'tenebris', reqLev: 255, img: 'tenebris.png' },
+  { key: 'cernium', exp: 16455682080, region: 'grandis', reqLev: 260, img: 'cernium.webp' },
+  { key: 'hotel_arcus', exp: 19371792600, region: 'grandis', reqLev: 265, img: 'hotel_arcus.webp' },
+  { key: 'odium', exp: 23246151120, region: 'grandis', reqLev: 270, img: 'odium.webp' },
+  { key: 'shangri_la', exp: 32127015480, region: 'grandis', reqLev: 275, img: 'shangri_la.webp' },
+  { key: 'arteria', exp: 38593455264, region: 'grandis', reqLev: 280, img: 'arteria.webp' },
+  { key: 'carcion', exp: 45635222880, region: 'grandis', reqLev: 285, img: 'carcion.webp' },
+  { key: 'tallahart', exp: 89730912960, region: 'grandis', reqLev: 290, img: 'tallahart.webp' },
 ]
 
 // 경험치 절댓값이 아닌 %로 리턴함
 export const dailyContents = {
   dailyQuestsExp: {
     arcaneRiver: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) =>
-      dailyQuestsData.filter(o => o.region === 'arcane_river').map(o => ({
+      dailyQuestsData.filter(o => o.region === 'arcane_river' && o.reqLev <= lev).map(o => ({
         ...o,
         $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (1 + rewardLev * 0.1))
       })),
     tenebris: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) =>
-      dailyQuestsData.filter(o => o.region === 'tenebris').map(o => ({
+      dailyQuestsData.filter(o => o.region === 'tenebris' && o.reqLev <= lev).map(o => ({
         ...o,
         $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (1 + rewardLev * 0.1))
       })),
     grandis: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) =>
-      dailyQuestsData.filter(o => o.region === 'grandis').map(o => ({
+      dailyQuestsData.filter(o => o.region === 'grandis' && o.reqLev <= lev).map(o => ({
         ...o,
         $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (1 + rewardLev * 0.1))
       })),

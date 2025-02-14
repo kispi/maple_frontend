@@ -86,5 +86,85 @@
   "WEEKLY_CONTENTS": {
     "kr": "주간 컨텐츠",
     "en": "Weekly Contents"
+  },
+  "ARCANE_RIVER": {
+    "kr": "아케인 리버",
+    "en": "Arcane River"
+  },
+  "VANISHING_JOURNEY": {
+    "kr": "소멸의 여로",
+    "en": "Vanishing Journey"
+  },
+  "CHUCHU_ISLAND": {
+    "kr": "츄츄 아일랜드",
+    "en": "ChuChu Island"
+  },
+  "LACHELEIN": {
+    "kr": "레헬른",
+    "en": "Lachelein"
+  },
+  "ARCANA": {
+    "kr": "아르카나",
+    "en": "Arcana"
+  },
+  "MORASS": {
+    "kr": "모라스",
+    "en": "Morass"
+  },
+  "ESFERA": {
+    "kr": "에스페라",
+    "en": "Esfera"
+  },
+  "TENEBRIS": {
+    "kr": "테네브리스",
+    "en": "Tenebris"
+  },
+  "MOONBRIDGE": {
+    "kr": "문브릿지",
+    "en": "Moonbridge"
+  },
+  "LABYRINTH_OF_SUFFERING": {
+    "kr": "고통의 미궁",
+    "en": "Labyrinth of Suffering"
+  },
+  "LIMEN": {
+    "kr": "리멘",
+    "en": "Limen"
+  },
+  "GRANDIS": {
+    "kr": "그란디스",
+    "en": "Grandis"
+  },
+  "CERNIUM": {
+    "kr": "세르니움",
+    "en": "Cernium"
+  },
+  "HOTEL_ARCUS": {
+    "kr": "호텔 아르크스",
+    "en": "Hotel Arcus"
+  },
+  "ODIUM": {
+    "kr": "오디움",
+    "en": "Odium"
+  },
+  "SHANGRI_LA": {
+    "kr": "도원경",
+    "en": "Shangri-La"
+  },
+  "ARTERIA": {
+    "kr": "아르테리아",
+    "en": "Arteria"
+  },
+  "CARCION": {
+    "kr": "카르시온",
+    "en": "Carcion"
+  },
+  "TALLAHART": {
+    "kr": "탈라하트",
+    "en": "Tallahart"
+  },
+  "EXTREME_MONSTER_PARK": {
+    "kr": "익스트림 몬스터파크",
+    "en": "Extreme Monster Park"
   }
 }
