@@ -255,7 +255,8 @@ export const dailyContents = {
 // 경험치 절댓값이 아닌 %로 리턴함
 export const weeklyContents = {
   extremeMonsterPark: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) => {
-    if (lev < 260) return 0 // 260 이상부터 가능
+    const base = { img: 'bigfoot.png', key: 'extreme_monster_park', $$expPercent: 0 }
+    if (lev < 260) return base // 260 이상부터 가능
 
     // 정확한 값을 알 수 있으면 그걸 쓰고 Math.pow(10, 8)을 곱하는 부분을 빼도 됨
     const table = [
@@ -265,12 +266,21 @@ export const weeklyContents = {
       8165, 8194, 8223, 8252, 8281, 8311, 8340, 8369, 8398, 8427, 6264, 6286, 6307, 6329, 6350, 6372, 6394, 6415, 6437, 6458,
     ]
 
-    return asPercent((table[lev - 260] * Math.pow(10, 8) / levelExpTable[lev - 1]) * (1 + rewardLev * 0.1))
+    base.$$expPercent = asPercent((table[lev - 260] * Math.pow(10, 8) / levelExpTable[lev - 1]) * (1 + rewardLev * 0.1))
+    return base
   },
-  highMountain: ({ lev, rewardLev }: { lev: keyof typeof highMountainData; rewardLev: RewardLevEpicDungeon }): number => {
-    return highMountainData[lev]?.[rewardLev] || 0;
+  highMountain: ({ lev, rewardLev }: { lev: number; rewardLev: RewardLevEpicDungeon }) => {
+    const base = { img: 'high_mountain.png', key: 'high_mountain', $$expPercent: 0 }
+    if (lev < 260) return base // 260 이상부터 가능
+
+    base.$$expPercent = Math.floor(highMountainData[lev as keyof typeof highMountainData]?.[rewardLev] * 10000) / 100 || 0
+    return base
   },
-  anglerCompany: ({ lev, rewardLev }: { lev: keyof typeof anglerCompanyData; rewardLev: RewardLevEpicDungeon }): number => {
-    return anglerCompanyData[lev]?.[rewardLev] || 0;
+  anglerCompany: ({ lev, rewardLev }: { lev: number; rewardLev: RewardLevEpicDungeon }) => {
+    const base = { img: 'angler_company.png', key: 'angler_company', $$expPercent: 0 }
+    if (lev < 270) return base // 270 이상부터 가능
+
+    base.$$expPercent = Math.floor(anglerCompanyData[lev as keyof typeof anglerCompanyData]?.[rewardLev] * 10000) / 100 || 0
+    return base
   },
 }

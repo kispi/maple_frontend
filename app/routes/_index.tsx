@@ -37,7 +37,8 @@ const Index = () => {
 
   const selectedCharacter = useMemo(() => {
     return characters[characterName] || preparedCharacter
-  }, [preparedCharacter, characters, characterName])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preparedCharacter, characters])
 
   const getCharacterInfo = async (name: string) => {
     try {
