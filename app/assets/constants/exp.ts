@@ -253,10 +253,6 @@ export const dailyContents = {
         ...o,
         $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * rewardLevMultiple(rewardLev))
       })),
-    total: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) => {
-      const totalExp = dailyQuestsData.filter(o => o.reqLev <= lev).reduce((acc, o) => acc + o.exp, 0)
-      return asPercent(totalExp / levelExpTable[lev - 1] * rewardLevMultiple(rewardLev))
-    },
   },
 }
 
