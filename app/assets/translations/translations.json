@@ -79,6 +79,10 @@
     "kr": "올스탯",
     "en": "All Stat"
   },
+  "SUM": {
+    "kr": "합계",
+    "en": "Sum"
+  },
   "DAILY_CONTENTS": {
     "kr": "일일 컨텐츠",
     "en": "Daily Contents"
