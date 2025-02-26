@@ -31,8 +31,6 @@ const Index = () => {
 
   const { preparedCharacter } = useLoaderData<typeof loader>()
 
-  const { isMobile } = useAppStore()
-
   const refInput = useRef<HTMLInputElement>(null)
 
   const selectedCharacter = useMemo(() => {
@@ -78,7 +76,7 @@ const Index = () => {
       {selectedCharacter && <div className="flex g-24 m-t-16">
         <CardCharacterInfo character={selectedCharacter} />
         <CardCharacterContentsExp character={selectedCharacter} />
-        <div className={`g-24 ${isMobile ? 'flex' : 'flex-row align-start'}`}>
+        <div className="section-bottom">
           <CardCharacterItemEquipment character={selectedCharacter} />
         </div>
       </div>}

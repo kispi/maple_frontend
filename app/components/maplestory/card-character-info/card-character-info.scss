@@ -1,7 +1,7 @@
 .card-character-info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
 
   .image-container {
     width: 96px;
@@ -22,5 +22,70 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+  }
+}
+
+.panel-ability {
+  .c-ability {
+    color: var(--white);
+    font-size: 13px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  
+    .ability-row {
+      border-radius: 4px;
+    }
+  }
+  
+  .preset-selector {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+
+    .no {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      color: var(--white);
+      background: var(--border-base);
+      user-select: none;
+      cursor: pointer;
+
+      &:hover,
+      &.selected {
+        background: var(--text-light);
+        border: 1px solid var(--border-light);
+      }
+    }
+  }
+}
+
+.panel-hexa-skills {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  width: fit-content;
+
+  .hexa-skill {
+    border: 1px solid var(--border-base);
+    padding: 4px;
+    border-radius: 4px;
+
+    .hexa-skill-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .hexa-skill-level {
+      text-align: center;
+    }
   }
 }

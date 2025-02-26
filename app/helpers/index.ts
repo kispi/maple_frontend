@@ -1,4 +1,4 @@
-import { translate, useTranslate } from './translate'
+import { translate } from './translate'
 import dayjs from 'dayjs'
 import dom from './dom'
 import image from './image'
@@ -20,14 +20,7 @@ const helpers = {
   toast,
   util,
   randomString: () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-  /**
-   * i18n: Hook. This will be used generally, other than helpers.translate.
-   */
-  $t: useTranslate,
-  /**
-   * i18n: Pure function. In case you need to use it in a non-React context.
-   */
-  translate,
+  $t: translate,
   withCdn: (key: string) => `${import.meta.env.VITE_CDN}/${key}`,
   /**
    * str: HTML or Markdown 형태의 입력 문자열에서 이미지 URL들을 추출합니다.

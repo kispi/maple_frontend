@@ -82,7 +82,7 @@ const StatInline = ({ itemEquipment, statKey }: { itemEquipment: ItemEquipment, 
 
   const enchanted = baseStat !== stat
   return <div className="stat-inline">
-    <span className={`${enchanted ? 'c-rare' : ''}`}>{helpers.translate(statKey.toUpperCase())} : <span className="plus">+</span>{stat}{statKey === 'all_stat' ? '%' : ''}</span>
+    <span className={`${enchanted ? 'c-rare' : ''}`}>{helpers.$t(statKey.toUpperCase())} : <span className="plus">+</span>{stat}{statKey === 'all_stat' ? '%' : ''}</span>
     {enchanted && <span>(
       {baseStat}{statKey === 'all_stat' ? '%' : ''}
       {addStat && parseInt(addStat) ? <span className="c-legendary"><span className="plus">+</span>{addStat}{statKey === 'all_stat' ? '%' : ''}</span> : ''}
@@ -97,7 +97,7 @@ export const ItemEquipmentDetail = ({
 }: {
   itemEquipment: ItemEquipment,
 }) => {
-  return <div className="item-equipment-detail">
+  return <div className="item-equipment-detail default-font-family">
     <CStarforce numStars={parseInt(itemEquipment.starforce)} reqLev={itemEquipment.item_base_option.base_equipment_level} />
     <div className="item-basic">
       {itemEquipment.soul_name && <div className="soul-name">{itemEquipment.soul_name.split(' 소울 적용')[0]}</div>}

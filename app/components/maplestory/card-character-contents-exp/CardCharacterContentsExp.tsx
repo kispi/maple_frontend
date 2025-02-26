@@ -30,7 +30,7 @@ export const CardCharacterContentsExp = ({
         <h3
           className="foldable"
           onClick={() => setFolded({ ...folded, daily: !folded.daily })}>
-          <span>{helpers.translate('DAILY_CONTENTS')}</span>
+          <span>{helpers.$t('DAILY_CONTENTS')}</span>
           <i className={`fa fa-chevron-${folded.daily ? 'down' : 'up'}`} onClick={() => setFolded({ ...folded, daily: !folded.daily })} />
         </h3>
         {!folded.daily && <div className="flex g-8 m-t-8">
@@ -43,7 +43,7 @@ export const CardCharacterContentsExp = ({
                     className="content-row">
                     <div className="key">
                       <img src={`images/${o.img}`} alt={o.key} />
-                      {helpers.translate(o.key)}</div>
+                      {helpers.$t(o.key)}</div>
                     <div className="value">{o.$$expPercent}%</div>
                   </div>
                 ))}
@@ -58,7 +58,7 @@ export const CardCharacterContentsExp = ({
         <h3
           className="foldable"
           onClick={() => setFolded({ ...folded, weekly: !folded.weekly })}>
-          <span>{helpers.translate('WEEKLY_CONTENTS')}</span>
+          <span>{helpers.$t('WEEKLY_CONTENTS')}</span>
           <i className={`fa fa-chevron-${folded.weekly ? 'down' : 'up'}`} onClick={() => setFolded({ ...folded, weekly: !folded.weekly })} />
         </h3>
         {!folded.weekly && <div className="flex g-8 m-t-8">
@@ -68,7 +68,7 @@ export const CardCharacterContentsExp = ({
                 <div className="content-row">
                   <div className="key">
                     <img src={`images/${o.img}`} alt={o.key} />
-                    <span>{helpers.translate(o.key)}</span>
+                    <span>{helpers.$t(o.key)}</span>
                   </div>
                   <div className="value">
                     {o.$$expPercent}%

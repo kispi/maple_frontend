@@ -3,10 +3,8 @@ import useAppStore from '~/store/app'
 import helpers from '~/helpers'
 import './app-header.scss'
 
-const AppLogo = () => <div className="app-logo f-ubuntu text-nowrap">₿log</div>
-
 const AppHeader = () => {
-  const { isMobile, settings, setSettings } = useAppStore()
+  const { settings, setSettings } = useAppStore()
 
   const { push } = useRouter()
 
