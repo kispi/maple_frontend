@@ -8,7 +8,6 @@ import {
 import type { LinksFunction, MetaFunction } from '@remix-run/node'
 import { createMetaTags } from './assets/constants/meta'
 import AppHeader from './components/app/app-header/AppHeader'
-import AppNav from './components/app/app-nav/AppNav'
 import AppAddons from './components/app/addons/AppAddons'
 import AppFooter from './components/app/app-footer/AppFooter'
 import useAppStore from './store/app'
@@ -31,8 +30,8 @@ export const links: LinksFunction = () => [
   {
     rel: 'stylesheet',
     href: createGoogleFontUrl([
-      'family=Ubuntu:ital,wght@1,700',
-      'family=IBM+Plex+Sans+KR:wght@400;500;600;700',
+      'family=Noto+Sans+KR:wght@100..900',
+      'family=Poppins:wght@200;300;400;500',
     ]),
   },
 ]
@@ -59,7 +58,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className={`theme-${settings.theme}`}>
         <AppHeader />
         <div className="app-body layout-centered">
-          {settings.showNav && <AppNav />}
           <main>{children}</main>
         </div>
         <AppAddons />

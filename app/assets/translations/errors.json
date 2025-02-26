@@ -10,5 +10,9 @@
   "ERROR_API_SERVER": {
     "en": "There seems to be a problem with the API server 😢",
     "kr": "API 서버에 문제가 있는 것 같아요 😢"
+  },
+  "ERROR_INVALID_NICKNAME": {
+    "en": "Invalid character name",
+    "kr": "캐릭터 이름이 올바르지 않습니다"
   }
 }

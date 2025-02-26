@@ -2,7 +2,6 @@
 
 export const loader = async () => {
   try {
-    // const data = await $http.get(`posts/sitemap/${coinsectBlogId}`)
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -10,7 +9,7 @@ export const loader = async () => {
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
       http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
       <url>
-    <loc>https://maple.coinsect.io/</loc>
+    <loc>https://everymaple.com/</loc>
       </url>
     </urlset>`
     return new Response(sitemap, { headers: { 'Content-Type': 'application/xml' } })

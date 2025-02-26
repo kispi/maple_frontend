@@ -1,44 +1,6 @@
+import { CharacterInfo } from '~/types'
 import { create } from 'zustand'
 import { $http } from '~/modules/axios'
-import { CharacterAbility } from '~/types/ability'
-import { CharacterAndroidEquipment } from '~/types/android-equipment'
-import { CharacterBasic } from '~/types/basic'
-import { CharacterBeautyEquipment } from '~/types/beauty-equipment'
-import { CharacterCashItemEquipment } from '~/types/cash-item-equipment'
-import { CharacterDojang } from '~/types/dojang'
-import { CharacterHexaMatrix, CharacterHexaMatrixStat } from '~/types/hexa-stat'
-import { CharacterHyperStat } from '~/types/hyper-stat'
-import { CharacterItemEquipment } from '~/types/item-equipment'
-import { CharacterPetEquipment } from '~/types/pet-equipment'
-import { CharacterPopularity } from '~/types/popularity'
-import { CharacterPropensity } from '~/types/propensity'
-import { CharacterSetEffect } from '~/types/set-effect'
-import { CharacterSkill } from '~/types/skill'
-import { CharacterStat } from '~/types/stat'
-import { CharacterSymbolEquipment } from '~/types/symbol-equipment'
-import { Union, UnionRaider } from '~/types/union'
-
-export type CharacterInfo = {
-  ability: CharacterAbility
-  androidEquipment: CharacterAndroidEquipment
-  basic: CharacterBasic
-  beautyEquipment: CharacterBeautyEquipment
-  cashItemEquipment: CharacterCashItemEquipment
-  dojang: CharacterDojang
-  hexaMatrix: CharacterHexaMatrix
-  hexaMatrixStat: CharacterHexaMatrixStat
-  hyperStat: CharacterHyperStat
-  itemEquipment: CharacterItemEquipment
-  petEquipment: CharacterPetEquipment
-  popularity: CharacterPopularity
-  propensity: CharacterPropensity
-  setEffect: CharacterSetEffect
-  skills: CharacterSkill[]
-  stat: CharacterStat
-  symbolEquipment: CharacterSymbolEquipment
-  union: Union
-  unionRaider: UnionRaider
-}
 
 type MapleState = {
   currentCharacter?: CharacterInfo

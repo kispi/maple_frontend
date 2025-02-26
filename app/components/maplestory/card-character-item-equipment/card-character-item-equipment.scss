@@ -20,9 +20,11 @@
 }
 
 .card-character-item-equipment {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 8px;
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 8px;
+  }
 }
 
 .character-item-equipment-summary {
@@ -76,5 +78,28 @@
   &:hover {
     background: var(--background-light);
     cursor: pointer;
+  }
+}
+
+.panel-symbol-equipment {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-content: center;
+  width: fit-content;
+  margin: auto;
+  gap: 8px;
+
+  .symbol {
+    border: 1px solid var(--border-base);
+    border-radius: 4px;
+
+    .symbol-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .symbol-level {
+      text-align: center;
+    }
   }
 }

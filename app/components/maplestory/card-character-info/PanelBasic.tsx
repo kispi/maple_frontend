@@ -1,4 +1,4 @@
-import { CharacterInfo } from '~/store/maple'
+import { CharacterInfo } from '~/types'
 import helpers from '~/helpers'
 
 const estimatedMinutesToLevelUp = ({
@@ -10,7 +10,7 @@ const estimatedMinutesToLevelUp = ({
 }) => {
   // 200 미만은 무시
   let baseCase = null
-  
+
   if (currentLevel < 205) baseCase = { min: 23, max: 30 }
   else if (currentLevel < 210) baseCase = { min: 23, max: 39 }
   else if (currentLevel < 215) baseCase = { min: 23, max: 33 }
@@ -41,7 +41,8 @@ const estimatedMinutesToLevelUp = ({
 const minToHour = (min: number) => {
   const hour = Math.floor(min / 60)
   const remain = min % 60
-  return hour + Math.round(remain / 60 * 100) / 100
+  const result = hour + remain / 60
+  return Math.round((result < 5 ? result : Math.round(result)) * 100) / 100
 }
 
 export const HuntGuestimation = ({ character }: { character: CharacterInfo }) => {
@@ -81,7 +82,7 @@ export const PanelBasic = ({
           <span>{character.basic.character_class} | {character.basic.character_level}</span>
         </div>
         <div className="badges">
-          <span className="badge-fill bg-danger c-white">{helpers.$t('DOJANG')} {character.dojang.dojang_best_floor}층</span>
+          {character.dojang.dojang_best_floor > 0 && <span className="badge-fill bg-danger c-white">{helpers.$t('DOJANG')} {character.dojang.dojang_best_floor}층</span>}
           <span className="badge-fill bg-danger c-white">{helpers.$t('UNION')} {character.union.union_level}</span>
           <span className="badge-fill bg-danger c-white">{helpers.$t('ARTIFACT')} {character.union.union_artifact_level}</span>
         </div>

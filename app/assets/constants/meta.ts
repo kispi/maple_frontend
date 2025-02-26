@@ -1,9 +1,7 @@
-import helpers from '~/helpers'
-
 export const defaultMeta = {
-  title: '메이플스토리 캐릭터 정보',
-  description: '메이플스토리 캐릭터 정보를 API로 조회하여 전투력 및 장비 정보를 확인할 수 있습니다.',
-  image: helpers.withCdn('og-images/og-image-maplestory.png'),
+  title: 'EveryMaple',
+  description: '메이플스토리 캐릭터 정보를 API로 조회하여 경험치 컨텐츠 효율 / 장비 정보를 확인할 수 있습니다.',
+  image: 'logo.png',
 }
 
 type MetaTagArgs = {

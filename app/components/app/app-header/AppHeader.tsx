@@ -8,26 +8,18 @@ const AppHeader = () => {
 
   const { push } = useRouter()
 
-  const toggleShowNav = () => {
-    setSettings({ showNav: !settings.showNav })
-  }
-
   const countryByLocale = { kr: 'kr', en: 'us', '': '' }
 
   return <header className="app-header">
     <div className="layout-centered">
-      <i
-        className={`far ${settings.showNav ? 'fa-times' : 'fa-bars'} cursor-pointer nav-toggler center`}
-        onClick={toggleShowNav}
-      />
       <a
         href="/"
-        className="f-20 f-600 f-ubuntu"
+        className="f-20 f-600 f-poppins"
         onClick={e => {
           e.preventDefault()
           push('/')
         }}>
-        maple.coinsect.io
+        Every<span className="c-danger">M</span>aple
       </a>
       <div className="header-functions">
         <div

@@ -97,7 +97,7 @@ export const ItemEquipmentDetail = ({
 }: {
   itemEquipment: ItemEquipment,
 }) => {
-  return <div className="item-equipment-detail default-font-family">
+  return <div className="item-equipment-detail f-dotum">
     <CStarforce numStars={parseInt(itemEquipment.starforce)} reqLev={itemEquipment.item_base_option.base_equipment_level} />
     <div className="item-basic">
       {itemEquipment.soul_name && <div className="soul-name">{itemEquipment.soul_name.split(' 소울 적용')[0]}</div>}

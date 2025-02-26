@@ -1,8 +1,6 @@
 import axios from 'axios'
 import helpers from '~/helpers'
 
-export type DefaultError = { data: { message: string } }
-
 const createHttpClient = () => {
   const httpClient = axios.create({
     baseURL: `${import.meta.env.VITE_API_URL}`,

@@ -1,4 +1,4 @@
-import { CharacterInfo } from '~/store/maple'
+import { CharacterInfo } from '~/types'
 import { PanelAbility } from './PanelAbility'
 import { PanelBasic } from './PanelBasic'
 import { PanelHexaSkills } from './PanelHexaSkills'

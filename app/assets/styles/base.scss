@@ -55,8 +55,12 @@ button {
   margin: 0;
 }
 
-.default-font-family {
+.f-dotum {
   font-family: 'Dotum', '돋움', 'Helvetica', 'Arial', sans-serif;
+}
+
+.f-poppins {
+  font-family: 'Poppins', 'Helvetica', 'Arial', sans-serif;
 }
 
 body {
@@ -67,6 +71,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   word-break: break-word;
   transition: none;
+  font-family: 'Noto Sans KR', serif;
 }
 
 :link,
@@ -147,10 +152,6 @@ s {
 
 .f-mono {
   font-family: Arial, Helvetica, sans-serif;
-}
-
-.f-ubuntu {
-  font-family: 'Ubuntu', sans-serif;
 }
 
 img {

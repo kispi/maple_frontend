@@ -6,7 +6,7 @@ import { useLocation } from '@remix-run/react'
 
 export const navItems = [{
   name: 'ABOUT',
-  href: '/posts/about-coinsect-blog',
+  href: '/about',
 }]
 
 const AppNav = () => {

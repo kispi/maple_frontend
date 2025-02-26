@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { CharacterInfo } from '~/types'
+import { useEffect, useMemo, useState } from 'react'
 import { dailyContents, weeklyContents } from '~/assets/constants/exp'
-import { CharacterInfo } from '~/store/maple'
 import helpers from '~/helpers'
 import './card-character-contents-exp.scss'
 
@@ -63,6 +63,10 @@ export const CardCharacterContentsExp = ({
     return expBonus
   }, [character])
 
+  useEffect(() => {
+    setFolded({ daily: character.basic.character_level >= 260, weekly: false })
+  }, [character.basic.character_level])
+
   const playable = useMemo(() => ({
     daily: [
       dailyContents.dailyQuestsExp.arcaneRiver({ lev: character.basic.character_level, additionalPercentage: expBoyak?.arcaneRiver }),
@@ -73,6 +77,7 @@ export const CardCharacterContentsExp = ({
       weeklyContents.extremeMonsterPark({ lev: character.basic.character_level, additionalPercentage: expBoyak?.monsterPark }),
       weeklyContents.highMountain({ lev: character.basic.character_level, rewardLev: 2 }),
       weeklyContents.anglerCompany({ lev: character.basic.character_level, rewardLev: 2 }),
+      weeklyContents.vipAfk({ lev: character.basic.character_level }),
     ].filter(o => o.$$expPercent)
   }), [character, expBoyak])
 

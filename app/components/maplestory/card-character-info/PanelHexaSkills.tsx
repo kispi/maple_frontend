@@ -1,5 +1,5 @@
-import { CharacterInfo } from '~/store/maple'
 import { useMemo } from 'react'
+import { CharacterInfo } from '~/types'
 import { CharacterSkill } from '~/types/skill'
 
 const keywordsToFilter = ['새벽', '스탯']

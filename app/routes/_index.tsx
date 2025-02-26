@@ -1,11 +1,12 @@
-import { useMemo, useRef, useState } from 'react'
+import { CharacterInfo, DefaultError } from '~/types'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLoaderData, useSearchParams } from '@remix-run/react'
-import { $http, DefaultError } from '~/modules/axios'
+import { $http } from '~/modules/axios'
 import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
 import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
 import { CardCharacterContentsExp } from '~/components/maplestory/card-character-contents-exp/CardCharacterContentsExp'
 import helpers from '~/helpers'
-import useMapleStore, { CharacterInfo } from '~/store/maple'
+import useMapleStore from '~/store/maple'
 import useAppStore from '~/store/app'
 
 export const loader = async ({ request }: { request: Request }) => {
@@ -22,12 +23,26 @@ export const loader = async ({ request }: { request: Request }) => {
   }
 }
 
+const isValidNickname = (nickname: string): boolean => {
+  if (!(nickname || '').trim()) return false
+
+  if (nickname.includes(' ')) return false
+
+  const byteLength = [...(nickname || '').trim()].reduce((acc, char) => {
+    return acc + (char.charCodeAt(0) > 127 ? 2 : 1);
+  }, 0)
+
+  return byteLength >= 4 && byteLength <= 12
+}
+
 const Index = () => {
   const [characterName, setCharacterName] = useState('')
 
   const { characters, loadCharacter } = useMapleStore()
 
-  const [, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const name = searchParams.get('name') || ''
 
   const { preparedCharacter } = useLoaderData<typeof loader>()
 
@@ -41,19 +56,31 @@ const Index = () => {
   }, [preparedCharacter, characters])
 
   const getCharacterInfo = async (name: string) => {
+    if (!isValidNickname(name)) {
+      helpers.toast.error(helpers.$t('ERROR_INVALID_NICKNAME'))
+      return
+    }
+
     try {
       await loadCharacter(name)
-      setSearchParams({ name })
     } catch (e) {
       helpers.toast.error((e as DefaultError).data.message)
     }
   }
 
+  useEffect(() => {
+    if (name) {
+      setCharacterName(name) // 검색창에도 반영
+      getCharacterInfo(name) // 캐릭터 정보 다시 불러오기
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name])
+
   return (
     <div className="view-main">
       <div className="input-wrapper">
         <i
-          onClick={() => getCharacterInfo(characterName)}
+          onClick={() => setSearchParams({ name: characterName })}
           className="far fa-search cursor-pointer"
         />
         <input
@@ -64,7 +91,7 @@ const Index = () => {
           maxLength={12}
           onChange={(e) => setCharacterName(e.target.value)}
           onKeyDown={e => {
-            if (e.key === 'Enter') getCharacterInfo(characterName)
+            if (e.key === 'Enter') setSearchParams({ name: characterName })
           }}
         />
         {characterName && <i

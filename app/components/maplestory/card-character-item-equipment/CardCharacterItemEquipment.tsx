@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
+import { CharacterInfo } from '~/types'
 import { ItemEquipment } from '~/types/item-equipment'
 import { ItemEquipmentDetail } from './ItemEquipmentDetail'
-import { CharacterInfo } from '~/store/maple'
+import { PanelSymbolEquipment } from './PanelSymbolEquipment'
+import { useEffect, useMemo, useState } from 'react'
 import helpers from '~/helpers'
 import './card-character-item-equipment.scss'
 
@@ -64,6 +65,7 @@ export const CharacterItemEquipmentSummary = ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
+        zIndex: 1,
       }}>
       <ItemEquipmentDetail itemEquipment={selectedItemEquipment}/>
     </div>}
@@ -84,12 +86,15 @@ export const CardCharacterItemEquipment = ({
     return sorted
   }, [character])
 
-  return <div className="card-character-item-equipment card">
-    {sortedItems.map((itemEquipment, index) => (
-      <CharacterItemEquipmentSummary
-        key={index}
-        itemEquipment={itemEquipment}
-      />
-    ))}
+  return <div className="card-character-item-equipment card flex g-24">
+    <div className="items-grid">
+      {sortedItems.map((itemEquipment, index) => (
+        <CharacterItemEquipmentSummary
+          key={index}
+          itemEquipment={itemEquipment}
+        />
+      ))}
+    </div>
+    <PanelSymbolEquipment character={character} />
   </div>
 }

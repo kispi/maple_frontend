@@ -1,5 +1,5 @@
+import { CharacterInfo } from '~/types'
 import { AbilityInfo, CharacterAbility } from '~/types/ability'
-import { CharacterInfo } from '~/store/maple'
 import { useEffect, useMemo, useState } from 'react'
 import helpers from '~/helpers'
 
@@ -29,7 +29,7 @@ export const PanelAbility = ({
     setPresetNo(characterAbility.preset_no)
   }, [characterAbility.preset_no])
 
-  return <div className="panel-ability default-font-family">
+  return <div className="panel-ability f-dotum">
     <CAbility abilityInfos={abilityInfo} />
     <div className="preset-selector">
       <div
