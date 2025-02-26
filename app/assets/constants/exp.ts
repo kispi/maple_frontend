@@ -231,34 +231,30 @@ const dailyQuestsData = [
   { key: 'tallahart', exp: 89730912960, region: 'grandis', reqLev: 290, img: 'tallahart.webp' },
 ]
 
-const rewardLevMultiple = (rewardLev: RewardLevEvent) => {
-  return rewardLev === 1 ? 1.05 : 1 + (rewardLev - 1) * 0.1
-}
-
 // 경험치 절댓값이 아닌 %로 리턴함
 export const dailyContents = {
   dailyQuestsExp: {
-    arcaneRiver: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) =>
+    arcaneRiver: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) =>
       dailyQuestsData.filter(o => o.region === 'arcane_river' && o.reqLev <= lev).map(o => ({
         ...o,
-        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * rewardLevMultiple(rewardLev))
+        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
-    tenebris: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) =>
+    tenebris: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) =>
       dailyQuestsData.filter(o => o.region === 'tenebris' && o.reqLev <= lev).map(o => ({
         ...o,
-        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * rewardLevMultiple(rewardLev))
+        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
-    grandis: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) =>
+    grandis: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) =>
       dailyQuestsData.filter(o => o.region === 'grandis' && o.reqLev <= lev).map(o => ({
         ...o,
-        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * rewardLevMultiple(rewardLev))
+        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
   },
 }
 
 // 경험치 절댓값이 아닌 %로 리턴함
 export const weeklyContents = {
-  extremeMonsterPark: ({ lev, rewardLev = 0 }: { lev: number, rewardLev?: RewardLevEvent }) => {
+  extremeMonsterPark: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) => {
     const base = { img: 'bigfoot.png', key: 'extreme_monster_park', $$expPercent: 0 }
     if (lev < 260) return base // 260 이상부터 가능
 
@@ -270,7 +266,7 @@ export const weeklyContents = {
       8165, 8194, 8223, 8252, 8281, 8311, 8340, 8369, 8398, 8427, 6264, 6286, 6307, 6329, 6350, 6372, 6394, 6415, 6437, 6458,
     ]
 
-    base.$$expPercent = asPercent((table[lev - 260] * Math.pow(10, 8) / levelExpTable[lev - 1]) * rewardLevMultiple(rewardLev))
+    base.$$expPercent = asPercent((table[lev - 260] * Math.pow(10, 8) / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100))
     return base
   },
   highMountain: ({ lev, rewardLev }: { lev: number; rewardLev: RewardLevEpicDungeon }) => {

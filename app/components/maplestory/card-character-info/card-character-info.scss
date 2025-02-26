@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
 
+.panel-basic {
   .image-container {
     width: 96px;
     height: 96px;
@@ -21,7 +23,32 @@
   .badges {
     display: flex;
     flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .exp-bar {
+    display: flex;
+    align-items: center;
     gap: 8px;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    height: 20px;
+
+    .exp-fill {
+      background: rgba(164, 199, 0, 0.8);
+    }
+
+    .exp-text {
+      color: var(--white);
+      font-size: 12px;
+      z-index: 1;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
 
@@ -36,6 +63,7 @@
   
     .ability-row {
       border-radius: 4px;
+      padding: 0 8px;
     }
   }
   
@@ -69,10 +97,9 @@
 .panel-hexa-skills {
   display: flex;
   flex-wrap: wrap;
-  margin: auto;
+  justify-content: center;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
-  width: fit-content;
 
   .hexa-skill {
     border: 1px solid var(--border-base);

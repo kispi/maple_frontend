@@ -1,13 +1,14 @@
 .card-character-contents-exp {
-  .contents-section {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+  user-select: none;
 
-  h3 {
-    font-size: 16px;
-    font-weight: 600;
+  .badge-boyak {
+    border-radius: 24px;
+    padding: 0 8px;
+    font-size: 12px;
+    background: var(--epic);
+    color: var(--white);
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
   }
 
   .foldable {
@@ -16,6 +17,11 @@
     align-items: center;
     padding: 4px 8px;
     cursor: pointer;
+
+    .title {
+      font-size: 16px;
+      font-weight: 600;
+    }
 
     &:hover {
       background: var(--background-light);
@@ -49,5 +55,9 @@
     img {
       width: 24px;
     }
+  }
+
+  @media (max-width: 767px) {
+    font-size: 13px;
   }
 }

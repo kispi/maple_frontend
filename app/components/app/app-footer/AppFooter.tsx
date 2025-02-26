@@ -2,7 +2,7 @@ import helpers from '~/helpers'
 import './app-footer.scss'
 
 const AppFooter = ({ className }: { className?: string }) => {
-  return <div className={`app-footer ${className}`}>
+  return <div className={`app-footer ${className || ''}`}>
     <div className="layout-centered">
       <div className="grid outer">
         <div className="category">

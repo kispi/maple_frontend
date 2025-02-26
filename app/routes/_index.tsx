@@ -31,6 +31,8 @@ const Index = () => {
 
   const { preparedCharacter } = useLoaderData<typeof loader>()
 
+  useAppStore() // 이걸 써줘야 로케일 바꿀 때 실시간으로 반영되네
+
   const refInput = useRef<HTMLInputElement>(null)
 
   const selectedCharacter = useMemo(() => {

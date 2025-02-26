@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ItemEquipment } from '~/types/item-equipment'
 import { ItemEquipmentDetail } from './ItemEquipmentDetail'
 import { CharacterInfo } from '~/store/maple'
@@ -75,8 +75,17 @@ export const CardCharacterItemEquipment = ({
 }: {
   character: CharacterInfo,
 }) => {
+  const sortedItems = useMemo(() => {
+    const order = { '무기': -3, '보조무기': -2, '엠블렘': -1 } as Record<string, number>
+    const sorted = [...character.itemEquipment.item_equipment].sort((a, b) =>
+      (order[a.item_equipment_slot] || 0) - (order[b.item_equipment_slot] || 0)
+    )
+  
+    return sorted
+  }, [character])
+
   return <div className="card-character-item-equipment card">
-    {character.itemEquipment.item_equipment.map((itemEquipment, index) => (
+    {sortedItems.map((itemEquipment, index) => (
       <CharacterItemEquipmentSummary
         key={index}
         itemEquipment={itemEquipment}

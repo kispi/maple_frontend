@@ -7,7 +7,7 @@ const CAbility = ({ abilityInfos }: { abilityInfos: AbilityInfo[] }) => {
   return <div className="c-ability">
     {abilityInfos.map((ability, idx) => <div
       key={idx}
-      className={`ability-row bg-${helpers.logic.gradeClass([ability.ability_grade])}`}>
+      className={`ability-row lines-1 bg-${helpers.logic.gradeClass([ability.ability_grade])}`}>
       {ability.ability_value}
     </div>)}
   </div>
