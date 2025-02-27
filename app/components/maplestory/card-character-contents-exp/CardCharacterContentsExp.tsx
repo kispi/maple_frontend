@@ -23,7 +23,7 @@ const ContentRow = ({
 }) => {
   return <div className="content-row">
     <div className="key">
-      <img src={`images/${img}`} alt={$$key} />
+      <img src={helpers.withCdn(`images/${img}`)} alt={$$key} />
       {helpers.$t($$key)}{['angler_company', 'high_mountain'].includes($$key) && <span>[보상 Lv.2]</span>}
     </div>
     <div className="value">

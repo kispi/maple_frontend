@@ -76,7 +76,10 @@ export const PanelBasic = ({
       <div className="basic-info">
         <div className="badges">
           <span className="f-16 f-700">{character.basic.character_name}</span>
-          <span className="badge-bordered">{character.basic.world_name}{character.basic.character_guild_name && `@${character.basic.character_guild_name}`}</span>
+          <span className="badge-bordered">
+            <img src={helpers.withCdn(`images/${helpers.logic.getWorld(character.basic.world_name)?.img}`)} alt={character.basic.world_name} />
+            {character.basic.world_name}{character.basic.character_guild_name && `@${character.basic.character_guild_name}`}
+          </span>
         </div>
         <div>
           <span>{character.basic.character_class} | {character.basic.character_level}</span>
