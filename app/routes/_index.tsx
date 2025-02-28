@@ -25,8 +25,10 @@ export const loader = async ({ request }: { request: Request }) => {
   }
 }
 
+export const shouldRevalidate = () => false
+
 const Index = () => {
-  const [characterName] = useState('')
+  const [characterName, setCharacterName] = useState('')
 
   const { characters } = useMapleStore()
 
@@ -42,7 +44,10 @@ const Index = () => {
   // SearchCharacter에서 따로 $http 요청하지 말고, url이 바뀌면 loader가 자동 호출되는 것을 이용해서 그냥 그 데이터를 쓰는 형태로 바꿔야 할 듯
   return (
     <div className="view-main">
-      <SearchCharacter />
+      <SearchCharacter
+        characterName={characterName}
+        setCharacterName={setCharacterName}
+      />
       {selectedCharacter && <div className="flex g-24 m-t-16">
         <CardCharacterInfo character={selectedCharacter} />
         <CardCharacterContentsExp character={selectedCharacter} />
