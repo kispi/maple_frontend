@@ -10,7 +10,7 @@ export const PanelSymbolEquipment = ({
     return character.symbolEquipment.symbol
   }, [character.symbolEquipment])
 
-  return symbols && <div className="panel-symbol-equipment">
+  return (symbols.length > 0) && <div className="panel-symbol-equipment">
     {symbols.map((symbol, idx) => <div key={idx} className="symbol">
       <img className="symbol-icon" src={symbol.symbol_icon} alt={symbol.symbol_name} />
       <div className="symbol-level">{symbol.symbol_level}</div>

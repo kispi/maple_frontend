@@ -82,6 +82,8 @@ export const CardCharacterContentsExp = ({
     ].filter(o => o.$$expPercent)
   }), [character, expBoyak])
 
+  if (playable.daily.length === 0 && playable.weekly.length === 0) return null
+
   return <div className="card-character-contents-exp flex g-16 card">
     {playable.daily.length > 0 && <div className="contents">
       <div
