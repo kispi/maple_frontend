@@ -68,6 +68,10 @@
   }
 
   .item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
     > div {
       display: flex;
       align-items: center;

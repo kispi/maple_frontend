@@ -7,14 +7,7 @@ import helpers from '~/helpers'
 import './card-character-item-equipment.scss'
 
 const GradeBadge = ({ grade }: { grade: string }) => {
-  const gradeColor = () => {
-    if (grade === '레전드리') return 'bg-legendary'
-    if (grade === '유니크') return 'bg-unique'
-    if (grade === '에픽') return 'bg-epic'
-    if (grade === '레어') return 'bg-rare'
-    return ''
-  }
-  return <span className={`badge-fill c-white f-400 f-10 ${gradeColor()}`}>{grade}</span>
+  return <span className={`badge-fill c-white f-400 f-10 bg-${helpers.logic.gradeClass([grade])}`}>{grade}</span>
 }
 
 export const CharacterItemEquipmentSummary = ({
@@ -54,7 +47,7 @@ export const CharacterItemEquipmentSummary = ({
         <div>
           {itemEquipment.potential_option_grade && <GradeBadge grade={itemEquipment.potential_option_grade} />}
           {itemEquipment.additional_potential_option_grade && <GradeBadge grade={itemEquipment.additional_potential_option_grade} />}
-          {itemEquipment.special_ring_level > 0 && <span className="badge-fill bg-border-base c-black c-white f-400 f-10">Lv.{itemEquipment.special_ring_level}</span>}
+          {itemEquipment.special_ring_level > 0 && <span className="badge-fill bg-text-base c-border-base c-white f-400 f-10">Lv.{itemEquipment.special_ring_level}</span>}
         </div>
       </div>
     </div>

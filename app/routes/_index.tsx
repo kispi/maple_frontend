@@ -1,13 +1,15 @@
-import { CharacterInfo, DefaultError } from '~/types'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLoaderData, useSearchParams } from '@remix-run/react'
+import { CharacterInfo } from '~/types'
+import { useMemo, useState } from 'react'
+import { useLoaderData } from '@remix-run/react'
 import { $http } from '~/modules/axios'
 import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
 import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
 import { CardCharacterContentsExp } from '~/components/maplestory/card-character-contents-exp/CardCharacterContentsExp'
-import helpers from '~/helpers'
 import useMapleStore from '~/store/maple'
 import useAppStore from '~/store/app'
+import PanelAbility from '~/components/maplestory/panel-ability/PanelAbility'
+import PanelHexaSkills from '~/components/maplestory/panel-hexa-skills/PanelHexaSkills'
+import SearchCharacter from '~/components/common/search-character/SearchCharacter'
 
 export const loader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url)
@@ -23,98 +25,30 @@ export const loader = async ({ request }: { request: Request }) => {
   }
 }
 
-const isValidNickname = (nickname: string): boolean => {
-  if (!(nickname || '').trim()) return false
-
-  if (nickname.includes(' ')) return false
-
-  const byteLength = [...(nickname || '').trim()].reduce((acc, char) => {
-    return acc + (char.charCodeAt(0) > 127 ? 2 : 1);
-  }, 0)
-
-  return byteLength >= 4 && byteLength <= 12
-}
-
 const Index = () => {
-  const [characterName, setCharacterName] = useState('')
+  const [characterName] = useState('')
 
-  const { loading, setLoading } = useAppStore()
-
-  const { characters, resetCharacters, loadCharacter } = useMapleStore()
-
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const name = searchParams.get('name') || ''
+  const { characters } = useMapleStore()
 
   const { preparedCharacter } = useLoaderData<typeof loader>()
 
-  useAppStore() // 이걸 써줘야 로케일 바꿀 때 실시간으로 반영되네
-
-  const refInput = useRef<HTMLInputElement>(null)
+  const { isMobile } = useAppStore()
 
   const selectedCharacter = useMemo(() => {
     return characters[characterName] || preparedCharacter
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preparedCharacter, characters])
 
-  const getCharacterInfo = async (name: string) => {
-    if (loading.global) return
-
-    if (!isValidNickname(name)) {
-      helpers.toast.error(helpers.$t('ERROR_INVALID_NICKNAME'))
-      return
-    }
-
-    try {
-      setLoading('global', true)
-      await loadCharacter(name)
-    } catch (e) {
-      helpers.toast.error((e as DefaultError).data.message || helpers.$t('ERROR_FAILED'))
-    } finally {
-      setLoading('global', false)
-    }
-  }
-
-  useEffect(() => {
-    if (name) {
-      setCharacterName(name) // 검색창에도 반영
-      getCharacterInfo(name) // 캐릭터 정보 다시 불러오기
-    } else {
-      setCharacterName('')
-      resetCharacters()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name])
-
   return (
     <div className="view-main">
-      <div className="input-wrapper">
-        <i
-          onClick={() => setSearchParams({ name: characterName })}
-          className="far fa-search cursor-pointer"
-        />
-        <input
-          ref={refInput}
-          type="text"
-          placeholder={helpers.$t('PLACEHOLDER_SEARCH_CHARACTER')}
-          value={characterName}
-          maxLength={12}
-          onChange={(e) => setCharacterName(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === 'Enter') setSearchParams({ name: characterName })
-          }}
-        />
-        {characterName && <i
-          className="far fa-times cursor-pointer"
-          onClick={() => {
-            setCharacterName('')
-            if (refInput.current) refInput.current.focus()
-          }}
-        />}
-      </div>
+      <SearchCharacter />
       {selectedCharacter && <div className="flex g-24 m-t-16">
         <CardCharacterInfo character={selectedCharacter} />
         <CardCharacterContentsExp character={selectedCharacter} />
+        <div className={`card ${isMobile ? 'flex' : 'flex-row'} g-24`}>
+          <PanelAbility character={selectedCharacter} className="flex-fill" />
+          <PanelHexaSkills character={selectedCharacter} className="flex-fill" />
+        </div>
         <div className="section-bottom">
           <CardCharacterItemEquipment character={selectedCharacter} />
         </div>

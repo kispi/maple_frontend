@@ -1,0 +1,41 @@
+.panel-ability {
+  .c-ability {
+    color: var(--white);
+    font-size: 13px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  
+    .ability-row {
+      border-radius: 4px;
+      padding: 0 8px;
+    }
+  }
+  
+  .preset-selector {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+
+    .no {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      color: var(--white);
+      background: var(--border-base);
+      user-select: none;
+      cursor: pointer;
+
+      &:hover,
+      &.selected {
+        background: var(--text-light);
+        border: 1px solid var(--border-light);
+      }
+    }
+  }
+}

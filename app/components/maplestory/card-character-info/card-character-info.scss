@@ -2,45 +2,36 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
 
-.panel-basic {
-  .image-container {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    border: 1px solid var(--border-base);
-    flex: 0 0 auto;
-    overflow: hidden;
+  .panel-basic {
+    .image-container {
+      width: 96px;
+      height: 96px;
+      flex: 0 0 auto;
+    }
+  
+    .basic-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
   }
-
-  .basic-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-
+  
   .exp-bar {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(0, 0, 0, 0.75);
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 8px;
     overflow: hidden;
     position: relative;
-    height: 24px;
-    border: 3px double var(--border-base);
+    height: 20px;
+    border: 1px solid var(--border-light);
 
     .exp-fill {
-      background: var(--legendary);
+      background: rgba(64, 192, 64, 0.95);
     }
-
+  
     .exp-text {
       color: var(--white);
       font-size: 12px;
@@ -51,69 +42,27 @@
       justify-content: center;
     }
   }
-}
-
-.panel-ability {
-  .c-ability {
-    color: var(--white);
+  
+  .basic-details {
     font-size: 13px;
-    text-align: center;
     display: flex;
-    flex-direction: column;
-    gap: 2px;
-  
-    .ability-row {
-      border-radius: 4px;
-      padding: 0 8px;
+    flex: 1;
+
+    .key {
+      font-size: 12px;
+      color: var(--text-light);
+      flex: 0 0 auto;
+      width: 64px;
+    }
+
+    > div {
+      flex: 1 1 0;
     }
   }
-  
-  .preset-selector {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 8px;
 
-    .no {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      color: var(--white);
-      background: var(--border-base);
-      user-select: none;
-      cursor: pointer;
-
-      &:hover,
-      &.selected {
-        background: var(--text-light);
-        border: 1px solid var(--border-light);
-      }
-    }
-  }
-}
-
-.panel-hexa-skills {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-
-  .hexa-skill {
-    border: 1px solid var(--border-base);
-    padding: 4px;
-    border-radius: 4px;
-
-    .hexa-skill-icon {
-      width: 32px;
-      height: 32px;
-    }
-
-    .hexa-skill-level {
-      text-align: center;
+  @media (max-width: 479px) {
+    .basic-details {
+      flex-direction: column;
     }
   }
 }

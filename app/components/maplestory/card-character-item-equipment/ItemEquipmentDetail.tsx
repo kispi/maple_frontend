@@ -60,15 +60,9 @@ const CStarforce = ({ numStars, reqLev }: { numStars: number, reqLev: number }) 
 }
 
 const GradeBadge = ({ grade }: { grade: string }) => {
-  const gradeColor = () => {
-    if (grade === '레전드리') return 'legendary'
-    if (grade === '유니크') return 'unique'
-    if (grade === '에픽') return 'epic'
-    if (grade === '레어') return 'rare'
-    return ''
-  }
+  const gradeColor = helpers.logic.gradeClass([grade])
 
-  return <span className={`grade-badge bg-${gradeColor()}`}>{gradeColor()[0].toUpperCase()}</span>
+  return <span className={`grade-badge bg-${gradeColor}`}>{gradeColor[0].toUpperCase()}</span>
 }
 
 const StatInline = ({ itemEquipment, statKey }: { itemEquipment: ItemEquipment, statKey: string }) => {

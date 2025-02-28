@@ -19,7 +19,7 @@ const AppHeader = () => {
           e.preventDefault()
           push('/')
         }}>
-        Every<span className="c-danger">M</span>aple
+        EVERY<span className="c-danger">M</span>APLE
       </a>
       <div className="header-functions">
         <div

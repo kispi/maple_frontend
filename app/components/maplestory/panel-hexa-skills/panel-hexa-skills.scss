@@ -1,0 +1,22 @@
+.panel-hexa-skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+
+  .hexa-skill {
+    border: 1px solid var(--border-base);
+    padding: 4px;
+    border-radius: 4px;
+
+    .hexa-skill-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .hexa-skill-level {
+      text-align: center;
+    }
+  }
+}

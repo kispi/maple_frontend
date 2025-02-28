@@ -182,5 +182,29 @@
   "VIP_AFK": {
     "kr": "VIP 사우나 (시간당)",
     "en": "VIP Sauna (Per Hour)"
+  },
+  "GUILD": {
+    "kr": "길드",
+    "en": "Guild"
+  },
+  "POPULARITY": {
+    "kr": "인기도",
+    "en": "Popularity"
+  },
+  "PROPENSITY": {
+    "kr": "성향",
+    "en": "Propensity"
+  },
+  "RANKING_OVERALL": {
+    "kr": "종합랭킹",
+    "en": "Overall"
+  },
+  "RANKING_CLASS": {
+    "kr": "직업랭킹",
+    "en": "Class"
+  },
+  "RANKING_UNION": {
+    "kr": "유니온랭킹",
+    "en": "Union"
   }
 }

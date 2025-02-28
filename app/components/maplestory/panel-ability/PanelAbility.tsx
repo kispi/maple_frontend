@@ -2,6 +2,7 @@ import { CharacterInfo } from '~/types'
 import { AbilityInfo, CharacterAbility } from '~/types/ability'
 import { useEffect, useMemo, useState } from 'react'
 import helpers from '~/helpers'
+import './panel-ability.scss'
 
 const CAbility = ({ abilityInfos }: { abilityInfos: AbilityInfo[] }) => {
   return <div className="c-ability">
@@ -13,10 +14,12 @@ const CAbility = ({ abilityInfos }: { abilityInfos: AbilityInfo[] }) => {
   </div>
 }
 
-export const PanelAbility = ({
+const PanelAbility = ({
   character,
+  className,
 }: {
   character: CharacterInfo,
+  className?: string,
 }) => {
   const characterAbility = character.ability
   const [presetNo, setPresetNo] = useState(characterAbility.preset_no)
@@ -29,7 +32,7 @@ export const PanelAbility = ({
     setPresetNo(characterAbility.preset_no)
   }, [characterAbility.preset_no])
 
-  return <div className="panel-ability f-dotum">
+  return <div className={`panel-ability f-dotum ${className || ''}`}>
     <CAbility abilityInfos={abilityInfo} />
     <div className="preset-selector">
       <div
@@ -50,3 +53,5 @@ export const PanelAbility = ({
     </div>
   </div>
 }
+
+export default PanelAbility

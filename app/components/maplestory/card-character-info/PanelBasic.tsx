@@ -1,63 +1,40 @@
 import { CharacterInfo } from '~/types'
+import ExpBar from './ExpBar'
 import helpers from '~/helpers'
+import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 
-const estimatedMinutesToLevelUp = ({
-  currentLevel,
-  currentExpPercent,
+const BasicDetails = ({
+  character,
 }: {
-  currentLevel: number,
-  currentExpPercent: number,
+  character: CharacterInfo,
 }) => {
-  // 200 미만은 무시
-  let baseCase = null
+  if (!character) return null
 
-  if (currentLevel < 205) baseCase = { min: 23, max: 30 }
-  else if (currentLevel < 210) baseCase = { min: 23, max: 39 }
-  else if (currentLevel < 215) baseCase = { min: 23, max: 33 }
-  else if (currentLevel < 220) baseCase = { min: 42, max: 63 }
-  else if (currentLevel < 225) baseCase = { min: 53, max: 70 }
-  else if (currentLevel < 230) baseCase = { min: 1.8 * 60, max: 2.1 * 60 }
-  else if (currentLevel < 235) baseCase = { min: 2.1 * 60, max: 2.3 * 60 }
-  else if (currentLevel < 240) baseCase = { min: 2.7 * 60, max: 3.1 * 60 }
-  else if (currentLevel < 245) baseCase = { min: 3.7 * 60, max: 4.3 * 60 }
-  else if (currentLevel < 250) baseCase = { min: 5.4 * 60, max: 6 * 60 }
-  else if (currentLevel < 255) baseCase = { min: 8.6 * 60, max: 11.3 * 60 }
-  else if (currentLevel < 260) baseCase = { min: 8.6 * 60, max: 9.6 * 60 }
-  else if (currentLevel < 265) baseCase = { min: 8.2 * 60, max: 8.2 * 60 }
-  else if (currentLevel < 270) baseCase = { min: 9.1 * 60, max: 9.1 * 60 }
-  else if (currentLevel < 275) baseCase = { min: 17.8 * 60, max: 17.8 * 60 }
-  else if (currentLevel < 280) baseCase = { min: 32 * 60, max: 32 * 60 }
-  else if (currentLevel < 285) baseCase = { min: 70 * 60, max: 99 * 60 }
-  else if (currentLevel < 290) baseCase = { min: 160 * 60, max: 242 * 60 }
-  else if (currentLevel < 295) baseCase = { min: 380 * 60, max: 579 * 60 }
-  else if (currentLevel < 300) baseCase = { min: 1441 * 60, max: 3450 * 60 }
-
-  return baseCase ? {
-    min: (baseCase.min * (100 - currentExpPercent)) / 100,
-    max: (baseCase.max * (100 - currentExpPercent)) / 100,
-  } : null
-}
-
-const minToHour = (min: number) => {
-  const hour = Math.floor(min / 60)
-  const remain = min % 60
-  const result = hour + remain / 60
-  return Math.round((result < 5 ? result : Math.round(result)) * 100) / 100
-}
-
-export const HuntGuestimation = ({ character }: { character: CharacterInfo }) => {
-  const requiredHuntTimes = estimatedMinutesToLevelUp({
-    currentExpPercent: parseFloat(character.basic.character_exp_rate),
-    currentLevel: character.basic.character_level,
-  })
-
-  if (!requiredHuntTimes) return null
-
-  const a = minToHour(requiredHuntTimes.min)
-  const b = minToHour(requiredHuntTimes.max)
-  return <span className="hunt-guestimation m-l-8">
-    (렙업까지 {a === b ? a : `${a} ~ ${b}`}시간 사냥)
-  </span>
+  const base = []
+  const rankings = []
+  if (character.basic.character_guild_name) base.push({ key: 'GUILD', value: character.basic.character_guild_name })
+  if (character.popularity) base.push({ key: 'POPULARITY', value: character.popularity.popularity.toLocaleString() })
+  if (character.dojang.dojang_best_floor) base.push({ key: 'DOJANG', value: `${character.dojang.dojang_best_floor.toLocaleString()}층` })
+  if (character.union.union_level) base.push({ key: 'UNION', value: `Lv. ${character.union.union_level.toLocaleString()}` })
+  if (character.union.union_artifact_level) base.push({ key: 'ARTIFACT', value: `Lv. ${character.union.union_artifact_level.toLocaleString()}` })
+  if (character.ranking?.overall) rankings.push({ key: 'RANKING_OVERALL', value: `${character.ranking.overall.ranking.toLocaleString()}위 (${character.ranking.overall_world.ranking.toLocaleString()}위)` })
+  if (character.ranking?.class) rankings.push({ key: 'RANKING_CLASS', value: `${character.ranking.class.ranking.toLocaleString()}위 (${character.ranking.class_world.ranking.toLocaleString()}위)` })
+  if (character.ranking?.union) rankings.push({ key: 'RANKING_UNION', value: `${character.ranking.union.ranking.toLocaleString()}위 (${character.ranking.union_world.ranking.toLocaleString()}위)` })
+  
+  return <div className="basic-details">
+    <div>
+      {base.map((pair, index) => <div key={index} className="flex-row align-center g-8">
+        <div className="key">{helpers.$t(pair.key)}</div>
+        <div className="value">{pair.value}</div>
+      </div>)}
+    </div>
+    <div>
+      {rankings.map((pair, index) => <div key={index} className="flex-row align-center g-8">
+        <div className="key">{helpers.$t(pair.key)}</div>
+        <div className="value">{pair.value}</div>
+      </div>)}
+    </div>
+  </div>
 }
 
 export const PanelBasic = ({
@@ -66,51 +43,30 @@ export const PanelBasic = ({
   character: CharacterInfo,
 }) => {
   return <div className="panel-basic flex g-8">
-    <div className="flex-row align-center g-16">
+    <div className="text-nowrap flex-row align-center g-8">
+      <div className="f-16 f-700 c-unique">Lv. {character.basic.character_level}</div>
+      <div className="f-16 f-700">{character.basic.character_name}</div>
+      <BadgeGlass>
+        <>
+          <img
+            src={helpers.withCdn(`images/${helpers.logic.getWorld(character.basic.world_name)?.img}`)}
+            alt={character.basic.world_name}
+            style={ { width: '16px', height: '16px' } }
+          />
+          {character.basic.world_name}
+        </>
+      </BadgeGlass>
+      <BadgeGlass>{character.basic.character_class}</BadgeGlass>
+    </div>
+    <ExpBar character={character} />
+    <div className="flex-row align-center g-8">
       <div className="image-container">
         <img
           src={character.basic.character_image}
           alt={character.basic.character_name}
         />
       </div>
-      <div className="basic-info">
-        <div className="badges">
-          <span className="f-16 f-700">{character.basic.character_name}</span>
-          <span className="badge-bordered">
-            <img src={helpers.withCdn(`images/${helpers.logic.getWorld(character.basic.world_name)?.img}`)} alt={character.basic.world_name} />
-            {character.basic.world_name}{character.basic.character_guild_name && `@${character.basic.character_guild_name}`}
-          </span>
-        </div>
-        <div>
-          <span>{character.basic.character_class} | {character.basic.character_level}</span>
-        </div>
-        <div className="badges">
-          {character.dojang.dojang_best_floor > 0 && <span className="badge-fill bg-danger c-white">{helpers.$t('DOJANG')} {character.dojang.dojang_best_floor}층</span>}
-          <span className="badge-fill bg-danger c-white">{helpers.$t('UNION')} {character.union.union_level}</span>
-          <span className="badge-fill bg-danger c-white">{helpers.$t('ARTIFACT')} {character.union.union_artifact_level}</span>
-        </div>
-      </div>
+      <BasicDetails character={character} />
     </div>
-    <a
-      onMouseOver={() => helpers.tooltip.show({
-        id: 'tooltip-exp-bar',
-        showAbove: document.querySelector('.exp-bar') as HTMLElement,
-        text: '레벨업까지 필요한 예상 사냥시간입니다.',
-      })}
-      onMouseOut={() => helpers.tooltip.hide('tooltip-exp-bar')}
-      href="https://namu.wiki/w/%EB%A9%94%EC%9D%B4%ED%94%8C%EC%8A%A4%ED%86%A0%EB%A6%AC/%EB%A0%88%EB%B2%A8#s-9.1.2"
-      target="_blank"
-      rel="noreferrer"
-      className="exp-bar">
-      <div
-        className="exp-fill overlay"
-        style={{ width: `${character.basic.character_exp_rate}%` }}
-      >
-      </div>
-      <div className="exp-text overlay">
-        <b>{character.basic.character_exp_rate}%</b>
-        <HuntGuestimation character={character} />
-      </div>
-    </a>
   </div>
 }

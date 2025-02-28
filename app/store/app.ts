@@ -35,7 +35,6 @@ type AppState = {
     locale?: 'kr' | 'en'
     nickname?: string
     showNav?: boolean
-    markdown?: string
   }
   setSettings: (settings: AppState['settings']) => void
 

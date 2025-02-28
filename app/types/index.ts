@@ -37,6 +37,14 @@ export type CharacterInfo = {
   petEquipment: CharacterPetEquipment
   popularity: CharacterPopularity
   propensity: CharacterPropensity
+  ranking: {
+    overall: { ranking: number }
+    overall_world: { ranking: number }
+    class: { ranking: number }
+    class_world: { ranking: number }
+    union: { ranking: number }
+    union_world: { ranking: number }
+  }
   setEffect: CharacterSetEffect
   skills: CharacterSkill[]
   stat: CharacterStat

@@ -128,7 +128,7 @@
     max-width: calc(100vw - 32px);
     padding: 16px;
     border-radius: 4px;
-    color: var(--white);
+    color: var(--text-base);
     display: flex;
     opacity: 0;
     transform: translateY(-40px);
@@ -205,7 +205,7 @@
 }
 
 .app-tooltip {
-  color: var(--white);
+  color: var(--background-base);
   background: var(--text-base);
   position: fixed;
   border-radius: 4px;
@@ -255,20 +255,6 @@
       top: calc(-1 * var(--triangle-size));
       bottom: 0;
       transform: rotate(180deg) translateX(50%) !important;
-    }
-  }
-
-  &.light {
-    background: var(--white);
-    color: var(--text-base);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
-
-    .fa-times {
-      color: var(--gray-500);
-    }
-
-    .triangle {
-      border-top: var(--triangle-size) solid var(--white);
     }
   }
 }

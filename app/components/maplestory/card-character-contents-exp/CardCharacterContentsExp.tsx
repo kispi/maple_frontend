@@ -2,6 +2,7 @@ import { CharacterInfo } from '~/types'
 import { useEffect, useMemo, useState } from 'react'
 import { dailyContents, weeklyContents } from '~/assets/constants/exp'
 import helpers from '~/helpers'
+import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import './card-character-contents-exp.scss'
 
 type ExpBoyak = {
@@ -27,7 +28,7 @@ const ContentRow = ({
       {helpers.$t($$key)}{['angler_company', 'high_mountain'].includes($$key) && <span>[보상 Lv.2]</span>}
     </div>
     <div className="value">
-      {value}%{boyak && <span className="badge-boyak m-l-8">보약 +{boyak}%</span>}
+      {value}%{(boyak && boyak > 0) ? <BadgeGlass className="m-l-8">{`보약 +${boyak}%`}</BadgeGlass> : null}
     </div>
   </div>
 }
@@ -37,7 +38,7 @@ export const CardCharacterContentsExp = ({
 }: {
   character: CharacterInfo,
 }) => {
-  const [folded, setFolded] = useState({ daily: character.basic.character_level >= 260, weekly: false })
+  const [folded, setFolded] = useState({ daily: false, weekly: false })
 
   const expBoyak = useMemo(() => {
     const zeroth = ((character.skills.find(o => o.character_skill_grade === '0') || {}).character_skill || []).find(o => o.skill_name === '특제 문어요리')
@@ -64,7 +65,7 @@ export const CardCharacterContentsExp = ({
   }, [character])
 
   useEffect(() => {
-    setFolded({ daily: character.basic.character_level >= 260, weekly: false })
+    setFolded({ daily: false, weekly: false })
   }, [character.basic.character_level])
 
   const playable = useMemo(() => ({
@@ -75,9 +76,9 @@ export const CardCharacterContentsExp = ({
     ].filter(o => o.length > 0),
     weekly: [
       weeklyContents.extremeMonsterPark({ lev: character.basic.character_level, additionalPercentage: expBoyak?.monsterPark }),
+      weeklyContents.vipAfk({ lev: character.basic.character_level }),
       weeklyContents.highMountain({ lev: character.basic.character_level, rewardLev: 2 }),
       weeklyContents.anglerCompany({ lev: character.basic.character_level, rewardLev: 2 }),
-      weeklyContents.vipAfk({ lev: character.basic.character_level }),
     ].filter(o => o.$$expPercent)
   }), [character, expBoyak])
 

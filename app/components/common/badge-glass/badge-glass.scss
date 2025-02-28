@@ -1,0 +1,32 @@
+.badge-glass {
+  border-radius: 24px;
+  padding: 0 6px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 4px;
+  overflow: hidden;
+  position: relative;
+  color: var(--white);
+
+  // 유리 질감 효과
+  backdrop-filter: blur(10px) saturate(180%);
+
+
+  // 배경이 밝을 때 대비용으로 뱃지 아래 어두운 배경 추가
+  &::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.5); // 얇은 검은색 배경
+    content: '';
+  }
+
+  .badge-glass-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
