@@ -92,6 +92,12 @@ export const PanelBasic = ({
       </div>
     </div>
     <a
+      onMouseOver={() => helpers.tooltip.show({
+        id: 'tooltip-exp-bar',
+        showAbove: document.querySelector('.exp-bar') as HTMLElement,
+        text: '레벨업까지 필요한 예상 사냥시간입니다.',
+      })}
+      onMouseOut={() => helpers.tooltip.hide('tooltip-exp-bar')}
       href="https://namu.wiki/w/%EB%A9%94%EC%9D%B4%ED%94%8C%EC%8A%A4%ED%86%A0%EB%A6%AC/%EB%A0%88%EB%B2%A8#s-9.1.2"
       target="_blank"
       rel="noreferrer"

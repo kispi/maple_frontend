@@ -1,36 +1,27 @@
 import { create } from 'zustand'
 import { $http } from '~/modules/axios'
+import { Modal, Toast, Tooltip } from '~/types'
 import helpers from '../helpers'
 
 const supportedLocales = ['kr', 'en']
 
-export type Modal = {
-  id: string
-  options: object
-  // @ts-expect-error 모달 컴포넌트에서 어떤 옵션을 넘겨줄지 사전에 다 명시하는 것은 불가능함.
-  component: (...args) => React.ReactNode
-  resolve: (e?: Event) => void
-}
-
-export type ToastType = 'success' | 'warning' | 'error'
-
-export type Toast = {
-  id: string
-  html: string
-  show: boolean
-  duration: number
-  type: ToastType
-}
-
 type AppState = {
-  modals: Modal[]
+  modals: { [key: string]: Modal }
   addModal: (modal: Modal) => void
   removeModal: (modal: Modal) => void
   removeAllModals: () => void
 
-  toasts: Toast[]
+  toasts: { [key: string]: Toast }
   addToast: (toast: Toast) => void
   removeToast: (toast: Toast) => void
+
+  tooltips: { [key: string]: Tooltip }
+  addTooltip: (tooltip: Tooltip) => void
+  removeTooltip: (tooltipId: string) => void
+  removeAllTooltips: () => void
+
+  loading: { [key: string]: boolean }
+  setLoading: (key: string, value: boolean) => void
 
   windowInnerWidth: number
   isMobile: boolean
@@ -59,36 +50,53 @@ type AppState = {
 
 const useAppStore = create<AppState>((set) => ({
   // Modals
-  modals: [],
+  modals: {},
   addModal: (modal: Modal) => set((state) => {
     modal.id = helpers.util.generateUUIDV4()
-
-    return {
-      modals: [modal, ...state.modals]
-    }
-  }),
-  removeModal: (modal: Modal) => set((state) => {
-    const idx = state.modals.findIndex(m => m.id === modal.id)
-    if (idx >= 0) state.modals = state.modals.slice(0, idx).concat(state.modals.slice(idx + 1))
+    state.modals[modal.id] = modal
 
     return { modals: state.modals }
   }),
-  removeAllModals: () => set({ modals: [] }),
+  removeModal: (modal: Modal) => set((state) => {
+    delete state.modals[modal.id]
+    return { modals: state.modals }
+  }),
+  removeAllModals: () => set({ modals: {} }),
 
   // Toasts
-  toasts: [],
+  toasts: {},
   addToast: (toast: Toast) => set((state) => {
     toast.id = helpers.util.generateUUIDV4()
-
-    return {
-      toasts: [toast, ...state.toasts]
-    }
+    state.toasts[toast.id] = toast
+    return { toasts: state.toasts }
   }),
   removeToast: (toast: Toast) => set((state) => {
-    const idx = state.toasts.findIndex(t => t.id === toast.id)
-    if (idx >= 0) state.toasts = state.toasts.slice(0, idx).concat(state.toasts.slice(idx + 1))
-
+    delete state.toasts[toast.id]
     return { toasts: state.toasts }
+  }),
+
+  // Tooltips
+  tooltips: {},
+  addTooltip: (tooltip) => set((state) => {
+    if (!tooltip.id) {
+      console.warn('Tooltip ID is required')
+      return { tooltips: state.tooltips }
+    }
+
+    state.tooltips[tooltip.id] = tooltip
+    return { tooltips: state.tooltips }
+  }),
+  removeTooltip: (tooltipId) => set((state) => {
+    delete state.tooltips[tooltipId]
+    return { tooltips: state.tooltips }
+  }),
+  removeAllTooltips: () => set({ tooltips: {} }),
+
+  // Loading
+  loading: {},
+  setLoading: (key, value) => set((state) => {
+    state.loading[key] = value
+    return { loading: state.loading }
   }),
 
   windowInnerWidth: 0,

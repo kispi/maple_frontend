@@ -1,8 +1,10 @@
-import { useEffect } from 'react'
-import loadVendors from '~/lazy-loads'
+import { useCallback, useEffect } from 'react'
+import AppLoading from './AppLoading'
 import AppModal from './AppModal'
 import AppToast from './AppToast'
+import AppTooltip from './AppTooltip'
 import useAppStore from '~/store/app'
+import loadVendors from '~/lazy-loads'
 import helpers from '~/helpers'
 import './addons.scss'
 
@@ -17,6 +19,12 @@ const onScroll = () => {
   if (!scrollTop) return
 
   useAppStore.getState().setScrollTop(scrollTop)
+  useAppStore.getState().removeAllTooltips()
+}
+
+const onResize = () => {
+  setIsMobile()
+  useAppStore.getState().removeAllTooltips()
 }
 
 const GoToTop = () => {
@@ -35,35 +43,37 @@ const GoToTop = () => {
 }
 
 const AppAddons = () => {
-  const { modals, toasts, setSettings } = useAppStore()
+  const { modals, toasts, tooltips, setSettings } = useAppStore()
 
-  const loadSettings = () => {
+  const loadSettings = useCallback(() => {
     const storedSettings = helpers.localStorage.getMeta('settings') || {}
     if (!storedSettings.nickname) storedSettings.nickname = `방문자_${helpers.randomString().substring(0, 6)}`
     setSettings(storedSettings)
-  }
+  }, [setSettings])
 
   useEffect(() => {
     setIsMobile()
     loadSettings()
     loadVendors()
     useAppStore.getState().loadConfig()
-    window.addEventListener('resize', setIsMobile)
+    window.addEventListener('resize', onResize)
     window.addEventListener('scroll', onScroll, { capture: true })
   
     return () => {
-      window.removeEventListener('resize', setIsMobile)
+      window.removeEventListener('resize', onResize)
       window.removeEventListener('scroll', onScroll)
     }
-  }, [])
+  }, [loadSettings])
 
-  return <>
-    {modals.map((modal, idx) => <AppModal modal={modal} key={idx}/>)}
-    {toasts.length > 0 && <div className="app-toasts">
-      {toasts.map((toast, idx) => <AppToast toast={toast} key={idx}/>)}
+  return <div className="app-addons">
+    {Object.keys(toasts).length > 0 && <div className="app-toasts">
+      {Object.keys(toasts).map((key, idx) => <AppToast toast={toasts[key]} key={idx}/>)}
     </div>}
+    {Object.keys(modals).map((key, idx) => <AppModal modal={modals[key]} key={idx}/>)}
+    {Object.keys(tooltips).map((key, idx) => <AppTooltip tooltip={tooltips[key]} key={idx}/>)}
+    <AppLoading />
     <GoToTop/>
-  </>
+  </div>
 }
 
 export default AppAddons

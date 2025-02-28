@@ -44,3 +44,30 @@ export type CharacterInfo = {
   union: Union
   unionRaider: UnionRaider
 }
+
+export type Modal = {
+  id: string
+  options: object
+  // @ts-expect-error 모달 컴포넌트에서 어떤 옵션을 넘겨줄지 사전에 다 명시하는 것은 불가능함.
+  component: (...args) => React.ReactNode
+  resolve: (e?: Event) => void
+}
+
+export type ToastType = 'success' | 'warning' | 'error'
+
+export type Toast = {
+  id: string
+  html: string
+  show: boolean
+  duration: number
+  type: ToastType
+}
+
+export type Tooltip = {
+  id: string
+  text: string
+  showAbove: HTMLElement
+  below?: boolean
+  useCloser?: boolean
+  width?: number
+}

@@ -38,7 +38,9 @@ const isValidNickname = (nickname: string): boolean => {
 const Index = () => {
   const [characterName, setCharacterName] = useState('')
 
-  const { characters, loadCharacter } = useMapleStore()
+  const { loading, setLoading } = useAppStore()
+
+  const { characters, resetCharacters, loadCharacter } = useMapleStore()
 
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -56,15 +58,20 @@ const Index = () => {
   }, [preparedCharacter, characters])
 
   const getCharacterInfo = async (name: string) => {
+    if (loading.global) return
+
     if (!isValidNickname(name)) {
       helpers.toast.error(helpers.$t('ERROR_INVALID_NICKNAME'))
       return
     }
 
     try {
+      setLoading('global', true)
       await loadCharacter(name)
     } catch (e) {
-      helpers.toast.error((e as DefaultError).data.message)
+      helpers.toast.error((e as DefaultError).data.message || helpers.$t('ERROR_FAILED'))
+    } finally {
+      setLoading('global', false)
     }
   }
 
@@ -72,6 +79,9 @@ const Index = () => {
     if (name) {
       setCharacterName(name) // 검색창에도 반영
       getCharacterInfo(name) // 캐릭터 정보 다시 불러오기
+    } else {
+      setCharacterName('')
+      resetCharacters()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name])

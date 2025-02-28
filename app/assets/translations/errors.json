@@ -14,5 +14,13 @@
   "ERROR_INVALID_NICKNAME": {
     "en": "Invalid character name",
     "kr": "캐릭터 이름이 올바르지 않습니다"
+  },
+  "CHARACTER_NOT_FOUND": {
+    "en": "Character not found",
+    "kr": "캐릭터를 찾을 수 없습니다"
+  },
+  "ERROR_FAILED": {
+    "en": "Failed to process the request",
+    "kr": "요청을 처리하는데 실패했습니다"
   }
 }

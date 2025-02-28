@@ -1,4 +1,5 @@
-import useAppStore, { Modal } from '~/store/app'
+import { Modal } from '~/types'
+import useAppStore from '~/store/app'
 
 const initModal = ({
   options,

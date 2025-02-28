@@ -1,5 +1,5 @@
-import { DefaultError } from '~/modules/axios'
-import useAppStore, { Toast, ToastType } from '~/store/app'
+import { DefaultError, Toast, ToastType } from '~/types'
+import useAppStore from '~/store/app'
 
 const showToast = ({
   html,

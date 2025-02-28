@@ -6,6 +6,7 @@ type MapleState = {
   currentCharacter?: CharacterInfo
   characters: Record<string, CharacterInfo>
   loadCharacter: (characterName: string) => Promise<unknown>
+  resetCharacters: () => void
 }
 
 const useMapleStore = create<MapleState>((set, get) => ({
@@ -21,6 +22,7 @@ const useMapleStore = create<MapleState>((set, get) => ({
       return Promise.reject(e)
     }
   },
+  resetCharacters: () => set(() => ({ characters: {} })),
 }))
 
 export default useMapleStore

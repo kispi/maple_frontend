@@ -7,6 +7,7 @@ import logic from './logic'
 import modal from './modal'
 import template from './template'
 import toast from './toast'
+import tooltip from './tooltip'
 import util from './util'
 
 const helpers = {
@@ -18,6 +19,7 @@ const helpers = {
   modal,
   template,
   toast,
+  tooltip,
   util,
   randomString: () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
   $t: translate,
