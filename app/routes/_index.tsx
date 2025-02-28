@@ -51,10 +51,14 @@ const Index = () => {
       {selectedCharacter && <div className="flex g-24 m-t-16">
         <CardCharacterInfo character={selectedCharacter} />
         <CardCharacterContentsExp character={selectedCharacter} />
-        <div className={`card ${isMobile ? 'flex' : 'flex-row'} g-24`}>
-          <PanelAbility character={selectedCharacter} className="flex-fill" />
-          <PanelHexaSkills character={selectedCharacter} className="flex-fill" />
-        </div>
+
+        {/* 리액트는 v-if 같은거 없냐... */}
+        {(selectedCharacter.ability.ability_info.length > 0 || selectedCharacter.skills.find(skill => skill.character_skill_grade === '6')) &&
+          <div className={`card ${isMobile ? 'flex' : 'flex-row'} g-24`}>
+            <PanelAbility character={selectedCharacter} className="flex-fill" />
+            <PanelHexaSkills character={selectedCharacter} className="flex-fill" />
+          </div>
+        }
         <div className="section-bottom">
           <CardCharacterItemEquipment character={selectedCharacter} />
         </div>
