@@ -26,9 +26,7 @@
 
   .content-body {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     row-gap: 8px;
-    column-gap: 24px;
   }
 
   .content-row {
@@ -49,14 +47,6 @@
 
     img {
       width: 24px;
-    }
-  }
-
-  @media (max-width: 767px) {
-    font-size: 13px;
-
-    .content-body {
-      grid-template-columns: repeat(1, 1fr);
     }
   }
 }
