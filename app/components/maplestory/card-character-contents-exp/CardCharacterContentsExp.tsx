@@ -40,7 +40,7 @@ export const CardCharacterContentsExp = ({
 }: {
   character: CharacterInfo,
 }) => {
-  const [folded, setFolded] = useState({ daily: false, weekly: false })
+  const [folded, setFolded] = useState({ daily: false, weekly: false, expCoupons: false })
 
   const expBoyak = useMemo(() => {
     const zeroth = ((character.skills.find(o => o.character_skill_grade === '0') || {}).character_skill || []).find(o => o.skill_name === '특제 문어요리')
@@ -67,7 +67,7 @@ export const CardCharacterContentsExp = ({
   }, [character])
 
   useEffect(() => {
-    setFolded({ daily: false, weekly: false })
+    setFolded({ daily: false, weekly: false, expCoupons: false })
   }, [character.basic.character_level])
 
   const playable = useMemo(() => ({
@@ -101,20 +101,13 @@ export const CardCharacterContentsExp = ({
       {!folded.daily && <div className="flex g-8 m-t-8">
         {playable.daily.map((o, i) => <div className="content" key={i}>
           <div className="content-body">
-            {o.map(o => {
-              const boyakKey = () => {
-                if (['arcane_river', 'tenebris'].includes(o.region)) return 'arcaneRiver'
-                if (o.region === 'grandis') return 'grandis'
-              }
-
-              return <ContentRow
-                key={o.key}
-                $$key={o.key}
-                img={o.img}
-                value={o.$$expPercent}
-                boyak={(expBoyak || {})[boyakKey() as keyof ExpBoyak]}
-              />
-            })}
+            {o.map(o => <ContentRow
+              key={o.key}
+              $$key={o.key}
+              img={o.img}
+              value={o.$$expPercent}
+              boyak={(expBoyak || {})[o.boyakRegion as keyof ExpBoyak]}
+            />)}
           </div>
         </div>
         )}
@@ -143,10 +136,13 @@ export const CardCharacterContentsExp = ({
       </div>}
     </div>}
     {playable.expCoupons.length > 0 && <div className="contents">
-      <div className="foldable">
+      <div
+        className="foldable"
+        onClick={() => setFolded({ ...folded, expCoupons: !folded.expCoupons })}>
         <span className="title">{helpers.$t('EXP_COUPONS')}</span>
+        <i className={`fa fa-chevron-${folded.expCoupons ? 'down' : 'up'}`} onClick={() => setFolded({ ...folded, expCoupons: !folded.expCoupons })} />
       </div>
-      <div className="flex g-8 m-t-8">
+      {!folded.expCoupons && <div className="flex g-8 m-t-8">
         <div className="content">
           <div className="content-body">
             {playable.expCoupons.map(o =>
@@ -158,7 +154,7 @@ export const CardCharacterContentsExp = ({
               />)}
           </div>
         </div>
-      </div>
+      </div>}
     </div>}
   </div>
 }

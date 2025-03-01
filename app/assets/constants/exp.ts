@@ -13,16 +13,19 @@ export const dailyContents = {
     arcaneRiver: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) =>
       dailyQuestsData.arcaneRiver.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
+        boyakRegion: 'arcaneRiver',
         $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
     tenebris: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) =>
       dailyQuestsData.tenebris.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
+        boyakRegion: 'arcaneRiver',
         $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
     grandis: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) =>
       dailyQuestsData.grandis.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
+        boyakRegion: 'grandis',
         $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
   },
