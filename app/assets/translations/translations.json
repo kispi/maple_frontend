@@ -183,6 +183,18 @@
     "kr": "VIP 사우나 (시간당)",
     "en": "VIP Sauna (Per Hour)"
   },
+  "EXP_COUPONS": {
+    "kr": "EXP 교환권",
+    "en": "EXP Coupons"
+  },
+  "EXP_COUPON_BASIC": {
+    "kr": "EXP 교환권",
+    "en": "EXP Coupon"
+  },
+  "EXP_COUPON_ADVANCED": {
+    "kr": "상급 EXP 교환권",
+    "en": "Advanced EXP Coupon"
+  },
   "GUILD": {
     "kr": "길드",
     "en": "Guild"

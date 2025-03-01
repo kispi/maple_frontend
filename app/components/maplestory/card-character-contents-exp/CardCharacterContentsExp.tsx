@@ -1,6 +1,6 @@
 import { CharacterInfo } from '~/types'
 import { useEffect, useMemo, useState } from 'react'
-import { dailyContents, weeklyContents } from '~/assets/constants/exp'
+import { dailyContents, expCoupons, weeklyContents } from '~/assets/constants/exp'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import './card-character-contents-exp.scss'
@@ -25,7 +25,9 @@ const ContentRow = ({
   return <div className="content-row">
     <div className="key">
       <img src={helpers.withCdn(`images/${img}`)} alt={$$key} />
-      {helpers.$t($$key)}{['angler_company', 'high_mountain'].includes($$key) && <span>[보상 Lv.2]</span>}
+      {helpers.$t($$key)}
+      {['angler_company', 'high_mountain'].includes($$key) && <span>[보상 Lv.2]</span>}
+      {$$key.includes('exp_coupon') && <span>(1000개당)</span>}
     </div>
     <div className="value">
       {value}%{(boyak && boyak > 0) ? <BadgeGlass className="m-l-8">{`보약 +${boyak}%`}</BadgeGlass> : null}
@@ -79,6 +81,10 @@ export const CardCharacterContentsExp = ({
       weeklyContents.vipAfk({ lev: character.basic.character_level }),
       weeklyContents.highMountain({ lev: character.basic.character_level, rewardLev: 2 }),
       weeklyContents.anglerCompany({ lev: character.basic.character_level, rewardLev: 2 }),
+    ].filter(o => o.$$expPercent),
+    expCoupons: [
+      expCoupons.basic({ lev: character.basic.character_level }),
+      expCoupons.advanced({ lev: character.basic.character_level }),
     ].filter(o => o.$$expPercent)
   }), [character, expBoyak])
 
@@ -135,6 +141,24 @@ export const CardCharacterContentsExp = ({
           </div>
         </div>
       </div>}
+    </div>}
+    {playable.expCoupons.length > 0 && <div className="contents">
+      <div className="foldable">
+        <span className="title">{helpers.$t('EXP_COUPONS')}</span>
+      </div>
+      <div className="flex g-8 m-t-8">
+        <div className="content">
+          <div className="content-body">
+            {playable.expCoupons.map(o =>
+              <ContentRow
+                key={o.key}
+                $$key={o.key}
+                img={o.img}
+                value={o.$$expPercent}
+              />)}
+          </div>
+        </div>
+      </div>
     </div>}
   </div>
 }
