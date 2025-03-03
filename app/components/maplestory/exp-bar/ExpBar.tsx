@@ -1,5 +1,5 @@
 import helpers from '~/helpers'
-import { CharacterInfo } from '~/types'
+import './exp-bar.scss'
 
 const estimatedMinutesToLevelUp = ({
   currentLevel,
@@ -45,10 +45,10 @@ const minToHour = (min: number) => {
   return Math.round((result < 5 ? result : Math.round(result)) * 100) / 100
 }
 
-const HuntGuestimation = ({ character }: { character: CharacterInfo }) => {
+const HuntGuestimation = ({ expRate, level } : { expRate: string, level: number }) => {
   const requiredHuntTimes = estimatedMinutesToLevelUp({
-    currentExpPercent: parseFloat(character.basic.character_exp_rate),
-    currentLevel: character.basic.character_level,
+    currentExpPercent: parseFloat(expRate),
+    currentLevel: level,
   })
 
   if (!requiredHuntTimes) return null
@@ -60,26 +60,33 @@ const HuntGuestimation = ({ character }: { character: CharacterInfo }) => {
   </span>
 }
 
-const ExpBar = ({ character} : { character: CharacterInfo }) => {
-  return <a
-    onMouseOver={() => helpers.tooltip.show({
+const ExpBar = ({ expRate, level, simple } : { expRate: string, level: number, simple?: boolean }) => {
+  const onMouseOver = () => {
+    if (simple) return
+
+    helpers.tooltip.show({
       id: 'tooltip-exp-bar',
       showAbove: document.querySelector('.exp-bar') as HTMLElement,
       text: '레벨업까지 필요한 예상 사냥시간입니다.',
-    })}
+    })
+  }
+
+  return <a
+    onMouseOver={() => onMouseOver()}
     onMouseOut={() => helpers.tooltip.hide('tooltip-exp-bar')}
+    onClick={e => simple ? e.preventDefault() : null}
     href="https://namu.wiki/w/%EB%A9%94%EC%9D%B4%ED%94%8C%EC%8A%A4%ED%86%A0%EB%A6%AC/%EB%A0%88%EB%B2%A8#s-9.1.2"
     target="_blank"
     rel="noreferrer"
     className="exp-bar">
     <div
       className="exp-fill overlay"
-      style={{ width: `${character.basic.character_exp_rate}%` }}
+      style={{ width: `${expRate}%` }}
     >
     </div>
     <div className="exp-text overlay">
-      <b>{character.basic.character_exp_rate}%</b>
-      <HuntGuestimation character={character} />
+      <b>{expRate}%</b>
+      {!simple && <HuntGuestimation expRate={expRate} level={level} />}
     </div>
   </a>
 }

@@ -1,5 +1,5 @@
 import { CharacterInfo } from '~/types'
-import ExpBar from './ExpBar'
+import ExpBar from '../exp-bar/ExpBar'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 
@@ -58,7 +58,7 @@ export const PanelBasic = ({
       </BadgeGlass>
       <BadgeGlass>{character.basic.character_class}</BadgeGlass>
     </div>
-    <ExpBar character={character} />
+    <ExpBar expRate={character.basic.character_exp_rate} level={character.basic.character_level} />
     <div className="flex-row align-center g-8">
       <div className="image-container">
         <img

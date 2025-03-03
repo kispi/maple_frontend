@@ -53,6 +53,17 @@ export type CharacterInfo = {
   unionRaider: UnionRaider
 }
 
+export type SimpleCharacter = {
+  class: string,
+  level: number,
+  name: string,
+  img: string,
+  world: string,
+  guild: string,
+  expRate: string,
+  lastUpdated: string,
+}
+
 export type Modal = {
   id: string
   options: object

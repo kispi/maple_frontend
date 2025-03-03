@@ -1,0 +1,25 @@
+.exp-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  height: 20px;
+  border: 1px solid var(--border-light);
+
+  .exp-fill {
+    background: rgba(64, 192, 64, 0.95);
+  }
+  
+  .exp-text {
+    color: var(--white);
+    font-size: 12px;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -22,7 +22,9 @@ const useMapleStore = create<MapleState>((set, get) => ({
       return Promise.reject(e)
     }
   },
-  resetCharacters: () => set(() => ({ characters: {} })),
+  resetCharacters: () => {
+    return { characters: {} }
+  },
 }))
 
 export default useMapleStore

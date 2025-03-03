@@ -1,5 +1,5 @@
 import { DefaultError } from '~/types'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from '@remix-run/react'
 import helpers from '~/helpers'
 import useMapleStore from '~/store/maple'
@@ -18,14 +18,10 @@ const isValidNickname = (nickname: string): boolean => {
   return byteLength >= 4 && byteLength <= 12
 }
 
-const SearchCharacter = ({
-  characterName,
-  setCharacterName,
-}: {
-  characterName: string,
-  setCharacterName: (name: string) => void,
-}) => {
+const SearchCharacter = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const [characterName, setCharacterName] = useState('')
 
   const { loading, setLoading } = useAppStore()
 
@@ -36,12 +32,6 @@ const SearchCharacter = ({
   const name = searchParams.get('name') || ''
 
   const getCharacterInfo = async (name: string) => {
-    /**
-    호출하는 _index 쪽에서 처음엔 characterName이 ''이고, 여기서 클라이언트 검색이 이뤄지고 나면 populated됨.
-    따라서 !characterName이면 loader에서 이미 fetch된 것이므로 return.
-     */
-    if (!characterName) return
-
     if (loading.global) return
 
     if (!isValidNickname(name)) {
@@ -62,12 +52,12 @@ const SearchCharacter = ({
 
   useEffect(() => {
     if (name) {
-      setCharacterName(name) // 검색창에도 반영
       getCharacterInfo(name) // 캐릭터 정보 다시 불러오기
     } else {
-      setCharacterName('')
       resetCharacters()
+      setCharacterName('')
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name])
 
