@@ -7,12 +7,14 @@ import helpers from '~/helpers'
 import './stored-characters.scss'
 
 const hoursAgo = (date: string) => {
-  const diff = helpers.dayjs().diff(helpers.dayjs(date), 'minute')
-  if (diff < 60) return `${diff}분 전`
+  const diff = helpers.dayjs().diff(helpers.dayjs(date), 'second')
+  if (diff < 60) return `${diff}초 전`
 
-  if (diff < 60 * 24) return `${helpers.dayjs().diff(helpers.dayjs(date), 'hour')}시간 전`
+  if (diff < 60 * 60) return `${diff}분 전`
 
-  if (diff < 60 * 24 * 30) return `${helpers.dayjs().diff(helpers.dayjs(date), 'day')}일 전`
+  if (diff < 60 * 60 * 24) return `${helpers.dayjs().diff(helpers.dayjs(date), 'hour')}시간 전`
+
+  if (diff < 60 * 60 * 24 * 30) return `${helpers.dayjs().diff(helpers.dayjs(date), 'day')}일 전`
 
   return `${helpers.dayjs().diff(helpers.dayjs(date), 'month')}개월 전`
 }

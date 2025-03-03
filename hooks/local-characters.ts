@@ -19,13 +19,15 @@ const useLocalCharacters = (selectedCharacter?: CharacterInfo) => {
   const [localCharacters, setLocalCharacters] = useState<Record<string, SimpleCharacter>>({})
 
   const sortedLocalCharacters = useMemo(() => {
-    return Object.keys(localCharacters)
+    if (!localCharacters) return []
+
+    return Object.keys(localCharacters || {})
       .sort((a, b) => localCharacters[b].lastUpdated.localeCompare(localCharacters[a].lastUpdated))
       .map(key => localCharacters[key])
   }, [localCharacters])
 
   const loadStoredCharacters = useCallback(() => {
-    const stored = helpers.localStorage.getMeta('localCharacters')
+    const stored = helpers.localStorage.getMeta('localCharacters') || {}
     if (!selectedCharacter) {
       setLocalCharacters(stored)
       return
