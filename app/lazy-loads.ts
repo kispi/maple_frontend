@@ -11,7 +11,7 @@ export const loadGA = async () => {
 const loadVendors = async () => {
   await Promise.all([
     loadGA(),
-    helpers.dom.loadScript({ url: '/scripts/image-resize.min.js' })
+    // helpers.dom.loadScript({ url: '/scripts/image-resize.min.js' })
   ])
 }
 

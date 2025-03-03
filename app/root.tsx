@@ -1,9 +1,11 @@
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from '@remix-run/react'
 import type { LinksFunction, MetaFunction } from '@remix-run/node'
 import { createMetaTags } from './assets/constants/meta'
@@ -43,6 +45,20 @@ export const meta: MetaFunction = () => ([
     { name: 'naver-site-verification', content: '27118f24e98ba45698f9cf7b7de3c81a8d13fdc5' },
   ],
 ])
+
+export const ErrorBoundary = () => {
+  const error = useRouteError()
+
+  return <div className="view-not-found">
+    <img
+      src="https://i.namu.wiki/i/Vy3qaQ2IvMaXucz3oK3iI4ao0oA8FS-rJn8jPcgzxjW7YxMfpP4j6Hf0X21G1JYzcYX6UZOxd53kpZahTkAOpg.gif"
+      alt="404 Not Found"
+    />
+    <div className="f-24">[<b>{isRouteErrorResponse(error) ? error.status : ''}</b>] 페이지가 없습니다</div>
+
+    <a href="/" className="btn btn-primary">메인으로</a>
+  </div>
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { settings } = useAppStore()

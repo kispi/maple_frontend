@@ -26,6 +26,13 @@ const useLocalCharacters = (selectedCharacter?: CharacterInfo) => {
       .map(key => localCharacters[key])
   }, [localCharacters])
 
+  const removeCharacter = useCallback((character: SimpleCharacter) => {
+    const characters = { ...localCharacters }
+    delete characters[character.name]
+    helpers.localStorage.setMeta('localCharacters', characters)
+    setLocalCharacters(characters)
+  }, [localCharacters])
+
   const loadStoredCharacters = useCallback(() => {
     const stored = helpers.localStorage.getMeta('localCharacters') || {}
     if (!selectedCharacter) {
@@ -47,7 +54,7 @@ const useLocalCharacters = (selectedCharacter?: CharacterInfo) => {
     [selectedCharacter, loadStoredCharacters],
   )
 
-  return { sortedLocalCharacters }
+  return { sortedLocalCharacters, removeCharacter }
 }
 
 export default useLocalCharacters

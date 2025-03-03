@@ -1,69 +1,41 @@
 import { DefaultError } from '~/types'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from '@remix-run/react'
 import helpers from '~/helpers'
 import useMapleStore from '~/store/maple'
-import useAppStore from '~/store/app'
 import './search-character.scss'
-
-const isValidNickname = (nickname: string): boolean => {
-  if (!(nickname || '').trim()) return false
-
-  if (nickname.includes(' ')) return false
-
-  const byteLength = [...(nickname || '').trim()].reduce((acc, char) => {
-    return acc + (char.charCodeAt(0) > 127 ? 2 : 1);
-  }, 0)
-
-  return byteLength >= 4 && byteLength <= 12
-}
 
 const SearchCharacter = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const [characterName, setCharacterName] = useState('')
 
-  const { loading, setLoading } = useAppStore()
-
-  const { loadCharacter, resetCharacters } = useMapleStore()
+  const { loadCharacter, setSelectedCharacter } = useMapleStore()
 
   const refInput = useRef<HTMLInputElement>(null)
 
-  const name = searchParams.get('name') || ''
+  const name = searchParams.get('name')
 
-  const getCharacterInfo = async (name: string) => {
-    if (loading.global) return
-
-    if (!isValidNickname(name)) {
-      helpers.toast.error(helpers.$t('ERROR_INVALID_NICKNAME'))
-      return
-    }
-
+  const getCharacterInfo = useCallback(async (name: string) => {
     try {
-      setLoading('global', true)
       await loadCharacter(name)
+      setSearchParams({ name })
     } catch (e) {
       const error = e as DefaultError
       helpers.toast.error(error.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
-    } finally {
-      setLoading('global', false)
     }
-  }
+  }, [loadCharacter, setSearchParams])
 
   useEffect(() => {
-    if (name) {
-      getCharacterInfo(name) // 캐릭터 정보 다시 불러오기
-    } else {
-      resetCharacters()
-      setCharacterName('')
-    }
+    if (name) getCharacterInfo(name)
+    else setSelectedCharacter(null)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name])
+    if (refInput.current) refInput.current.focus()
+  }, [name, getCharacterInfo, setSelectedCharacter])
 
   return <div className="search-character input-wrapper">
     <i
-      onClick={() => setSearchParams({ name: characterName })}
+      onClick={() => getCharacterInfo(characterName)}
       className="far fa-search cursor-pointer"
     />
     <input
@@ -74,7 +46,7 @@ const SearchCharacter = () => {
       maxLength={12}
       onChange={(e) => setCharacterName(e.target.value)}
       onKeyDown={e => {
-        if (e.key === 'Enter') setSearchParams({ name: characterName })
+        if (e.key === 'Enter') getCharacterInfo(characterName)
       }}
     />
     {characterName && <i

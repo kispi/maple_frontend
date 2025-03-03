@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-import { useSearchParams } from '@remix-run/react'
 import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
 import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
 import { CardCharacterContentsExp } from '~/components/maplestory/card-character-contents-exp/CardCharacterContentsExp'
@@ -13,18 +11,9 @@ import StoredCharacters from '~/components/maplestory/stored-characters/StoredCh
 export const shouldRevalidate = () => false
 
 const Index = () => {
-  const [searchParams] = useSearchParams()
-
-  const { characters } = useMapleStore()
+  const { selectedCharacter } = useMapleStore()
 
   const { isMobile } = useAppStore()
-
-  const name = searchParams.get('name') || ''
-
-  const selectedCharacter = useMemo(() => {
-    return characters[name]
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [characters, name])
 
   // SearchCharacter에서 따로 $http 요청하지 말고, url이 바뀌면 loader가 자동 호출되는 것을 이용해서 그냥 그 데이터를 쓰는 형태로 바꿔야 할 듯
   return (

@@ -71,9 +71,15 @@ const ExpBar = ({ expRate, level, simple } : { expRate: string, level: number, s
     })
   }
 
+  const onMouseOut = () => {
+    if (simple) return
+
+    helpers.tooltip.hide('tooltip-exp-bar')
+  }
+
   return <a
     onMouseOver={() => onMouseOver()}
-    onMouseOut={() => helpers.tooltip.hide('tooltip-exp-bar')}
+    onMouseOut={() => onMouseOut()}
     onClick={e => simple ? e.preventDefault() : null}
     href="https://namu.wiki/w/%EB%A9%94%EC%9D%B4%ED%94%8C%EC%8A%A4%ED%86%A0%EB%A6%AC/%EB%A0%88%EB%B2%A8#s-9.1.2"
     target="_blank"
