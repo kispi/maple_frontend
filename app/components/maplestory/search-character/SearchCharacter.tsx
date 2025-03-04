@@ -12,6 +12,8 @@ const SearchCharacter = () => {
 
   const { loadCharacter, setSelectedCharacter } = useMapleStore()
 
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
+
   const refInput = useRef<HTMLInputElement>(null)
 
   const name = searchParams.get('name')
@@ -27,10 +29,13 @@ const SearchCharacter = () => {
   }, [loadCharacter, setSearchParams])
 
   useEffect(() => {
+    if (name && isInitialLoad) getCharacterInfo(name)
     if (!name) setSelectedCharacter()
 
     if (refInput.current) refInput.current.focus()
-  }, [name, setSelectedCharacter])
+
+    setIsInitialLoad(false)
+  }, [name, isInitialLoad, getCharacterInfo, setSelectedCharacter])
 
   return <div className="search-character input-wrapper">
     <i

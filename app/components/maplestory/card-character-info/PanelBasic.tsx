@@ -59,7 +59,7 @@ export const PanelBasic = ({
       <BadgeGlass>{character.basic.character_class}</BadgeGlass>
     </div>
     <ExpBar expRate={character.basic.character_exp_rate} level={character.basic.character_level} />
-    <div className="flex-row align-center g-8">
+    <div className="flex-row align-center g-16">
       <div className="image-container">
         <img
           src={character.basic.character_image}
