@@ -12,8 +12,6 @@ const SearchCharacter = () => {
 
   const { loadCharacter, setSelectedCharacter } = useMapleStore()
 
-  const [isInitialLoad, setIsInitialLoad] = useState(true)
-
   const refInput = useRef<HTMLInputElement>(null)
 
   const name = searchParams.get('name')
@@ -23,25 +21,23 @@ const SearchCharacter = () => {
 
     try {
       await loadCharacter(name)
-      setSearchParams({ name })
+      setCharacterName(name)
     } catch (e) {
       const error = e as DefaultError
       helpers.toast.error(error.data.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
     }
-  }, [loadCharacter, setSearchParams])
+  }, [loadCharacter, refInput])
 
   useEffect(() => {
-    if (name && isInitialLoad) getCharacterInfo(name)
-    if (!name) setSelectedCharacter()
+    if (name) getCharacterInfo(name)
+    else setSelectedCharacter()
 
-    if (refInput.current && isInitialLoad) refInput.current.focus()
-
-    setIsInitialLoad(false)
-  }, [name, isInitialLoad, getCharacterInfo, setSelectedCharacter])
+    if (refInput.current) refInput.current.focus()
+  }, [name, getCharacterInfo, setSelectedCharacter])
 
   return <div className="search-character input-wrapper">
     <i
-      onClick={() => getCharacterInfo(characterName)}
+      onClick={() => setSearchParams({ name: characterName })}
       className="far fa-search cursor-pointer"
     />
     <input
@@ -52,7 +48,7 @@ const SearchCharacter = () => {
       maxLength={12}
       onChange={(e) => setCharacterName(e.target.value)}
       onKeyDown={e => {
-        if (e.key === 'Enter') getCharacterInfo(characterName)
+        if (e.key === 'Enter') setSearchParams({ name: characterName })
       }}
     />
     {characterName && <i

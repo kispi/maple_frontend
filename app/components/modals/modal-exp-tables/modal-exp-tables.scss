@@ -10,12 +10,6 @@
     .tr {
       display: flex;
       width: 100%;
-
-      &.selected {
-        font-weight: 600;
-        background: var(--danger);
-        color: var(--white);
-      }
     }
 
     .thead {
@@ -31,6 +25,12 @@
       .tr {
         &:nth-child(even) {
           background: var(--background-light);
+        }
+
+        &.selected {
+          font-weight: 600;
+          background: var(--danger);
+          color: var(--white);
         }
       }
     }

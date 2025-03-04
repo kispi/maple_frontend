@@ -1,7 +1,6 @@
 import { CharacterInfo, DefaultError, SimpleCharacter } from '~/types'
 import { useSearchParams } from '@remix-run/react'
 import useLocalCharacters from 'hooks/local-characters'
-import useMapleStore from '~/store/maple'
 import ExpBar from '../exp-bar/ExpBar'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import helpers from '~/helpers'
@@ -32,8 +31,6 @@ const StoredCharacters = ({
 }) => {
   const { sortedLocalCharacters, removeCharacter } = useLocalCharacters(selectedCharacter)
 
-  const { loadCharacter } = useMapleStore()
-
   const [, setSearchParams] = useSearchParams()
 
   const onClickCharacter = async (character: SimpleCharacter) => {
@@ -44,7 +41,6 @@ const StoredCharacters = ({
     }
 
     try {
-      await loadCharacter(character.name)
       setSearchParams({ name: character.name })
     } catch (e) {
       const error = e as DefaultError
