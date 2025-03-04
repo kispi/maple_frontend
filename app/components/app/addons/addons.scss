@@ -73,11 +73,11 @@
     border: 1px solid var(--border-base);
     border-radius: 4px;
     position: absolute;
-    max-height: calc(100svh - 160px);
+    max-height: calc(100svh - 120px);
     overflow: auto;
 
     @media (max-width: 767px) {
-      max-height: calc(100svh - 160px);
+      max-height: calc(100svh - 120px);
     }
 
     &.scrollable-body {
@@ -205,8 +205,9 @@
 }
 
 .app-tooltip {
-  color: var(--background-base);
-  background: var(--text-base);
+  --tooltip-bg: rgba(0, 0, 0, 0.9);
+  color: var(--white);
+  background: var(--tooltip-bg);
   position: fixed;
   border-radius: 4px;
   padding: 8px 12px;
@@ -215,8 +216,12 @@
   font-size: 12px;
   line-height: 18px;
   pointer-events: auto;
-  z-index: 1;
+  z-index: 2;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, .5);
+
+  &.fit {
+    width: fit-content
+  }
 
   --triangle-size: 8px;
   .triangle {
@@ -224,7 +229,7 @@
     height: 0;
     border-left: var(--triangle-size) solid transparent;
     border-right: var(--triangle-size) solid transparent;
-    border-top: var(--triangle-size) solid var(--text-base);
+    border-top: var(--triangle-size) solid var(--tooltip-bg);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);

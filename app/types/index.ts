@@ -87,6 +87,7 @@ export type Tooltip = {
   text: string
   showAbove: HTMLElement
   below?: boolean
+  fit?: boolean
   useCloser?: boolean
   width?: number
 }

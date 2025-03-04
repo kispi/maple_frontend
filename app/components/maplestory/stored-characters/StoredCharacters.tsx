@@ -1,5 +1,6 @@
 import { CharacterInfo, DefaultError, SimpleCharacter } from '~/types'
 import { useSearchParams } from '@remix-run/react'
+import { useRef } from 'react'
 import useLocalCharacters from 'hooks/local-characters'
 import ExpBar from '../exp-bar/ExpBar'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
@@ -33,6 +34,8 @@ const StoredCharacters = ({
 
   const [, setSearchParams] = useSearchParams()
 
+  const refs = useRef<HTMLDivElement[]>([])
+
   const onClickCharacter = async (character: SimpleCharacter) => {
     // 프론트엔드가 업데이트 된 경우 초기화
     if (!character.name) {
@@ -53,10 +56,28 @@ const StoredCharacters = ({
     removeCharacter(character)
   }
 
-  return !selectedCharacter ? <div className="stored-characters">
-    {sortedLocalCharacters.length > 0 ? <div className="grid">
+  const onMouseEnter = (character: SimpleCharacter, showAbove: HTMLElement) => {
+    if (!selectedCharacter) return
+
+    helpers.tooltip.show({
+      id: 'tooltip-simple-character',
+      text: character.name,
+      showAbove,
+      fit: true,
+    })
+  }
+
+  const onMouseLeave = () => {
+    helpers.tooltip.hide('tooltip-simple-character')
+  }
+
+  return <div className={`stored-characters ${selectedCharacter ? 'fixed' : ''}`}>
+    {sortedLocalCharacters.length > 0 && <div className={`grid ${selectedCharacter ? 'pretty-scrollbar' : ''}`}>
       {sortedLocalCharacters.map((character, index) => (
         <div
+          ref={el => refs.current[index] = el as HTMLDivElement}
+          onMouseEnter={() => onMouseEnter(character, refs.current[index])}
+          onMouseLeave={onMouseLeave}
           onClick={() => onClickCharacter(character)}
           key={index}
           className="stored-character">
@@ -66,7 +87,7 @@ const StoredCharacters = ({
           />
           <div className="flex-row align-center g-16">
             <img src={character.img} alt={character.class} />
-            <div className="flex g-4">
+            <div className="info">
               <div>
                 {character.name}<LastStored lastUpdated={character.lastUpdated} />
               </div>
@@ -88,8 +109,8 @@ const StoredCharacters = ({
           <ExpBar expRate={character.expRate} level={character.level} simple={true} />
         </div>
       ))}
-    </div> :
-    <div className="empty m-t-64">
+    </div>}
+    {sortedLocalCharacters.length === 0 && !selectedCharacter && <div className="empty m-t-64">
       <img src={helpers.withCdn('images/class_hero.webp')} alt="maplestory hero" />
       <div className="f-poppins">
         <div>Maplestory Everyday,</div>
@@ -98,7 +119,7 @@ const StoredCharacters = ({
         </h1>
       </div>
     </div>}
-  </div> : null
+  </div>
 }
 
 export default StoredCharacters

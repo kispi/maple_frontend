@@ -47,7 +47,7 @@ const AppTooltip = ({ tooltip }: { tooltip: Tooltip }) => {
 
   return <div
     ref={refAppTooltip}
-    className={`app-tooltip ${tooltip.below ? 'below' : ''} ${tooltip.useCloser ? 'use-closer' : ''}`}
+    className={`app-tooltip ${tooltip.below ? 'below' : ''} ${tooltip.useCloser ? 'use-closer' : ''} ${tooltip.fit ? 'fit' : ''}`}
     style={finalStyle}>
     <div
       dangerouslySetInnerHTML={{ __html: helpers.$t(tooltip.text) }}
