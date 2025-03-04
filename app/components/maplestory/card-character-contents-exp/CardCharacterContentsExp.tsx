@@ -1,6 +1,7 @@
 import { CharacterInfo } from '~/types'
 import { useEffect, useMemo, useState } from 'react'
 import { dailyContents, expCoupons, weeklyContents } from '~/assets/constants/exp'
+import { ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalVipAfk } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import './card-character-contents-exp.scss'
@@ -16,13 +17,26 @@ const ContentRow = ({
   img,
   value,
   boyak,
+  lev,
 }: {
   $$key: string,
   img: string,
   value: number,
   boyak?: number,
+  lev?: number,
 }) => {
-  return <div className="content-row">
+  const modal = useMemo(() => {
+    if ($$key === 'high_mountain') return ModalHighMountain
+    if ($$key === 'angler_company') return ModalAnglerCompany
+    if ($$key === 'extreme_monster_park') return ModalExtremeMonsterPark
+    if ($$key === 'vip_afk') return ModalVipAfk
+    // if ($$key === 'exp_coupon_basic') return ModalExpCouponBasic
+    // if ($$key === 'exp_coupon_advanced') return ModalExpCouponAdvanced
+  }, [$$key])
+
+  return <div
+    onClick={() => modal && helpers.modal.open({ component: modal, options: { lev } })}
+    className={`content-row ${modal ? 'cursor-pointer' : ''}`}>
     <div className="key">
       <img src={helpers.withCdn(`images/${img}`)} alt={$$key} />
       {helpers.$t($$key)}
@@ -130,6 +144,7 @@ export const CardCharacterContentsExp = ({
                 img={o.img}
                 value={o.$$expPercent}
                 boyak={o.key === 'extreme_monster_park' ? expBoyak?.monsterPark : undefined}
+                lev={character.basic.character_level}
               />)}
           </div>
         </div>
@@ -151,6 +166,7 @@ export const CardCharacterContentsExp = ({
                 $$key={o.key}
                 img={o.img}
                 value={o.$$expPercent}
+                lev={character.basic.character_level}
               />)}
           </div>
         </div>

@@ -1,7 +1,7 @@
 import helpers from '~/helpers'
 
 export const defaultMeta = {
-  title: 'EVERYMAPLE',
+  title: '에브리메이플',
   description: '메이플스토리 경험치 컨텐츠 효율 / 캐릭터 정보를 확인할 수 있습니다.',
   image: helpers.withCdn('og-images/og-everymaple.png'),
 }

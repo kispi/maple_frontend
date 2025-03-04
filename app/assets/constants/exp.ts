@@ -4,8 +4,7 @@ import { vipAfkData } from './data-afk'
 import { extremeMonsterPark } from './data-monster-park'
 import { dailyQuestsData } from './data-daily-quests'
 import { advanced, basic } from './data-exp-coupons'
-
-const asPercent = (value: number) => Math.round(value * 100000) / 1000
+import helpers from '~/helpers'
 
 // 경험치 절댓값이 아닌 %로 리턴함
 export const dailyContents = {
@@ -14,19 +13,19 @@ export const dailyContents = {
       dailyQuestsData.arcaneRiver.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'arcaneRiver',
-        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
+        $$expPercent: helpers.asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
     tenebris: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) =>
       dailyQuestsData.tenebris.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'arcaneRiver',
-        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
+        $$expPercent: helpers.asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
     grandis: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }) =>
       dailyQuestsData.grandis.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'grandis',
-        $$expPercent: asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
+        $$expPercent: helpers.asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
       })),
   },
 }
@@ -37,7 +36,7 @@ export const weeklyContents = {
     const base = { img: 'bigfoot.png', key: 'extreme_monster_park', $$expPercent: 0 }
     if (lev < 260) return base // 260 이상부터 가능
 
-    base.$$expPercent = asPercent((extremeMonsterPark[lev - 260] * Math.pow(10, 8) / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100))
+    base.$$expPercent = helpers.asPercent((extremeMonsterPark[lev - 260] * Math.pow(10, 8) / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100))
     return base
   },
   highMountain: ({ lev, rewardLev }: { lev: number; rewardLev: RewardLevEpicDungeon }) => {
@@ -58,7 +57,7 @@ export const weeklyContents = {
     const base = { img: 'vip_afk.png', key: 'vip_afk', $$expPercent: 0 }
     if (lev < 200) return base // 200 이하도 가능하긴 한데 효율 나쁨
 
-    base.$$expPercent = asPercent(vipAfkData[lev - 200] * 720 / levelExpTable[lev - 1])
+    base.$$expPercent = helpers.asPercent(vipAfkData[lev - 200] * 720 / levelExpTable[lev - 1])
     return base
   },
 }
@@ -66,17 +65,16 @@ export const weeklyContents = {
 export const expCoupons = {
   basic: ({ lev }: { lev: number }) => {
     const base = { img: 'exp_coupon_basic.png', key: 'exp_coupon_basic', $$expPercent: 0 }
-    if (lev < 200) return base // 200 이하는 EXP 쿠폰 사용 불가능
+    if (lev < 200 || lev >= 260) return base // 200 이하는 EXP 쿠폰 사용 불가능, 260 이상도 사용 가능하긴 한데 효율 나쁨
 
-    base.$$expPercent = asPercent(basic[lev - 200] * 1000 / levelExpTable[lev - 1])
-    if (lev >= 261) base.$$expPercent = asPercent(basic[basic.length - 1] / levelExpTable[lev - 1])
+    base.$$expPercent = helpers.asPercent(basic[lev - 200] * 1000 / levelExpTable[lev - 1])
     return base
   },
   advanced: ({ lev }: { lev: number }) => {
     const base = { img: 'exp_coupon_advanced.png', key: 'exp_coupon_advanced', $$expPercent: 0 }
     if (lev < 260) return base // 260 이하는 EXP 쿠폰 사용 불가능
 
-    base.$$expPercent = asPercent(advanced[lev - 260] * 1000 / levelExpTable[lev - 1])
+    base.$$expPercent = helpers.asPercent(advanced[lev - 260] * 1000 / levelExpTable[lev - 1])
     return base
   },
 }

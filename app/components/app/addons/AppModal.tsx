@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { Modal } from '~/types'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import helpers from '~/helpers'
-import useAppStore, { Modal } from '~/store/app'
+import useAppStore from '~/store/app'
 
 const AppModal = ({ modal }: { modal: Modal }) => {
   const ModalComponent = modal.component
@@ -20,14 +21,26 @@ const AppModal = ({ modal }: { modal: Modal }) => {
     setTimeout(() => store.removeModal(modal), 200) // 200ms is the duration of the modal transition
   }
 
-  useEffect(() => {
+  const center = () => {
     if (refModal.current) {
       const targetModal = refModal.current.querySelector('.modal-base-style') as HTMLElement
       if (targetModal) helpers.modal.center(targetModal)
     }
+  }
 
-    setShow(true)
-  }, [])
+  const onKeydownEscape = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') onClose()
+  }
+
+  useEffect(() => setShow(true), [])
+
+  useEffect(() => {
+    center()
+
+    document.addEventListener('keydown', onKeydownEscape)
+    return () => document.removeEventListener('keydown', onKeydownEscape)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.windowInnerWidth])
 
   return <div
     ref={refModal}

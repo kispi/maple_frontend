@@ -94,8 +94,8 @@ const StoredCharacters = ({
       ))}
     </div> :
     <div className="empty m-t-64">
-      <img src="https://i.namu.wiki/i/sFni-WAntaZThLexfyyAeGB7c0NCgYfT1RloEbwPEA_uONbAseXC_5xGTR9WxNv2I6eCQq_mh5mIUnEOUKvHrQ.webp" alt="maplestory hero" />
-      <div>
+      <img src={helpers.withCdn('images/class_hero.webp')} alt="maplestory hero" />
+      <div className="f-poppins">
         <div>Maplestory Everyday,</div>
         <h1>
           EVERY<span className="c-danger">M</span>APLE<br/>

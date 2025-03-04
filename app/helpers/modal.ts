@@ -5,9 +5,9 @@ const initModal = ({
   options,
   component,
 }: {
-  options: object,
+  options?: object,
   // @ts-expect-error 모달 컴포넌트에서 어떤 옵션을 넘겨줄지 사전에 다 명시하는 것은 불가능함.
-  component: (...args) => React.ReactNode,
+  component: JSX.element,
 }) => new Promise(resolve => {
   const appStore = useAppStore.getState()
   appStore.addModal({ options, component, resolve } as Modal)

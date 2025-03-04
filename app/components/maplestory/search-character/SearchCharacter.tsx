@@ -19,6 +19,8 @@ const SearchCharacter = () => {
   const name = searchParams.get('name')
 
   const getCharacterInfo = useCallback(async (name: string) => {
+    if (refInput.current) refInput.current.blur()
+
     try {
       await loadCharacter(name)
       setSearchParams({ name })
@@ -32,7 +34,7 @@ const SearchCharacter = () => {
     if (name && isInitialLoad) getCharacterInfo(name)
     if (!name) setSelectedCharacter()
 
-    if (refInput.current) refInput.current.focus()
+    if (refInput.current && isInitialLoad) refInput.current.focus()
 
     setIsInitialLoad(false)
   }, [name, isInitialLoad, getCharacterInfo, setSelectedCharacter])

@@ -26,7 +26,7 @@ const Index = () => {
 
         {/* 리액트는 v-if 같은거 없냐... */}
         {(selectedCharacter.ability.ability_info.length > 0 || selectedCharacter.skills.find(skill => skill.character_skill_grade === '6')) &&
-          <div className={`card ${isMobile ? 'flex' : 'flex-row'} g-24`}>
+          <div className={`card ${isMobile ? 'flex' : 'flex-row align-center'} g-24`}>
             <PanelAbility character={selectedCharacter} className="flex-fill" />
             <PanelHexaSkills character={selectedCharacter} className="flex-fill" />
           </div>

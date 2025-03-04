@@ -1,3 +1,5 @@
+import helpers from '~/helpers'
+
 const ModalHeader = ({
   title,
   onClose,
@@ -13,7 +15,7 @@ const ModalHeader = ({
       className={`modal-function-container center ${onBack ? '' : 'o-0 no-touch'}`}>
       <i className="far fa-chevron-left"/>
     </div>
-    <div className="modal-title">{title}</div>
+    <div className="modal-title" dangerouslySetInnerHTML={{ __html: helpers.$t(title) }} />
     <div
       onClick={onClose}
       className="modal-function-container center">

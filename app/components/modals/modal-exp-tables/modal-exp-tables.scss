@@ -1,0 +1,56 @@
+.modal-exp-table {
+  .table {
+    user-select: none;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+
+    .thead,
+    .tr {
+      display: flex;
+      width: 100%;
+
+      &:nth-child(odd) {
+        background: var(--background-light);
+      }
+
+      &.selected {
+        font-weight: 600;
+        background: var(--legendary);
+      }
+    }
+
+    .thead {
+      font-weight: 600;
+    }
+
+    .tbody {
+      font-weight: 300;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .td,
+    .th {
+      padding: 4px 8px;
+      flex: 1 1 0;
+      min-width: 0;
+      text-align: right;
+
+      &:first-child {
+        max-width: 64px;
+      }
+    }
+  }
+
+  @media (max-width: 479px) {
+    .table {
+      font-size: 11px;
+
+      .td,
+      .th {
+        padding: 2px;
+      }
+    }
+  }
+}

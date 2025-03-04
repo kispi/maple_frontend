@@ -55,7 +55,7 @@ const AppAddons = () => {
     setIsMobile()
     loadSettings()
     loadVendors()
-    useAppStore.getState().loadConfig()
+    // useAppStore.getState().loadConfig()
     window.addEventListener('resize', onResize)
     window.addEventListener('scroll', onScroll, { capture: true })
   

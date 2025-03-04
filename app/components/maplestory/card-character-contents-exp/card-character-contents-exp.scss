@@ -48,5 +48,9 @@
     img {
       width: 24px;
     }
+
+    &.cursor-pointer:hover {
+      text-decoration: underline;
+    }
   }
 }

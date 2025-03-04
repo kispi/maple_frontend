@@ -18,7 +18,7 @@ const AppFooter = ({ className }: { className?: string }) => {
         </a>
       </div>
       <div className="flex-shrink text-right f-12">
-        © 2025 EVERYMAPLE, All rights reserved.
+        © 2025 에브리메이플, All rights reserved.
       </div>
     </div>
   </div>

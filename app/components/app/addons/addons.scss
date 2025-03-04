@@ -78,7 +78,7 @@
     border: 1px solid var(--border-base);
     border-radius: 4px;
     position: absolute;
-    max-height: calc(100vh - 48px);
+    max-height: calc(100svh - 120px);
     overflow: auto;
 
     @media (max-width: 767px) {
