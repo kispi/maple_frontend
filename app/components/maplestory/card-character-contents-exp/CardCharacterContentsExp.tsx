@@ -40,7 +40,7 @@ const ContentRow = ({
     <div className="key">
       <img src={helpers.withCdn(`images/${img}`)} alt={$$key} />
       {helpers.$t($$key)}
-      {['angler_company', 'high_mountain'].includes($$key) && <span>[보상 Lv.2]</span>}
+      {['angler_company', 'high_mountain'].includes($$key) && <span>[{helpers.$t('REWARD')} Lv.2]</span>}
       {$$key.includes('exp_coupon') && <span>(1000개당)</span>}
     </div>
     <div className="value">

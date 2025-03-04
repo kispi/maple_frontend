@@ -218,5 +218,17 @@
   "RANKING_UNION": {
     "kr": "유니온랭킹",
     "en": "Union"
+  },
+  "LEVEL": {
+    "kr": "레벨",
+    "en": "Level"
+  },
+  "DEFAULT": {
+    "kr": "기본",
+    "en": "Default"
+  },
+  "REWARD": {
+    "kr": "보상",
+    "en": "Reward"
   }
 }

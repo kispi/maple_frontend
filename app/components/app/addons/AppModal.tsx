@@ -1,5 +1,5 @@
 import { Modal } from '~/types'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import helpers from '~/helpers'
 import useAppStore from '~/store/app'
 

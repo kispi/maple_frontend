@@ -1,4 +1,4 @@
-export type Skill = {
+export type TypeSkill = {
   skill_name: string
   skill_description: string
   skill_level: number
@@ -11,5 +11,5 @@ export type CharacterSkill = {
   date: string
   character_class: string
   character_skill_grade: string
-  character_skill: Skill[]
+  character_skill: TypeSkill[]
 }

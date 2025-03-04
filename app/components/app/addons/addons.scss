@@ -47,11 +47,6 @@
     }
   }
 
-  .modal-header + * {
-    flex: 1 1 auto;
-    overflow-y: auto;
-  }
-
   .modal-fixed-container {
     position: fixed;
     z-index: 2;
@@ -78,11 +73,11 @@
     border: 1px solid var(--border-base);
     border-radius: 4px;
     position: absolute;
-    max-height: calc(100svh - 120px);
+    max-height: calc(100svh - 160px);
     overflow: auto;
 
     @media (max-width: 767px) {
-      max-height: calc(100vh - 120px);
+      max-height: calc(100svh - 160px);
     }
 
     &.scrollable-body {
@@ -91,6 +86,11 @@
 
       .modal-header {
         flex: 0 0 auto;
+      }
+
+      .modal-header + * {
+        flex: 1 1 auto;
+        overflow-y: auto;
       }
     }
   }
@@ -128,7 +128,7 @@
     max-width: calc(100vw - 32px);
     padding: 16px;
     border-radius: 4px;
-    color: var(--text-base);
+    color: var(--white);
     display: flex;
     opacity: 0;
     transform: translateY(-40px);
@@ -240,6 +240,8 @@
   }
 
   .tooltip-body {
+    white-space: pre-line;
+
     .link {
       color: var(--primary);
       cursor: pointer;

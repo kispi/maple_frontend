@@ -53,4 +53,10 @@
       text-decoration: underline;
     }
   }
+
+  @media (max-width: 767px) {
+    .content-row {
+      font-size: 12px;
+    }
+  }
 }

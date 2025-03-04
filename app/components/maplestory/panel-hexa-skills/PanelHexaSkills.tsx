@@ -1,16 +1,16 @@
 import { useMemo, useRef } from 'react'
 import { CharacterInfo } from '~/types'
-import { CharacterSkill, Skill } from '~/types/skill'
+import { CharacterSkill, TypeSkill } from '~/types/skill'
 import './panel-hexa-skills.scss'
 import helpers from '~/helpers'
 
 const keywordsToFilter = ['새벽']
 
-const onMouseEnter = (skill: Skill, showAbove: HTMLDivElement) => {
+const onMouseEnter = (skill: TypeSkill, showAbove: HTMLDivElement) => {
   helpers.tooltip.show({
     id: 'tooltip-hexa-skill',
     showAbove: showAbove,
-    text: `${skill.skill_name}: ${skill.skill_description}`,
+    text: `${skill.skill_name}\n\n${skill.skill_description}`,
   })
 }
 

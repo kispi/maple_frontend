@@ -17,7 +17,7 @@ const Index = () => {
 
   // SearchCharacter에서 따로 $http 요청하지 말고, url이 바뀌면 loader가 자동 호출되는 것을 이용해서 그냥 그 데이터를 쓰는 형태로 바꿔야 할 듯
   return (
-    <div className="view-main flex g-24">
+    <div className={`view-main flex g-${isMobile ? 16 : 24}`}>
       <SearchCharacter />
       <StoredCharacters selectedCharacter={selectedCharacter} />
       {selectedCharacter && <div className="flex g-24">
