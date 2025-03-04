@@ -22,16 +22,15 @@ const SearchCharacter = () => {
       setSearchParams({ name })
     } catch (e) {
       const error = e as DefaultError
-      helpers.toast.error(error.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
+      helpers.toast.error(error.data.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
     }
   }, [loadCharacter, setSearchParams])
 
   useEffect(() => {
-    if (name) getCharacterInfo(name)
-    else setSelectedCharacter(null)
+    if (!name) setSelectedCharacter()
 
     if (refInput.current) refInput.current.focus()
-  }, [name, getCharacterInfo, setSelectedCharacter])
+  }, [name, setSelectedCharacter])
 
   return <div className="search-character input-wrapper">
     <i

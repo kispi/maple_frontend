@@ -17,8 +17,8 @@ import { CharacterSymbolEquipment } from './symbol-equipment'
 import { Union, UnionRaider } from './union'
 
 export type DefaultError = {
-  code: string
   data: {
+    code: string
     message: string
   }
 }

@@ -48,7 +48,7 @@ const StoredCharacters = ({
       setSearchParams({ name: character.name })
     } catch (e) {
       const error = e as DefaultError
-      helpers.toast.error(error.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
+      helpers.toast.error(error.data.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
     }
   }
 
@@ -93,12 +93,14 @@ const StoredCharacters = ({
         </div>
       ))}
     </div> :
-    <div className="empty">
+    <div className="empty m-t-64">
       <img src="https://i.namu.wiki/i/sFni-WAntaZThLexfyyAeGB7c0NCgYfT1RloEbwPEA_uONbAseXC_5xGTR9WxNv2I6eCQq_mh5mIUnEOUKvHrQ.webp" alt="maplestory hero" />
-      <h1>
-        EVERY<span className="c-danger">M</span>APLE,<br/>
-      </h1>
-      <div>Maplestory Everyday!</div>
+      <div>
+        <div>Maplestory Everyday,</div>
+        <h1>
+          EVERY<span className="c-danger">M</span>APLE<br/>
+        </h1>
+      </div>
     </div>}
   </div> : null
 }

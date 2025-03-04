@@ -3,6 +3,9 @@
 
   .layout-centered {
     padding: 40px var(--app-default-page-padding);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .grid {
@@ -29,9 +32,33 @@
   }
 
   .bottom {
-    padding: 8px;
     display: flex;
     gap: 24px;
+  }
+
+  .contacts {
+    display: flex;
+    justify-content: flex-end;
+
+    a {
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:not(:last-child) {
+        &::after {
+          width: 1px;
+          display: block;
+          height: 12px;
+          background: var(--text-light);
+          margin: 0 8px;
+          content: '';
+        }
+      }
+    }
   }
 
   @media (max-width: 767px) {
