@@ -1,16 +1,18 @@
 import { DefaultError } from '~/types'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSearchParams } from '@remix-run/react'
+import { useNavigate, useSearchParams } from '@remix-run/react'
 import helpers from '~/helpers'
 import useMapleStore from '~/store/maple'
 import './search-character.scss'
 
 const SearchCharacter = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const [characterName, setCharacterName] = useState('')
 
   const { loadCharacter, setSelectedCharacter } = useMapleStore()
+
+  const navigate = useNavigate()
 
   const refInput = useRef<HTMLInputElement>(null)
 
@@ -28,16 +30,23 @@ const SearchCharacter = () => {
     }
   }, [loadCharacter, refInput])
 
+  const onSearch = () => {
+    if (characterName === name) {
+      // 브라우저 히스토리 스택에 같은 주소가 쌓이는 것을 방지
+      return
+    }
+
+    navigate({ pathname: '/info', search: `?name=${characterName}` })
+  }
+
   useEffect(() => {
     if (name) getCharacterInfo(name)
     else setSelectedCharacter()
-
-    if (refInput.current) refInput.current.focus()
   }, [name, getCharacterInfo, setSelectedCharacter])
 
   return <div className="search-character input-wrapper">
     <i
-      onClick={() => setSearchParams({ name: characterName })}
+      onClick={() => onSearch()}
       className="far fa-search cursor-pointer"
     />
     <input
@@ -48,7 +57,7 @@ const SearchCharacter = () => {
       maxLength={12}
       onChange={(e) => setCharacterName(e.target.value)}
       onKeyDown={e => {
-        if (e.key === 'Enter') setSearchParams({ name: characterName })
+        if (e.key === 'Enter') onSearch()
       }}
     />
     {characterName && <i

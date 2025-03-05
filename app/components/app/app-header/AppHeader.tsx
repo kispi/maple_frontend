@@ -1,4 +1,4 @@
-import { useRouter } from '~/hooks'
+import { useNavigate } from '@remix-run/react'
 import useAppStore from '~/store/app'
 import helpers from '~/helpers'
 import './app-header.scss'
@@ -6,7 +6,7 @@ import './app-header.scss'
 const AppHeader = () => {
   const { settings, setSettings } = useAppStore()
 
-  const { push } = useRouter()
+  const navigate = useNavigate()
 
   const countryByLocale = { kr: 'kr', en: 'us', '': '' }
 
@@ -17,7 +17,7 @@ const AppHeader = () => {
         className="f-20 f-600 f-poppins"
         onClick={e => {
           e.preventDefault()
-          push('/')
+          navigate('/')
         }}>
         EVERY<span className="c-danger">M</span>APLE
       </a>

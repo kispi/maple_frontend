@@ -1,5 +1,5 @@
 import { CharacterInfo, DefaultError, SimpleCharacter } from '~/types'
-import { useSearchParams } from '@remix-run/react'
+import { useLocation, useNavigate } from '@remix-run/react'
 import { useRef } from 'react'
 import useLocalCharacters from 'hooks/local-characters'
 import ExpBar from '../exp-bar/ExpBar'
@@ -27,12 +27,16 @@ const LastStored = ({ lastUpdated }: { lastUpdated: string }) => {
 
 const StoredCharacters = ({
   selectedCharacter,
+  className,
 }: {
   selectedCharacter?: CharacterInfo,
+  className?: string,
 }) => {
   const { sortedLocalCharacters, removeCharacter } = useLocalCharacters(selectedCharacter)
 
-  const [, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
+
+  const { pathname } = useLocation()
 
   const refs = useRef<HTMLDivElement[]>([])
 
@@ -43,8 +47,13 @@ const StoredCharacters = ({
       return
     }
 
+    if (pathname === '/info' && character.name === selectedCharacter?.basic.character_name) {
+      // 브라우저 히스토리 스택에 같은 주소가 쌓이는 것을 방지
+      return
+    }
+
     try {
-      setSearchParams({ name: character.name })
+      navigate({ pathname: '/info', search: `?name=${character.name}` })
     } catch (e) {
       const error = e as DefaultError
       helpers.toast.error(error.data.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
@@ -57,7 +66,7 @@ const StoredCharacters = ({
   }
 
   const onMouseEnter = (character: SimpleCharacter, showAbove: HTMLElement) => {
-    if (!selectedCharacter) return
+    if (pathname === '/') return
 
     helpers.tooltip.show({
       id: 'tooltip-simple-character',
@@ -71,13 +80,13 @@ const StoredCharacters = ({
     helpers.tooltip.hide('tooltip-simple-character')
   }
 
-  return <div className={`stored-characters ${selectedCharacter ? 'fixed' : ''}`}>
+  return <div className={`stored-characters ${className || ''}`}>
     {sortedLocalCharacters.length > 0 && <div className={`grid ${selectedCharacter ? 'pretty-scrollbar' : ''}`}>
       {sortedLocalCharacters.map((character, index) => (
         <div
           ref={el => refs.current[index] = el as HTMLDivElement}
           onMouseEnter={() => onMouseEnter(character, refs.current[index])}
-          onMouseLeave={onMouseLeave}
+          onMouseLeave={() => onMouseLeave()}
           onClick={() => onClickCharacter(character)}
           key={index}
           className="stored-character">

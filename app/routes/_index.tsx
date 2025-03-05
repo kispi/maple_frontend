@@ -1,10 +1,5 @@
-import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
-import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
-import { CardCharacterContentsExp } from '~/components/maplestory/card-character-contents-exp/CardCharacterContentsExp'
 import useMapleStore from '~/store/maple'
 import useAppStore from '~/store/app'
-import PanelAbility from '~/components/maplestory/panel-ability/PanelAbility'
-import PanelHexaSkills from '~/components/maplestory/panel-hexa-skills/PanelHexaSkills'
 import SearchCharacter from '~/components/maplestory/search-character/SearchCharacter'
 import StoredCharacters from '~/components/maplestory/stored-characters/StoredCharacters'
 
@@ -20,21 +15,6 @@ const Index = () => {
     <div className={`view-main flex g-${isMobile ? 16 : 24}`}>
       <SearchCharacter />
       <StoredCharacters selectedCharacter={selectedCharacter} />
-      {selectedCharacter && <div className="flex g-24">
-        <CardCharacterInfo character={selectedCharacter} />
-        <CardCharacterContentsExp character={selectedCharacter} />
-
-        {/* 리액트는 v-if 같은거 없냐... */}
-        {(selectedCharacter.ability.ability_info.length > 0 || selectedCharacter.skills.find(skill => skill.character_skill_grade === '6')) &&
-          <div className={`card ${isMobile ? 'flex' : 'flex-row align-center'} g-24`}>
-            <PanelAbility character={selectedCharacter} className="flex-fill" />
-            <PanelHexaSkills character={selectedCharacter} className="flex-fill" />
-          </div>
-        }
-        <div className="section-bottom">
-          <CardCharacterItemEquipment character={selectedCharacter} />
-        </div>
-      </div>}
     </div>
   )
 }
