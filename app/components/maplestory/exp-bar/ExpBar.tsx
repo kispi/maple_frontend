@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import helpers from '~/helpers'
 import './exp-bar.scss'
 
@@ -61,12 +62,14 @@ const HuntGuestimation = ({ expRate, level } : { expRate: string, level: number 
 }
 
 const ExpBar = ({ expRate, level, simple } : { expRate: string, level: number, simple?: boolean }) => {
+  const refExpBar = useRef<HTMLAnchorElement>(null)
+
   const onMouseEnter = () => {
-    if (simple) return
+    if (simple || !refExpBar.current) return
 
     helpers.tooltip.show({
       id: 'tooltip-exp-bar',
-      showAbove: document.querySelector('.exp-bar') as HTMLElement,
+      showAbove: refExpBar.current,
       text: '레벨업까지 필요한 예상 사냥시간입니다.',
     })
   }
@@ -78,6 +81,7 @@ const ExpBar = ({ expRate, level, simple } : { expRate: string, level: number, s
   }
 
   return <a
+    ref={refExpBar}
     onMouseEnter={() => onMouseEnter()}
     onMouseLeave={() => onMouseLeave()}
     onClick={e => simple ? e.preventDefault() : null}

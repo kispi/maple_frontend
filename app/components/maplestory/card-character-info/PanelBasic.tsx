@@ -1,4 +1,5 @@
 import { CharacterInfo } from '~/types'
+import { useMemo } from 'react'
 import ExpBar from '../exp-bar/ExpBar'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
@@ -37,6 +38,26 @@ const BasicDetails = ({
   </div>
 }
 
+const SimpleStats = ({
+  character,
+}: {
+  character: CharacterInfo,
+}) => {
+  const battlePower = useMemo(() => {
+    const o = character.stat.final_stat.find(stat => stat.stat_name === '전투력')
+    if (!o) return null
+
+    return parseInt(o.stat_value).toLocaleString()
+  }, [character.stat.final_stat])
+
+  return <div className="simple-stats">
+    <div className="flex-row align-center g-8">
+      <div className="key">{helpers.$t('전투력')}</div>
+      <div className="value">{battlePower}</div>
+    </div>
+  </div>
+}
+
 export const PanelBasic = ({
   character,    
 }: {
@@ -58,6 +79,7 @@ export const PanelBasic = ({
       </BadgeGlass>
       <BadgeGlass>{character.basic.character_class}</BadgeGlass>
     </div>
+    <SimpleStats character={character} />
     <ExpBar expRate={character.basic.character_exp_rate} level={character.basic.character_level} />
     <div className="flex-row align-center g-16">
       <div className="image-container">

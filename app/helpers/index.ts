@@ -21,7 +21,7 @@ const helpers = {
   toast,
   tooltip,
   util,
-  asPercent: (value: number, toFixed: number = 3) => Math.round(value * 100 * Math.pow(10, toFixed)) / Math.pow(10, toFixed),
+  asPercent: (value: number, toFixed: number = 3) => (Math.round(value * 100 * Math.pow(10, toFixed)) / Math.pow(10, toFixed)),
   randomString: () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
   $t: translate,
   withCdn: (key: string) => `${import.meta.env.VITE_CDN}/${key}`,

@@ -1,8 +1,8 @@
 import { useMemo, useRef } from 'react'
 import { CharacterInfo } from '~/types'
 import { CharacterSkill, TypeSkill } from '~/types/skill'
-import './panel-hexa-skills.scss'
 import helpers from '~/helpers'
+import './panel-hexa-skills.scss'
 
 const keywordsToFilter = ['새벽']
 

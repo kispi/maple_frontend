@@ -43,3 +43,55 @@ export const extremeMonsterPark = [
   6437,
   6458,
 ]
+
+export const monsterPark = [{
+  key: 'vanishing_journey',
+  exp: 359915080,
+  reqLev: 200,
+  img: 'map_vanishing_journey.png',
+}, {
+  key: 'chuchu_island',
+  exp: 1285078680,
+  reqLev: 210,
+  img: 'map_chuchu_island.png',
+}, {
+  key: 'lachelein',
+  exp: 3217660990,
+  reqLev: 220,
+  img: 'map_lachelein.png',
+}, {
+  key: 'arcana',
+  exp: 4707537370,
+  reqLev: 225,
+  img: 'map_arcana.png',
+}, {
+  key: 'morass',
+  exp: 5993511040,
+  reqLev: 230,
+  img: 'map_morass.png',
+}, {
+  key: 'esfera',
+  exp: 6919667370,
+  reqLev: 235,
+  img: 'map_esfera.png',
+}, {
+  key: 'sellas',
+  exp: 8712814920,
+  reqLev: 240,
+  img: 'map_sellas.webp',
+}, {
+  key: 'moonbridge',
+  exp: 11716616500,
+  reqLev: 245,
+  img: 'map_moonbridge.webp',
+}, {
+  key: 'labyrinth_of_suffering',
+  exp: 14058901000,
+  reqLev: 250,
+  img: 'map_labyrinth_of_suffering.png',
+}, {
+  key: 'limen',
+  exp: 15552557400,
+  reqLev: 255,
+  img: 'map_limen.png',
+}]

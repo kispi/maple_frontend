@@ -167,6 +167,10 @@
     "kr": "탈라하트",
     "en": "Tallahart"
   },
+  "MONSTER_PARK": {
+    "kr": "몬스터파크",
+    "en": "Monster Park"
+  },
   "EXTREME_MONSTER_PARK": {
     "kr": "익스트림 몬스터파크",
     "en": "Extreme Monster Park"
@@ -219,6 +223,10 @@
     "kr": "유니온랭킹",
     "en": "Union"
   },
+  "DUNGEON": {
+    "kr": "던전",
+    "en": "Dungeon"
+  },
   "LEVEL": {
     "kr": "레벨",
     "en": "Level"
@@ -226,6 +234,14 @@
   "DEFAULT": {
     "kr": "기본",
     "en": "Default"
+  },
+  "SUNDAY": {
+    "kr": "썬데이",
+    "en": "Sunday"
+  },
+  "SPECIAL_SUNDAY": {
+    "kr": "스페셜 썬데이",
+    "en": "Special Sunday"
   },
   "REWARD": {
     "kr": "보상",

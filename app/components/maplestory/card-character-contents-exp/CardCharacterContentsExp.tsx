@@ -1,7 +1,7 @@
 import { CharacterInfo } from '~/types'
 import { useEffect, useMemo, useState } from 'react'
-import { dailyContents, expCoupons, weeklyContents } from '~/assets/constants/exp'
-import { ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalVipAfk } from '~/components/modals/modal-exp-tables/ModalExpTables'
+import { dailyContents, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
+import { ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalVipAfk, ModalMonsterPark } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import './card-character-contents-exp.scss'
@@ -13,38 +13,35 @@ type ExpBoyak = {
 }
 
 const ContentRow = ({
-  $$key,
-  img,
-  value,
-  boyak,
+  row,
   lev,
+  boyak,
 }: {
-  $$key: string,
-  img: string,
-  value: number,
-  boyak?: number,
+  row: ExpRow,
   lev?: number,
+  boyak?: number,
 }) => {
   const modal = useMemo(() => {
-    if ($$key === 'high_mountain') return ModalHighMountain
-    if ($$key === 'angler_company') return ModalAnglerCompany
-    if ($$key === 'extreme_monster_park') return ModalExtremeMonsterPark
-    if ($$key === 'vip_afk') return ModalVipAfk
+    if (row.key === 'high_mountain') return ModalHighMountain
+    if (row.key === 'angler_company') return ModalAnglerCompany
+    if (row.key === 'extreme_monster_park') return ModalExtremeMonsterPark
+    if (row.key === 'vip_afk') return ModalVipAfk
+    if (row.boyakRegion === 'monsterPark') return ModalMonsterPark
     // if ($$key === 'exp_coupon_basic') return ModalExpCouponBasic
     // if ($$key === 'exp_coupon_advanced') return ModalExpCouponAdvanced
-  }, [$$key])
+  }, [row.key, row.boyakRegion])
 
   return <div
     onClick={() => modal && helpers.modal.open({ component: modal, options: { lev } })}
     className={`content-row ${modal ? 'cursor-pointer' : ''}`}>
     <div className="key">
-      <img src={helpers.withCdn(`images/${img}`)} alt={$$key} />
-      {helpers.$t($$key)}
-      {['angler_company', 'high_mountain'].includes($$key) && <span>[{helpers.$t('REWARD')} Lv.2]</span>}
-      {$$key.includes('exp_coupon') && <span>(1000개당)</span>}
+      <img src={helpers.withCdn(`images/${row.img}`)} alt={row.key} />
+      {helpers.$t(row.$$title || row.key)}
+      {['angler_company', 'high_mountain'].includes(row.key) && <span>[{helpers.$t('REWARD')} Lv.2]</span>}
+      {row.key.includes('exp_coupon') && <span>(1000개당)</span>}
     </div>
     <div className="value">
-      {value}%{(boyak && boyak > 0) ? <BadgeGlass className="m-l-8">{`보약 +${boyak}%`}</BadgeGlass> : null}
+      {row.$$expPercent}%{(boyak && boyak > 0) ? <BadgeGlass className="m-l-8">{`보약 +${boyak}%`}</BadgeGlass> : null}
     </div>
   </div>
 }
@@ -89,6 +86,7 @@ export const CardCharacterContentsExp = ({
       dailyContents.dailyQuestsExp.arcaneRiver({ lev: character.basic.character_level, additionalPercentage: expBoyak?.arcaneRiver }),
       dailyContents.dailyQuestsExp.tenebris({ lev: character.basic.character_level, additionalPercentage: expBoyak?.arcaneRiver }),
       dailyContents.dailyQuestsExp.grandis({ lev: character.basic.character_level, additionalPercentage: expBoyak?.grandis }),
+      dailyContents.monsterPark({ lev: character.basic.character_level, additionalPercentage: expBoyak?.monsterPark }),
     ].filter(o => o.length > 0),
     weekly: [
       weeklyContents.extremeMonsterPark({ lev: character.basic.character_level, additionalPercentage: expBoyak?.monsterPark }),
@@ -117,9 +115,8 @@ export const CardCharacterContentsExp = ({
           <div className="content-body">
             {o.map(o => <ContentRow
               key={o.key}
-              $$key={o.key}
-              img={o.img}
-              value={o.$$expPercent}
+              row={o}
+              lev={character.basic.character_level}
               boyak={(expBoyak || {})[o.boyakRegion as keyof ExpBoyak]}
             />)}
           </div>
@@ -140,9 +137,7 @@ export const CardCharacterContentsExp = ({
             {playable.weekly.map(o =>
               <ContentRow
                 key={o.key}
-                $$key={o.key}
-                img={o.img}
-                value={o.$$expPercent}
+                row={o}
                 boyak={o.key === 'extreme_monster_park' ? expBoyak?.monsterPark : undefined}
                 lev={character.basic.character_level}
               />)}
@@ -163,9 +158,7 @@ export const CardCharacterContentsExp = ({
             {playable.expCoupons.map(o =>
               <ContentRow
                 key={o.key}
-                $$key={o.key}
-                img={o.img}
-                value={o.$$expPercent}
+                row={o}
                 lev={character.basic.character_level}
               />)}
           </div>

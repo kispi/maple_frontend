@@ -1,5 +1,5 @@
 import { highMountainData, anglerCompanyData } from '~/assets/constants/data-epic-dungeon'
-import { extremeMonsterPark } from '~/assets/constants/data-monster-park'
+import { extremeMonsterPark, monsterPark } from '~/assets/constants/data-monster-park'
 import { vipAfkData } from '~/assets/constants/data-afk'
 import { levelExpTable } from '~/assets/constants/data-level-exp'
 import { useEffect } from 'react'
@@ -37,10 +37,10 @@ export const ModalHighMountain = ({
       <div className="table">
         <div className="thead">
           <div className="tr">
-            <div className="th">LEVEL</div>
-            <div className="th">EXP</div>
-            <div className="th">EXP (Lv.1)</div>
-            <div className="th">EXP (Lv.2)</div>
+            <div className="th">{helpers.$t('LEVEL')}</div>
+            <div className="th">{helpers.$t('DEFAULT')}</div>
+            <div className="th">Lv.1</div>
+            <div className="th">Lv.2</div>
           </div>
         </div>
         <div className="tbody">
@@ -71,10 +71,10 @@ export const ModalAnglerCompany = ({
       <div className="table">
         <div className="thead">
           <div className="tr">
-            <div className="th">LEVEL</div>
-            <div className="th">EXP</div>
-            <div className="th">EXP (Lv.1)</div>
-            <div className="th">EXP (Lv.2)</div>
+            <div className="th">{helpers.$t('LEVEL')}</div>
+            <div className="th">{helpers.$t('DEFAULT')}</div>
+            <div className="th">Lv.1</div>
+            <div className="th">Lv.2</div>
           </div>
         </div>
         <div className="tbody">
@@ -140,6 +140,50 @@ export const ModalExtremeMonsterPark = ({
   </div>
 }
 
+export const ModalMonsterPark = ({
+  options,
+  onClose,
+}: {
+  options?: { lev: number },
+  onClose: () => void,
+}) => {
+  const appropriateLevels = [...Array(100).keys()].map(idx => idx + 200) // 200 ~ 259
+
+  const highestExpDungeon = (lev: number) => monsterPark.filter(o => o.reqLev <= lev).sort((a, b) => b.exp - a.exp)[0]
+
+  useAutoFocus()
+
+  return <div className="modal-monster-park modal-base-style modal-exp-table scrollable-body">
+    <ModalHeader title={`${helpers.$t('MONSTER_PARK')} (1판당 / 보약 미적용)`} onClose={() => onClose()} />
+    <div className="modal-body pretty-scrollbar">
+      <div className="table">
+        <div className="thead">
+          <div className="tr">
+            <div className="th">{helpers.$t('DUNGEON')}</div>
+            <div className="th">{helpers.$t('LEVEL')}</div>
+            <div className="th">{helpers.$t('DEFAULT')}</div>
+            <div className="th">{helpers.$t('SUNDAY')} (150%)</div>
+            <div className="th">{helpers.$t('SPECIAL_SUNDAY')} (400%)</div>
+          </div>
+        </div>
+        <div className="tbody">
+          {appropriateLevels.map((lev, idx) => <div
+            key={idx}
+            className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
+            <div className="td">
+              <img src={helpers.withCdn(`images/${highestExpDungeon(lev).img}`)} alt={highestExpDungeon(lev).key} />
+            </div>
+            <div className="td">{lev}</div>
+            <div className="td">{helpers.asPercent(highestExpDungeon(lev).exp / levelExpTable[lev - 1])}%</div>
+            <div className="td">{helpers.asPercent(highestExpDungeon(lev).exp / levelExpTable[lev - 1] * 1.5)}%</div>
+            <div className="td">{helpers.asPercent(highestExpDungeon(lev).exp / levelExpTable[lev - 1] * 4)}%</div>
+          </div>)}
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
 export const ModalVipAfk = ({
   options,
   onClose,
@@ -182,7 +226,7 @@ export const ModalVipAfk = ({
       <div className="table">
         <div className="thead">
           <div className="tr">
-            <div className="th">LEVEL</div>
+            <div className="th">{helpers.$t('LEVEL')}</div>
             <div className="th">경험치/1틱(5초)</div>
             <div className="th">1시간</div>
           </div>

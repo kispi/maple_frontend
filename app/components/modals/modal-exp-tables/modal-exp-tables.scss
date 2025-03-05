@@ -9,6 +9,7 @@
 
     .tr {
       display: flex;
+      align-items: center;
       width: 100%;
     }
 
@@ -43,6 +44,32 @@
       text-align: right;
 
       &:first-child {
+        flex: 0 0 56px;
+      }
+    }
+  }
+
+  &.modal-monster-park {
+    img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .td,
+    .th {
+      padding: 4px 8px;
+      flex: 1 1 0;
+      min-width: 0;
+      text-align: right;
+
+      &:first-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+      }
+
+      &:nth-child(2) {
         flex: 0 0 56px;
       }
     }
