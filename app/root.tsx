@@ -35,6 +35,15 @@ export const links: LinksFunction = () => [
       'family=Noto+Sans+KR:wght@100..900',
       'family=Poppins:wght@200;300;400;500',
     ]),
+  }, {
+    rel: 'icon',
+    href: '/favicon/favicon.ico',
+  }, {
+    rel: 'apple-touch-icon',
+    href: '/favicon/icon-192x192.png',
+  }, {
+    rel: 'manifest',
+    href: '/manifest.json',
   },
 ]
 
