@@ -19,7 +19,7 @@ export const shouldRevalidate = () => false
 export const loader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url)
 
-  if (!helpers.seo.isDirectAccess(request) && helpers.seo.isBot(request)) return { preparedCharacter: null }
+  if (!helpers.seo.isDirectAccess(request) && !helpers.seo.isBot(request)) return { preparedCharacter: null }
 
   const name = url.searchParams.get('name')
   if (!name) return { preparedCharacter: null }
