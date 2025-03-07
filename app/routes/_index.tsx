@@ -3,8 +3,6 @@ import useAppStore from '~/store/app'
 import SearchCharacter from '~/components/maplestory/search-character/SearchCharacter'
 import StoredCharacters from '~/components/maplestory/stored-characters/StoredCharacters'
 
-export const shouldRevalidate = () => false
-
 const Index = () => {
   const { selectedCharacter } = useMapleStore()
 

@@ -1,6 +1,6 @@
-import { DefaultError } from '~/types'
+import { CharacterInfo, DefaultError } from '~/types'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useNavigate, useSearchParams } from '@remix-run/react'
+import { useMatches, useNavigate, useSearchParams } from '@remix-run/react'
 import helpers from '~/helpers'
 import useMapleStore from '~/store/maple'
 import './search-character.scss'
@@ -13,6 +13,10 @@ const SearchCharacter = () => {
   const { loadCharacter, setSelectedCharacter } = useMapleStore()
 
   const navigate = useNavigate()
+
+  const matches = useMatches()
+
+  const preparedCharacter = (matches.find(m => m.id === 'routes/info')?.data as { preparedCharacter?: CharacterInfo })?.preparedCharacter
 
   const refInput = useRef<HTMLInputElement>(null)
 
@@ -27,8 +31,9 @@ const SearchCharacter = () => {
     } catch (e) {
       const error = e as DefaultError
       helpers.toast.error(error.data.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
+      navigate('/', { replace: true })
     }
-  }, [loadCharacter, refInput])
+  }, [loadCharacter, navigate, refInput])
 
   const onSearch = () => {
     if (characterName === name) {
@@ -40,9 +45,11 @@ const SearchCharacter = () => {
   }
 
   useEffect(() => {
+    if (preparedCharacter?.basic.character_name === name) return
+
     if (name) getCharacterInfo(name)
     else setSelectedCharacter()
-  }, [name, getCharacterInfo, setSelectedCharacter])
+  }, [name, preparedCharacter, getCharacterInfo, setSelectedCharacter])
 
   return <div className="search-character input-wrapper">
     <i

@@ -40,6 +40,8 @@ export const dailyContents = {
   },
   monsterPark: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
     const highestExpDungeon = monsterPark.filter(o => o.reqLev <= lev).sort((a, b) => b.exp - a.exp)[0]
+    if (!highestExpDungeon) return []
+
     const result = [{
       ...highestExpDungeon,
       $$title: `${helpers.$t('MONSTER_PARK')} (${helpers.$t(highestExpDungeon.key)})`,
