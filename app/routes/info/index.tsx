@@ -19,9 +19,7 @@ export const shouldRevalidate = () => false
 export const loader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url)
 
-  // 뭔가 안티패턴같긴 한데 어쨌든 페이지 직접 접근 시에만 server-side-fetching
-  const isDirectAccess = request.headers.get('sec-fetch-dest') === 'document'
-  if (!isDirectAccess) return { preparedCharacter: null }
+  if (!helpers.seo.isDirectAccess(request) && helpers.seo.isBot(request)) return { preparedCharacter: null }
 
   const name = url.searchParams.get('name')
   if (!name) return { preparedCharacter: null }
