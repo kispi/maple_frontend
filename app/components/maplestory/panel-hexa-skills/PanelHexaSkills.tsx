@@ -34,10 +34,12 @@ const PanelHexaSkills = ({
     // 새벽과 황혼은 맨 뒤로
     filtered.character_skill = filtered.character_skill.filter(skill =>
       keywordsToFilter.every(keyword => !skill.skill_name.includes(keyword))
-    ).sort(a => {
-      if (a.skill_name.includes('솔 야누스')) return 1
-      if (a.skill_name.includes('스탯')) return 2
-      return -1
+    ).sort((a, b) => {
+      if (a.skill_name.includes('솔 야누스')) return 1;
+      if (b.skill_name.includes('솔 야누스')) return -1;
+      if (a.skill_name.includes('스탯')) return 1;
+      if (b.skill_name.includes('스탯')) return -1;
+      return 0; // 기본 순서 유지
     })
 
     return filtered
@@ -52,7 +54,7 @@ const PanelHexaSkills = ({
       ref={el => refs.current[idx] = el as HTMLDivElement}
       onMouseEnter={() => onMouseEnter(skill, refs.current[idx])}
       onMouseLeave={() => onMouseLeave()}
-      key={idx}
+      key={skill.skill_name}
       className="hexa-skill">
       <img className="hexa-skill-icon" src={skill.skill_icon} alt={skill.skill_name} />
       <div className="hexa-skill-level">{skill.skill_level}</div>

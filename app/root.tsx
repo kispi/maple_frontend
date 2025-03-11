@@ -12,6 +12,7 @@ import { createMetaTags } from './assets/constants/meta'
 import AppHeader from './components/app/app-header/AppHeader'
 import AppAddons from './components/app/addons/AppAddons'
 import AppFooter from './components/app/app-footer/AppFooter'
+import ClientOnly from './components/app/ClientOnly'
 import useAppStore from './store/app'
 import '~/assets/styles/index.scss'
 import './font-awesome.css'
@@ -85,8 +86,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="app-body layout-centered">
           <main>{children}</main>
         </div>
-        <AppAddons />
         <AppFooter />
+        <ClientOnly>
+          <AppAddons />
+        </ClientOnly>
         <ScrollRestoration />
         <Scripts />
       </body>

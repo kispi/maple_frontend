@@ -5,6 +5,7 @@ import image from './image'
 import localStorage from './local-storage'
 import logic from './logic'
 import modal from './modal'
+import seo from './seo'
 import template from './template'
 import toast from './toast'
 import tooltip from './tooltip'
@@ -17,6 +18,7 @@ const helpers = {
   localStorage,
   logic,
   modal,
+  seo,
   template,
   toast,
   tooltip,
