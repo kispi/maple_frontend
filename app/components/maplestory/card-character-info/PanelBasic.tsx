@@ -51,10 +51,14 @@ const SimpleStats = ({
   }, [character.stat.final_stat])
 
   return <div className="simple-stats">
-    <div className="flex-row align-center g-8">
-      <div className="key">{helpers.$t('전투력')}</div>
+    <a
+      href={`https://maplescouter.com/result?name=${character.basic.character_name}`}
+      target="_blank"
+      rel="noreferrer"
+      className="flex-row align-center fit-content g-4">
+      <div className="key"><i className="fal fa-link f-12 m-r-8" />{helpers.$t('전투력')}</div>
       <div className="value">{battlePower}</div>
-    </div>
+    </a>
   </div>
 }
 

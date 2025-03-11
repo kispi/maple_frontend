@@ -43,7 +43,11 @@ const PanelHexaSkills = ({
     return filtered
   }, [character.skills]) as CharacterSkill
 
-  return hexaSkills && <div className={`panel-hexa-skills ${className || ''}`}>
+  return hexaSkills && <a
+    href={`https://maplescouter.com/hexa?name=${character.basic.character_name}`}
+    target="_blank"
+    rel="noreferrer"
+    className={`panel-hexa-skills ${className || ''}`}>
     {hexaSkills.character_skill.map((skill, idx) => <div
       ref={el => refs.current[idx] = el as HTMLDivElement}
       onMouseEnter={() => onMouseEnter(skill, refs.current[idx])}
@@ -53,7 +57,7 @@ const PanelHexaSkills = ({
       <img className="hexa-skill-icon" src={skill.skill_icon} alt={skill.skill_name} />
       <div className="hexa-skill-level">{skill.skill_level}</div>
     </div>)}
-  </div>
+  </a>
 }
 
 export default PanelHexaSkills
