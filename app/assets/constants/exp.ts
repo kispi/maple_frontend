@@ -19,26 +19,37 @@ export type ExpRow = {
 // 경험치 절댓값이 아닌 %로 리턴함
 export const dailyContents = {
   dailyQuestsExp: {
-    arcaneRiver: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] =>
-      dailyQuestsData.arcaneRiver.filter(o => o.reqLev <= lev).map(o => ({
+    arcaneRiver: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
+      if (lev >= 300) return []
+
+      return dailyQuestsData.arcaneRiver.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'arcaneRiver',
         $$expPercent: helpers.asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
-      })),
-    tenebris: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] =>
-      dailyQuestsData.tenebris.filter(o => o.reqLev <= lev).map(o => ({
+      }))
+    },
+    tenebris: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
+      if (lev >= 300) return []
+
+      return dailyQuestsData.tenebris.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'arcaneRiver',
         $$expPercent: helpers.asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
-      })),
-    grandis: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] =>
-      dailyQuestsData.grandis.filter(o => o.reqLev <= lev).map(o => ({
+      }))
+    },
+    grandis: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
+      if (lev >= 300) return []
+
+      return dailyQuestsData.grandis.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'grandis',
         $$expPercent: helpers.asPercent(o.exp / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100)
-      })),
+      }))
+    },
   },
   monsterPark: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
+    if (lev >= 300) return []
+
     const highestExpDungeon = monsterPark.filter(o => o.reqLev <= lev).sort((a, b) => b.exp - a.exp)[0]
     if (!highestExpDungeon) return []
 
