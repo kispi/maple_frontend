@@ -37,7 +37,7 @@
     .key {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
     }
 
     .value {
@@ -47,6 +47,7 @@
 
     img {
       width: 24px;
+      margin-right: 4px;
     }
 
     &.cursor-pointer:hover {

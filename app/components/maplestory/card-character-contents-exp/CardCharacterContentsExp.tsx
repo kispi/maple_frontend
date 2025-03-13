@@ -1,7 +1,15 @@
 import { CharacterInfo } from '~/types'
 import { useEffect, useMemo, useState } from 'react'
 import { dailyContents, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
-import { ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalVipAfk, ModalMonsterPark } from '~/components/modals/modal-exp-tables/ModalExpTables'
+import {
+  ModalHighMountain,
+  ModalAnglerCompany,
+  ModalExtremeMonsterPark,
+  ModalVipAfk,
+  ModalMonsterPark,
+  ModalExpCouponBasic,
+  ModalExpCouponAdvanced,
+} from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import './card-character-contents-exp.scss'
@@ -27,8 +35,8 @@ const ContentRow = ({
     if (row.key === 'extreme_monster_park') return ModalExtremeMonsterPark
     if (row.key === 'vip_afk') return ModalVipAfk
     if (row.boyakRegion === 'monsterPark') return ModalMonsterPark
-    // if ($$key === 'exp_coupon_basic') return ModalExpCouponBasic
-    // if ($$key === 'exp_coupon_advanced') return ModalExpCouponAdvanced
+    if (row.key === 'exp_coupon_basic') return ModalExpCouponBasic
+    if (row.key === 'exp_coupon_advanced') return ModalExpCouponAdvanced
   }, [row.key, row.boyakRegion])
 
   return <div
@@ -37,7 +45,7 @@ const ContentRow = ({
     <div className="key">
       <img src={helpers.withCdn(`images/${row.img}`)} alt={row.key} />
       {helpers.$t(row.$$title || row.key)}
-      {['angler_company', 'high_mountain'].includes(row.key) && <span>[{helpers.$t('REWARD')} Lv.2]</span>}
+      {['angler_company', 'high_mountain'].includes(row.key) && <span>({helpers.$t('REWARD')} Lv.2)</span>}
       {row.key.includes('exp_coupon') && <span>(1000개당)</span>}
     </div>
     <div className="value">

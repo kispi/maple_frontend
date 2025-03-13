@@ -2,6 +2,7 @@ import { CharacterInfo, DefaultError, SimpleCharacter } from '~/types'
 import { useLocation, useNavigate } from '@remix-run/react'
 import { useRef } from 'react'
 import useLocalCharacters from 'hooks/local-characters'
+import useAppStore from '~/store/app'
 import ExpBar from '../exp-bar/ExpBar'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import helpers from '~/helpers'
@@ -34,9 +35,11 @@ const StoredCharacters = ({
 }) => {
   const { sortedLocalCharacters, removeCharacter } = useLocalCharacters(selectedCharacter)
 
-  const navigate = useNavigate()
-
   const { pathname } = useLocation()
+
+  const { loading } = useAppStore()
+
+  const navigate = useNavigate()
 
   const refs = useRef<HTMLDivElement[]>([])
 
@@ -119,7 +122,7 @@ const StoredCharacters = ({
         </div>
       ))}
     </div>}
-    {sortedLocalCharacters.length === 0 && !selectedCharacter && <div className="empty m-t-64">
+    {pathname === '/' && sortedLocalCharacters.length === 0 && !loading.global && <div className="empty m-t-64">
       <img src={helpers.withCdn('images/class_hero.webp')} alt="maplestory hero" />
       <div className="f-poppins">
         <div>Maplestory Everyday,</div>

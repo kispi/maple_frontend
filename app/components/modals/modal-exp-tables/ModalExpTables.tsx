@@ -1,12 +1,15 @@
 import { highMountainData, anglerCompanyData } from '~/assets/constants/data-epic-dungeon'
 import { extremeMonsterPark, monsterPark } from '~/assets/constants/data-monster-park'
 import { vipAfkData } from '~/assets/constants/data-afk'
+import { expCoupons } from '~/assets/constants/exp'
 import { levelExpTable } from '~/assets/constants/data-level-exp'
 import { useEffect } from 'react'
 import ModalHeader from '../ModalHeader'
 import helpers from '~/helpers'
 import useAppStore from '~/store/app'
 import './modal-exp-tables.scss'
+
+const createLevels = (from: number, count: number) => [...Array(count).keys()].map(idx => idx + from)
 
 const useAutoFocus = () => {
   useEffect(() => {
@@ -147,8 +150,6 @@ export const ModalMonsterPark = ({
   options?: { lev: number },
   onClose: () => void,
 }) => {
-  const appropriateLevels = [...Array(100).keys()].map(idx => idx + 200) // 200 ~ 259
-
   const highestExpDungeon = (lev: number) => monsterPark.filter(o => o.reqLev <= lev).sort((a, b) => b.exp - a.exp)[0]
 
   useAutoFocus()
@@ -167,7 +168,7 @@ export const ModalMonsterPark = ({
           </div>
         </div>
         <div className="tbody">
-          {appropriateLevels.map((lev, idx) => <div
+          {createLevels(200, 100).map((lev, idx) => <div
             key={idx}
             className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
             <div className="td">
@@ -245,16 +246,66 @@ export const ModalVipAfk = ({
   </div>
 }
 
-// TODO
-export const ModalExpCouponBasic = () => {
+export const ModalExpCouponBasic = ({
+  options,
+  onClose,
+}: {
+  options?: { lev: number },
+  onClose: () => void,
+}) => {
+  useAutoFocus()
+
   return <div className="modal-exp-coupon-basic modal-base-style modal-exp-table scrollable-body">
-    TEST
+    <ModalHeader title={modalTitle('EXP_COUPON_BASIC', 'exp_coupon_basic.png')} onClose={() => onClose()} />
+    <div className="modal-body pretty-scrollbar">
+      <div className="table">
+        <div className="thead">
+          <div className="tr">
+            <div className="th">{helpers.$t('LEVEL')}</div>
+            <div className="th">1000개당</div>
+          </div>
+        </div>
+        <div className="tbody">
+        {createLevels(200, 60).map((lev, idx) => <div
+            key={idx}
+            className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
+            <div className="td">{lev}</div>
+            <div className="td">{expCoupons.basic({ lev }).$$expPercent}%</div>
+          </div>)}
+        </div>
+      </div>
+    </div>
   </div>
 }
 
-// TODO
-export const ModalExpCouponAdvanced = () => {
-  return <div className="modal-exp-coupon-advanced modal-base-style modal-exp-table scrollable-body">
-    TEST
+export const ModalExpCouponAdvanced = ({
+  options,
+  onClose,
+}: {
+  options?: { lev: number },
+  onClose: () => void,
+}) => {
+  useAutoFocus()
+
+  return <div className="modal-exp-coupon-basic modal-base-style modal-exp-table scrollable-body">
+    <ModalHeader title={modalTitle('EXP_COUPON_ADVANCED', 'exp_coupon_advanced.png')} onClose={() => onClose()} />
+    <div className="modal-body pretty-scrollbar">
+      <div className="table">
+        <div className="thead">
+          <div className="tr">
+            <div className="th">{helpers.$t('LEVEL')}</div>
+            <div className="th">1000개당</div>
+          </div>
+        </div>
+        <div className="tbody">
+        {createLevels(260, 40).map((lev, idx) => <div
+            key={idx}
+            className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
+            <div className="td">{lev}</div>
+            <div className="td">{expCoupons.advanced({ lev }).$$expPercent}%</div>
+          </div>)}
+        </div>
+      </div>
+    </div>
   </div>
 }
