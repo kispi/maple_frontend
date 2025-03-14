@@ -1,36 +1,4 @@
 :root {
-  --purple-900: #413069;
-  --purple-800: #4F378B;
-  --purple-700: #6347A9;
-  --purple-600: #785BBE;
-  --purple-500: #8968D9;
-  --purple-400: #B39AEF;
-  --purple-300: #C8B4F8;
-  --purple-200: #E7DFFC;
-  --purple-100: #F5F1FD;
-  --purple-50:  #F8F6FE;
-
-  --blue-900:   #00244D;
-  --blue-800:   #00326B;
-  --blue-700:   #04458F;
-  --blue-600:   #0C54AC;
-  --blue-500:   #2375D7;
-  --blue-400:   #61A2EF;
-  --blue-300:   #95C6EE;
-  --blue-200:   #C2E0FA;
-  --blue-100:   #EBF6FF;
-  --blue-50:    #F5F7FF;
-
-  --cyan-900:   #164E63;
-  --cyan-800:   #0E7490;
-  --cyan-700:   #0D8EAD;
-  --cyan-600:   #1BA4BB;
-  --cyan-500:   #22B3C9;
-  --cyan-400:   #6BCAD6;
-  --cyan-300:   #96E4ED;
-  --cyan-200:   #B9EEF3;
-  --cyan-100:   #DFFAFB;
-
   --black:      #000000;
   --gray-900:   #1C2740;
   --gray-800:   #273344;
@@ -79,9 +47,6 @@
   --green-200:  #C9EED6;
   --green-100:  #E8F7ED;
 
-  --primary:        var(--purple-500);
-  --secondary:      var(--blue-500);
-
   --success:         var(--green-500);
   --warning:         var(--amber-500);
   --warning-dark:    var(--amber-600);
@@ -89,6 +54,8 @@
   --danger:          var(--red-600);
   --danger-light:    var(--red-500);
   --danger-light-bg: var(--red-100);
+
+  --primary:         var(--danger);
 
   --bitcoin:         #FFBB11;
   --legendary:       rgba(164, 199, 0);

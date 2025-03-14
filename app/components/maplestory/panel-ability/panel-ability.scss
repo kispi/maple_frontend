@@ -12,30 +12,4 @@
       padding: 0 8px;
     }
   }
-  
-  .preset-selector {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 8px;
-
-    .no {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      color: var(--white);
-      background: var(--border-base);
-      user-select: none;
-      cursor: pointer;
-
-      &:hover,
-      &.selected {
-        background: var(--background-light);
-        border: 1px solid var(--text-light);
-      }
-    }
-  }
 }

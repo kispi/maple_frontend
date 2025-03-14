@@ -19,7 +19,7 @@ const AppHeader = () => {
           e.preventDefault()
           navigate('/')
         }}>
-        EVERY<span className="c-danger">M</span>APLE
+        EVERY<span className="c-primary">M</span>APLE
       </a>
       <div className="header-functions">
         <div

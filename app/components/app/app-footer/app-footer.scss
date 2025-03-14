@@ -1,34 +1,12 @@
 .app-footer {
   background: var(--background-light);
+  font-size: 12px;
 
   .layout-centered {
     padding: 40px var(--app-default-page-padding);
     display: flex;
     flex-direction: column;
     gap: 24px;
-  }
-
-  .grid {
-    display: grid;
-    gap: 8px;
-
-    a {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    &.outer {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      padding: 8px;
-      gap: 48px;
-    }
-  }
-
-  .category-title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 16px;
   }
 
   .bottom {
@@ -58,12 +36,6 @@
           content: '';
         }
       }
-    }
-  }
-
-  @media (max-width: 767px) {
-    .bottom {
-      flex-direction: column;
     }
   }
 }

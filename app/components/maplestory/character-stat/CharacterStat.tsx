@@ -56,6 +56,9 @@ const displayStatValue = (
   const target = stats.find(stat => stat.stat_name === statKey.key)
   if (!target) return '-'
 
+  const parsed = parseFloat(target.stat_value)
+  if (isNaN(parsed)) return '-'
+
   const val = parseFloat(target.stat_value) > 100 ? parseFloat(target.stat_value).toLocaleString() : target.stat_value
 
   return statKey.suffix ? `${val}${statKey.suffix}` : val
