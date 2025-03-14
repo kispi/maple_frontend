@@ -1,0 +1,38 @@
+.character-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 12px;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .sub-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .attr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .key {
+        color: var(--text-light);
+      }
+  
+      .value {
+        font-weight: 600;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

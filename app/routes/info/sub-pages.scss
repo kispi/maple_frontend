@@ -11,6 +11,8 @@
     .tab {
       padding: 8px 16px;
       border-bottom: 2px solid transparent;
+      user-select: none;
+      flex: 0 0 auto;
       cursor: pointer;
 
       &.selected {

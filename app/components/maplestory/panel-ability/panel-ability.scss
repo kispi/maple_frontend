@@ -33,8 +33,8 @@
 
       &:hover,
       &.selected {
-        background: var(--text-light);
-        border: 1px solid var(--border-light);
+        background: var(--background-light);
+        border: 1px solid var(--text-light);
       }
     }
   }

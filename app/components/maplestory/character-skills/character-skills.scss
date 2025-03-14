@@ -1,0 +1,39 @@
+.character-skills {
+  .panel-hexa-skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+
+  }
+
+  .icon-skill {
+    border: 1px solid var(--border-base);
+    padding: 4px;
+    border-radius: 4px;
+    width: fit-content;
+
+    .skill-img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .skill-level {
+      text-align: center;
+    }
+  }
+
+  .skills-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--border-base);
+    }
+  }
+}
