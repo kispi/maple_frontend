@@ -1,38 +1,50 @@
 .character-stat {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   font-size: 12px;
 
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 24px;
+  }
+
+  .card {
+    color: var(--white);
+    background: var(--gray-500);
+    border-radius: 16px;
   }
 
   .sub-panel {
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
 
-    .attr {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  .attr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-      .key {
-        color: var(--text-light);
-      }
-  
-      .value {
-        font-weight: 600;
-      }
+    .value {
+      font-weight: 500;
     }
   }
 
   @media (max-width: 767px) {
     .grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    .base-stats {
+      grid-column: span 2;
+      grid-row: span 2;
     }
   }
 }

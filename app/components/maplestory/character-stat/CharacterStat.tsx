@@ -1,5 +1,6 @@
 import { CharacterInfo } from '~/types'
 import PanelAbility from '../panel-ability/PanelAbility'
+import CharacterHyperStat from './CharacterHyperStat'
 import './character-stat.scss'
 
 const statKeyGroups = [
@@ -83,18 +84,21 @@ const SubPanel = ({
 
 export const CharacterStat = ({ character }: { character: CharacterInfo }) => {
   return <div className="character-stat">
-    <div className="basic-stats">
-      <div className="grid">
-        <SubPanel keyGroup={statKeyGroups[0]} stats={character.stat.final_stat} />
-        <SubPanel keyGroup={statKeyGroups[1]} stats={character.stat.final_stat} />
+    <CharacterHyperStat character={character} />
+    <div className="base-stats card">
+      <div className="basic-stats">
+        <div className="grid">
+          <SubPanel keyGroup={statKeyGroups[0]} stats={character.stat.final_stat} />
+          <SubPanel keyGroup={statKeyGroups[1]} stats={character.stat.final_stat} />
+        </div>
       </div>
-    </div>
-    <div className="additional-stats">
-      <div className="grid">
-        <SubPanel keyGroup={statKeyGroups[2]} stats={character.stat.final_stat} />
-        <SubPanel keyGroup={statKeyGroups[3]} stats={character.stat.final_stat} />
-        <SubPanel keyGroup={statKeyGroups[4]} stats={character.stat.final_stat} />
-        <SubPanel keyGroup={statKeyGroups[5]} stats={character.stat.final_stat} />
+      <div className="additional-stats">
+        <div className="grid">
+          <SubPanel keyGroup={statKeyGroups[2]} stats={character.stat.final_stat} />
+          <SubPanel keyGroup={statKeyGroups[3]} stats={character.stat.final_stat} />
+          <SubPanel keyGroup={statKeyGroups[4]} stats={character.stat.final_stat} />
+          <SubPanel keyGroup={statKeyGroups[5]} stats={character.stat.final_stat} />
+        </div>
       </div>
     </div>
     <PanelAbility character={character} />
