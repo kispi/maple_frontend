@@ -10,6 +10,8 @@ const SearchCharacter = () => {
 
   const [characterName, setCharacterName] = useState('')
 
+  const [isComposing, setIsComposing] = useState(false)
+
   const { loadCharacter, setSelectedCharacter } = useMapleStore()
 
   const navigate = useNavigate()
@@ -36,6 +38,9 @@ const SearchCharacter = () => {
   }, [loadCharacter, navigate, refInput])
 
   const onSearch = () => {
+    // 아니 왜 컴포징 중에 navigate를 하면 404가 뜨냐고
+    if (isComposing) return
+
     if (characterName === name) {
       // 브라우저 히스토리 스택에 같은 주소가 쌓이는 것을 방지
       return
@@ -62,10 +67,12 @@ const SearchCharacter = () => {
       placeholder={helpers.$t('PLACEHOLDER_SEARCH_CHARACTER')}
       value={characterName}
       maxLength={12}
-      onChange={(e) => setCharacterName(e.target.value)}
+      onChange={e => setCharacterName(e.target.value)}
       onKeyDown={e => {
         if (e.key === 'Enter') onSearch()
       }}
+      onCompositionStart={() => setIsComposing(true)}
+      onCompositionEnd={() => setIsComposing(false)}
     />
     {characterName && <i
       className="far fa-times cursor-pointer"
