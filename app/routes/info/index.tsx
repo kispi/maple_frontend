@@ -1,6 +1,3 @@
-import { CardCharacterInfo } from '~/components/maplestory/card-character-info/CardCharacterInfo'
-import { CardCharacterItemEquipment } from '~/components/maplestory/card-character-item-equipment/CardCharacterItemEquipment'
-import { CardCharacterContentsExp } from '~/components/maplestory/card-character-contents-exp/CardCharacterContentsExp'
 import { CharacterInfo } from '~/types'
 import { useLoaderData, useNavigate, useSearchParams } from '@remix-run/react'
 import { MetaFunction } from '@remix-run/node'
@@ -9,10 +6,10 @@ import { $http } from '~/modules/axios'
 import useAppStore from '~/store/app'
 import useMapleStore from '~/store/maple'
 import helpers from '~/helpers'
-import PanelAbility from '~/components/maplestory/panel-ability/PanelAbility'
-import PanelHexaSkills from '~/components/maplestory/panel-hexa-skills/PanelHexaSkills'
+import CharacterBasicInfo from '~/components/maplestory/character-basic-info/CharacterBasicInfo'
 import SearchCharacter from '~/components/maplestory/search-character/SearchCharacter'
 import StoredCharacters from '~/components/maplestory/stored-characters/StoredCharacters'
+import SubPages from './SubPages'
 
 const createMetaTitle = (c: CharacterInfo) => {
   if (!c) return '에브리메이플'
@@ -90,23 +87,12 @@ const Index = () => {
 
   // SearchCharacter에서 따로 $http 요청하지 말고, url이 바뀌면 loader가 자동 호출되는 것을 이용해서 그냥 그 데이터를 쓰는 형태로 바꿔야 할 듯
   return (
-    <div className={`view-info flex g-${isMobile ? 16 : 24}`}>
+    <div className={`view-info flex g-${isMobile ? 16 : 24} mobile-negative-margin`}>
       <SearchCharacter />
       <StoredCharacters selectedCharacter={currentCharacter} className="fixed" />
       {currentCharacter && <div className="flex g-24">
-        <CardCharacterInfo character={currentCharacter} />
-        <CardCharacterContentsExp character={currentCharacter} />
-
-        {/* 리액트는 v-if 같은거 없냐... */}
-        {(currentCharacter.ability.ability_info.length > 0 || currentCharacter.skills.find(skill => skill.character_skill_grade === '6')) &&
-          <div className={`card ${isMobile ? 'flex' : 'flex-row align-center'} g-24`}>
-            <PanelAbility character={currentCharacter} className="flex-fill" />
-            <PanelHexaSkills character={currentCharacter} className="flex-fill" />
-          </div>
-        }
-        <div className="section-bottom">
-          <CardCharacterItemEquipment character={currentCharacter} />
-        </div>
+        <CharacterBasicInfo character={currentCharacter} />
+        <SubPages character={currentCharacter} />
       </div>}
     </div>
   )

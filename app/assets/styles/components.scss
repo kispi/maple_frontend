@@ -38,10 +38,11 @@
 }
 
 .card {
-  padding: 16px;
+  padding: var(--card-padding);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--border-base);
+  overflow: hidden;
 }
 
 .badge-fill {
@@ -53,6 +54,9 @@
 @media (max-width: 767px) {
   .card {
     border-radius: 0;
+  }
+
+  .mobile-negative-margin {
     margin: 0 calc(-1 * var(--app-default-page-padding) + -1px);
   }
 }

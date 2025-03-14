@@ -250,5 +250,21 @@
   "REWARD": {
     "kr": "보상",
     "en": "Reward"
+  },
+  "EXP_CONTENTS": {
+    "kr": "경험치 컨텐츠",
+    "en": "EXP Contents"
+  },
+  "EQUIPMENTS": {
+    "kr": "장비",
+    "en": "Equipments"
+  },
+  "STATS": {
+    "kr": "스탯",
+    "en": "Stats"
+  },
+  "SKILLS": {
+    "kr": "스킬",
+    "en": "Skills"
   }
 }

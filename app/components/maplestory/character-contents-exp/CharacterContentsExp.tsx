@@ -12,7 +12,7 @@ import {
 } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
-import './card-character-contents-exp.scss'
+import './character-contents-exp.scss'
 
 type ExpBoyak = {
   arcaneRiver: number,
@@ -54,7 +54,7 @@ const ContentRow = ({
   </div>
 }
 
-export const CardCharacterContentsExp = ({
+export const CharacterContentsExp = ({
   character,
 }: {
   character: CharacterInfo,
@@ -110,7 +110,7 @@ export const CardCharacterContentsExp = ({
 
   if (playable.daily.length === 0 && playable.weekly.length === 0) return null
 
-  return <div className="card-character-contents-exp flex g-16 card">
+  return <div className="character-contents-exp flex g-16">
     {playable.daily.length > 0 && <div className="contents">
       <div
         className="foldable"

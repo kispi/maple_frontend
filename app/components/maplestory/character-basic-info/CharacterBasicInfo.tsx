@@ -1,8 +1,8 @@
 import { CharacterInfo } from '~/types'
 import { PanelBasic } from './PanelBasic'
 import { useMemo, useRef } from 'react'
-import './card-character-info.scss'
 import helpers from '~/helpers'
+import './character-basic-info.scss'
 
 const IconEventSkill = ({
   character,
@@ -40,13 +40,15 @@ const IconEventSkill = ({
   </div> : null
 }
 
-export const CardCharacterInfo = ({
+const CharacterBasicInfo = ({
   character,
 }: {
   character: CharacterInfo,
 }) => {
-  return <div className="card-character-info card">
+  return <div className="character-basic-info card">
     <PanelBasic character={character} />
     <IconEventSkill character={character} />
   </div>
 }
+
+export default CharacterBasicInfo

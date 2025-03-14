@@ -91,6 +91,7 @@ export const PanelBasic = ({
           src={character.basic.character_image}
           alt={character.basic.character_name}
         />
+        <div className="created-at">{helpers.dayjs(character.basic.character_date_create).format('YYYY-MM-DD')}</div>
       </div>
       <BasicDetails character={character} />
     </div>

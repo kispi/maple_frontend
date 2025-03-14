@@ -4,7 +4,7 @@ import { ItemEquipmentDetail } from './ItemEquipmentDetail'
 import { PanelSymbolEquipment } from './PanelSymbolEquipment'
 import { useEffect, useMemo, useState } from 'react'
 import helpers from '~/helpers'
-import './card-character-item-equipment.scss'
+import './character-item-equipment.scss'
 
 const GradeBadge = ({ grade }: { grade: string }) => {
   return <span className={`badge-fill c-white f-400 f-10 bg-${helpers.logic.gradeClass([grade])}`}>{grade}</span>
@@ -65,7 +65,7 @@ export const CharacterItemEquipmentSummary = ({
   </>
 }
 
-export const CardCharacterItemEquipment = ({
+export const CharacterItemEquipment = ({
   character,
 }: {
   character: CharacterInfo,
@@ -79,7 +79,7 @@ export const CardCharacterItemEquipment = ({
     return sorted
   }, [character])
 
-  return <div className="card-character-item-equipment card flex g-24">
+  return <div className="character-item-equipment flex g-24">
     <div className="items-grid">
       {sortedItems.map((itemEquipment, index) => (
         <CharacterItemEquipmentSummary

@@ -1,0 +1,35 @@
+.sub-pages {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  .tabs {
+    display: flex;
+    align-items: center;
+    margin: calc(-1 * var(--card-padding));
+
+    .tab {
+      padding: 8px 16px;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+
+      &.selected {
+        background: var(--background-light);
+        border-bottom: 2px solid var(--text-base);
+      }
+
+      &:hover,
+      &.selected {
+        color: var(--text-base);
+        font-weight: 700;
+      }
+
+      &.empty {
+        flex: 1;
+        pointer-events: none;
+        user-select: none;
+        color: transparent;
+      }
+    }
+  }
+}
