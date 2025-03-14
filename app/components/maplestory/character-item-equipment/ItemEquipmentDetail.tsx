@@ -123,6 +123,10 @@ export const ItemEquipmentDetail = ({
         ''}
       {parseInt(itemEquipment.cuttable_count) <= 10 && <div className="cuttable-count c-unique">가위 사용 가능 횟수 : {itemEquipment.cuttable_count}회</div>}
     </div>
+    {itemEquipment.item_description && <>
+      <div className="hr" />
+      {itemEquipment.item_description}
+    </>}
     {itemEquipment.potential_option_1 && <>
       <div className="hr" />
       <div className="item-options potential">

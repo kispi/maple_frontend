@@ -20,7 +20,6 @@ const SubPages = ({ character }: { character: CharacterInfo }) => {
         className={`tab ${selectedTab === t ? 'selected' : ''}`}>
         {helpers.$t(t)}
       </div>)}
-      <div className="tab empty">EMPTY</div>
     </div>
     {selectedTab === 'EXP_CONTENTS' && <CharacterContentsExp character={character} />}
     {selectedTab === 'EQUIPMENTS' && <CharacterItemEquipment character={character} />}

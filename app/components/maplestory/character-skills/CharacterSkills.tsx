@@ -6,11 +6,23 @@ import './character-skills.scss'
 
 const keywordsToFilter = ['새벽']
 
-const onMouseEnter = (skill: TypeSkill, showAbove: HTMLDivElement) => {
+const onMouseEnter = ({
+  skill,
+  showAbove,
+  withEffect,
+}: {
+  skill: TypeSkill,
+  showAbove: HTMLDivElement,
+  withEffect?: boolean,
+}) => {
   helpers.tooltip.show({
     id: 'tooltip-skill',
     showAbove: showAbove,
-    text: `${skill.skill_name}\n\n${skill.skill_description}`,
+    text: `<div class="flex g-8">
+      <div>${skill.skill_name}</div>
+      ${withEffect ? `<div class="skill-effect">${skill.skill_effect}</div>` : ''}
+      <div class="skill-description">${skill.skill_description}</div>
+    </div>`,
   })
 }
 
@@ -21,19 +33,25 @@ const onMouseLeave = () => {
 export const IconSkill = ({
   skill,
   className,
+  withEffect,
 }: {
   skill: TypeSkill,
   className?: string,
+  withEffect?: boolean,
 }) => {
   const refIcon = useRef<HTMLDivElement | null>(null)
 
   return <div
     ref={refIcon}
-    onMouseEnter={() => onMouseEnter(skill, refIcon.current as HTMLDivElement)}
+    onMouseEnter={() => onMouseEnter({
+      skill,
+      showAbove: refIcon.current as HTMLDivElement,
+      withEffect,
+    })}
     onMouseLeave={() => onMouseLeave()}
     className={`icon-skill ${className || ''}`}>
     <img src={skill.skill_icon} alt={skill.skill_name} className="skill-img" />
-    <div className="skill-level">{skill.skill_level}</div>
+    <div className="skill-level">Lv.{skill.skill_level}</div>
   </div>
 }
 
@@ -64,7 +82,7 @@ export const CharacterSkills = ({ character }: { character: CharacterInfo }) => 
 
   return <div className="character-skills">
     {eventSkill && <div className="skills-group">
-      <IconSkill skill={eventSkill} />
+      <IconSkill skill={eventSkill} withEffect={true} />
     </div>}
     {hexaSkills && <div className="skills-group">
       {hexaSkills.character_skill.map((skill, idx) => <IconSkill key={idx} skill={skill} />)}

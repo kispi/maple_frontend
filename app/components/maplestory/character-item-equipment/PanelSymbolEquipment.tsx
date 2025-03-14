@@ -34,7 +34,7 @@ export const PanelSymbolEquipment = ({
       key={idx}
       className="symbol">
       <img className="symbol-icon" src={symbol.symbol_icon} alt={symbol.symbol_name} />
-      <div className="symbol-level">{symbol.symbol_level}</div>
+      <div className="symbol-level">Lv.{symbol.symbol_level}</div>
     </div>)}
   </div>
 }

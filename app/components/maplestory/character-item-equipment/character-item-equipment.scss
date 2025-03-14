@@ -96,6 +96,7 @@
   .symbol {
     border: 1px solid var(--border-base);
     border-radius: 4px;
+    padding: 4px;
 
     .symbol-icon {
       width: 32px;
@@ -103,6 +104,7 @@
     }
 
     .symbol-level {
+      font-size: 10px;
       text-align: center;
     }
   }

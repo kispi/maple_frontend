@@ -108,8 +108,6 @@ export const CharacterContentsExp = ({
     ].filter(o => o.$$expPercent)
   }), [character, expBoyak])
 
-  if (playable.daily.length === 0 && playable.weekly.length === 0) return null
-
   return <div className="character-contents-exp flex g-16">
     {playable.daily.length > 0 && <div className="contents">
       <div
@@ -172,6 +170,12 @@ export const CharacterContentsExp = ({
           </div>
         </div>
       </div>}
+    </div>}
+    {character.basic.character_level < 200 && <div className="level-too-low">
+      캐릭터의 레벨이 200 미만이어서 이용가능한 일일 퀘스트와 주간 컨텐츠가 없습니다. 더 강해져서 돌아오세요!
+    </div>}
+    {character.basic.character_level === 300 && <div className="level-too-high">
+      <strong>{character.basic.character_name}</strong>님의 만렙을 축하합니다. 리스펙 🫡
     </div>}
   </div>
 }

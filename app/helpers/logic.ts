@@ -1,6 +1,19 @@
 import { ItemEquipment } from '~/types/item-equipment'
+import { TypeSymbol } from '~/types/symbol-equipment'
 
 const logic = {
+  isMaxForce: {
+    region: ({ symbols, region }: { symbols: TypeSymbol[], region: string }) => {
+      const found = symbols.find(s => s.symbol_name.includes(region))
+      if (!found) return false
+
+      if (found.symbol_name.includes('아케인')) return found.symbol_level === 20
+      if (found.symbol_name.includes('어센틱')) return found.symbol_level === 11
+      return false
+    },
+    arcane: (symbols: TypeSymbol[]) => symbols.filter(s => s.symbol_name.startsWith('아케인')).every(s => s.symbol_level === 20),
+    grandis: (symbols: TypeSymbol[]) => symbols.filter(s => s.symbol_name.startsWith('어센틱')).every(s => s.symbol_level === 11),
+  },
   gradeClass: (grades: string[]) => {
     if (grades.includes('레전드리')) return 'legendary'
     if (grades.includes('유니크')) return 'unique'
