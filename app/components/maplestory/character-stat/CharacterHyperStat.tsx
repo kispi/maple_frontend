@@ -15,7 +15,7 @@ const CharacterHyperStat = ({
     return []
   }, [presetNo, character.hyperStat])
 
-  return <div className="character-hyper-stat sub-panel card">
+  return <div className="character-hyper-stat card">
     {hyperStat.map(stat => {
       return <div key={stat.stat_type} className="attr">
         <div className="key">{stat.stat_type}</div>

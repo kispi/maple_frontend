@@ -3,9 +3,10 @@ import PanelAbility from '../panel-ability/PanelAbility'
 import CharacterHyperStat from './CharacterHyperStat'
 import './character-stat.scss'
 
+type StatKeyGroup = { key: string, suffix?: string }
+
 const statKeyGroups = [
-  [{ key: 'STR' }, { key: 'DEX' }, { key: 'INT' }, { key: 'LUK' }],
-  [{ key: 'HP' }, { key: 'MP' }],
+  [{ key: 'HP' }, { key: 'MP' }, { key: 'STR' }, { key: 'DEX' }, { key: 'INT' }, { key: 'LUK' }],
   [
     { key: '최대 스탯공격력' },
     { key: '최종 데미지', suffix: '%' },
@@ -15,8 +16,6 @@ const statKeyGroups = [
     { key: '재사용 대기시간 감소' },
     { key: '재사용 대기시간 미적용', suffix: '%' },
     { key: '상태이상 추가 데미지', suffix: '%' },
-  ],
-  [
     { key: '데미지', suffix: '%' },
     { key: '보스 몬스터 데미지', suffix: '%' },
     { key: '일반 몬스터 데미지', suffix: '%' },
@@ -30,19 +29,19 @@ const statKeyGroups = [
     { key: '메소 획득량', suffix: '%' },
     { key: '아이템 드롭률', suffix: '%' },
     { key: '추가 경험치 획득', suffix: '%' },
-    { key: '방어력' },
-    { key: '이동속도', suffix: '%' },
-    { key: '스탠스', suffix: '%' },
-  ],
-  [
     { key: '스타포스' },
     { key: '아케인포스' },
     { key: '어센틱포스' },
+  ],
+  [
+    { key: '방어력' },
+    { key: '이동속도', suffix: '%' },
+    { key: '스탠스', suffix: '%' },
     { key: '상태이상 내성', suffix: '%' },
     { key: '점프력', suffix: '%' },
     { key: '공격 속도', suffix: '단계' },
   ],
-]
+] as StatKeyGroup[][]
 
 const displayStatValue = (
   statKey: { key: string, suffix?: string },
@@ -72,34 +71,30 @@ const SubPanel = ({
   keyGroup: { key: string, suffix?: string }[],
   stats: { stat_name: string, stat_value: string }[],
 }) => {
-  return <div className="sub-panel">
+  return <>
     {keyGroup.map(item => {
       return <div key={item.key} className="attr">
         <div className="key">{item.key}</div>
         <div className="value">{displayStatValue(item, stats)}</div>
       </div>
     })}
-  </div>
+  </>
 }
 
 export const CharacterStat = ({ character }: { character: CharacterInfo }) => {
+  const autoRows = (arr: StatKeyGroup[]) => ({ gridTemplateRows: `repeat(${arr.length / 2}, 1fr)` })
+
   return <div className="character-stat">
     <CharacterHyperStat character={character} />
-    <div className="base-stats card">
-      <div className="basic-stats">
-        <div className="grid">
-          <SubPanel keyGroup={statKeyGroups[0]} stats={character.stat.final_stat} />
-          <SubPanel keyGroup={statKeyGroups[1]} stats={character.stat.final_stat} />
+    <div className="base-stats">
+      {statKeyGroups.map((group, idx) => {
+        return <div
+          key={idx}
+          className="grid card"
+          style={{...autoRows(group), ...(idx === 0 ? { background: 'var(--gray-400);'} : {})}}>
+          <SubPanel keyGroup={group} stats={character.stat.final_stat} />
         </div>
-      </div>
-      <div className="additional-stats">
-        <div className="grid">
-          <SubPanel keyGroup={statKeyGroups[2]} stats={character.stat.final_stat} />
-          <SubPanel keyGroup={statKeyGroups[3]} stats={character.stat.final_stat} />
-          <SubPanel keyGroup={statKeyGroups[4]} stats={character.stat.final_stat} />
-          <SubPanel keyGroup={statKeyGroups[5]} stats={character.stat.final_stat} />
-        </div>
-      </div>
+      })}
     </div>
     <PanelAbility character={character} />
   </div>

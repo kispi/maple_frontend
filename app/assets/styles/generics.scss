@@ -59,7 +59,7 @@
     .g-#{$i} {
       gap: #{$i} + 'px' !important;
     }
-    $i: $i + 4;
+    $i: $i + 2;
   }
 }
 @include gaps(); // g-0, g-4, g-8, ... , g-40
