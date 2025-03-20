@@ -12,7 +12,7 @@ const maxStars = (lev: number, isSuperial?: boolean) => {
     return 3
   }
 
-  if (lev >= 138) return 25
+  if (lev >= 138) return 30
   if (lev >= 128) return 20
   if (lev >= 118) return 15
   if (lev >= 108) return 10
