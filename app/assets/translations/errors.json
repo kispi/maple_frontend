@@ -22,5 +22,9 @@
   "ERROR_FAILED": {
     "en": "Failed to process the request",
     "kr": "요청을 처리하는데 실패했습니다"
+  },
+  "SERVER_MAINTENANCE": {
+    "en": "MapleStory API server is under maintenance",
+    "kr": "메이플스토리 API 서버가 점검 중입니다"
   }
 }

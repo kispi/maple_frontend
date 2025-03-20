@@ -59,7 +59,7 @@ const StoredCharacters = ({
       navigate({ pathname: '/info', search: `?name=${character.name}` })
     } catch (e) {
       const error = e as DefaultError
-      helpers.toast.error(error.data.code === '0001' ? error.data.message : helpers.$t('ERROR_FAILED'))
+      helpers.toast.error(error.data.code ? error.data.message : helpers.$t('ERROR_FAILED'))
     }
   }
 
