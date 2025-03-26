@@ -203,6 +203,30 @@
     "kr": "상급 EXP 교환권",
     "en": "Advanced EXP Coupon"
   },
+  "ELIXIRS": {
+    "kr": "성장의 비약",
+    "en": "Elixirs"
+  },
+  "ELIXIR_RANDOM": {
+    "kr": "익스트림 성장의 비약",
+    "en": "Random Elixir"
+  },
+  "ELIXIR_ULTIMATE_UNION": {
+    "kr": "궁극의 유니온 성장의 비약",
+    "en": "Ultimate Union Elixir"
+  },
+  "ELIXIR_240": {
+    "kr": "태풍 성장의 비약",
+    "en": "Typhoon Elixir"
+  },
+  "ELIXIR_250": {
+    "kr": "극한 성장의 비약",
+    "en": "Extreme Elixir"
+  },
+  "ELIXIR_270": {
+    "kr": "초월 성장의 비약",
+    "en": "Transcendent Elixir"
+  },
   "GUILD": {
     "kr": "길드",
     "en": "Guild"

@@ -1,6 +1,6 @@
 import { CharacterInfo } from '~/types'
 import { useEffect, useMemo, useState } from 'react'
-import { dailyContents, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
+import { dailyContents, elixirs, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
 import {
   ModalHighMountain,
   ModalAnglerCompany,
@@ -59,7 +59,7 @@ export const CharacterContentsExp = ({
 }: {
   character: CharacterInfo,
 }) => {
-  const [folded, setFolded] = useState({ daily: false, weekly: false, expCoupons: false })
+  const [folded, setFolded] = useState({ daily: false, weekly: false, expCoupons: false, elixirs: false })
 
   const expBoyak = useMemo(() => {
     const zeroth = ((character.skills.find(o => o.character_skill_grade === '0') || {}).character_skill || []).find(o => o.skill_name === '특제 문어요리')
@@ -86,7 +86,7 @@ export const CharacterContentsExp = ({
   }, [character])
 
   useEffect(() => {
-    setFolded({ daily: false, weekly: false, expCoupons: false })
+    setFolded({ daily: false, weekly: false, expCoupons: false, elixirs: false })
   }, [character.basic.character_level])
 
   const playable = useMemo(() => ({
@@ -105,7 +105,14 @@ export const CharacterContentsExp = ({
     expCoupons: [
       expCoupons.basic({ lev: character.basic.character_level }),
       expCoupons.advanced({ lev: character.basic.character_level }),
-    ].filter(o => o.$$expPercent)
+    ].filter(o => o.$$expPercent),
+    elixirs: [
+      elixirs._random({ lev: character.basic.character_level }),
+      // elixirs._ultimateUnion({ lev: character.basic.character_level }),
+      elixirs._240({ lev: character.basic.character_level }),
+      elixirs._250({ lev: character.basic.character_level }),
+      elixirs._270({ lev: character.basic.character_level }),
+    ].filter(o => o.$$expPercent),
   }), [character, expBoyak])
 
   return <div className="character-contents-exp flex g-16">
@@ -162,6 +169,26 @@ export const CharacterContentsExp = ({
         <div className="content">
           <div className="content-body">
             {playable.expCoupons.map(o =>
+              <ContentRow
+                key={o.key}
+                row={o}
+                lev={character.basic.character_level}
+              />)}
+          </div>
+        </div>
+      </div>}
+    </div>}
+    {playable.elixirs.length > 0 && <div className="contents">
+      <div
+        className="foldable"
+        onClick={() => setFolded({ ...folded, elixirs: !folded.elixirs })}>
+        <span className="title">{helpers.$t('ELIXIRS')}</span>
+        <i className={`fa fa-chevron-${folded.elixirs ? 'down' : 'up'}`} onClick={() => setFolded({ ...folded, elixirs: !folded.elixirs })} />
+      </div>
+      {!folded.elixirs && <div className="flex g-8 m-t-8">
+        <div className="content">
+          <div className="content-body">
+            {playable.elixirs.map(o =>
               <ContentRow
                 key={o.key}
                 row={o}

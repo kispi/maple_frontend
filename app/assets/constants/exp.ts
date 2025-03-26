@@ -16,6 +16,8 @@ export type ExpRow = {
   boyakRegion?: string
 }
 
+const expSumRequiredTo200 = levelExpTable.slice(0, 199).reduce((sum, exp) => sum + exp, 0)
+
 // 경험치 절댓값이 아닌 %로 리턴함
 export const dailyContents = {
   dailyQuestsExp: {
@@ -89,7 +91,7 @@ export const weeklyContents = {
   },
   vipAfk: ({ lev }: { lev: number }): ExpRow => {
     const base = { img: 'vip_afk.png', key: 'vip_afk', $$expPercent: 0 }
-    if (lev < 200) return base // 200 이하도 가능하긴 한데 효율 나쁨
+    if (lev < 200) return base // 200 미만도 가능하긴 한데 효율 나쁨
 
     base.$$expPercent = helpers.asPercent(vipAfkData[lev - 200] * 720 / levelExpTable[lev - 1])
     return base
@@ -99,18 +101,58 @@ export const weeklyContents = {
 export const expCoupons = {
   basic: ({ lev }: { lev: number }): ExpRow => {
     const base = { img: 'exp_coupon_basic.png', key: 'exp_coupon_basic', $$expPercent: 0 }
-    if (lev < 200 || lev >= 260) return base // 200 이하는 EXP 쿠폰 사용 불가능, 260 이상도 사용 가능하긴 한데 효율 나쁨
+    if (lev < 200 || lev >= 260) return base // 200 미만은 EXP 쿠폰 사용 불가능, 260 이상도 사용 가능하긴 한데 효율 나쁨
 
     base.$$expPercent = helpers.asPercent(basic[lev - 200] * 1000 / levelExpTable[lev - 1])
     return base
   },
   advanced: ({ lev }: { lev: number }): ExpRow => {
     const base = { img: 'exp_coupon_advanced.png', key: 'exp_coupon_advanced', $$expPercent: 0 }
-    if (lev < 260) return base // 260 이하는 EXP 쿠폰 사용 불가능
+    if (lev < 260) return base // 260 미만은 EXP 쿠폰 사용 불가능
 
     base.$$expPercent = helpers.asPercent(advanced[lev - 260] * 1000 / levelExpTable[lev - 1])
     return base
   },
 }
 
-// TODO: elixir_240.png elixir_250.webp elixir_270.webp
+export const elixirs = {
+  // 익성비
+  _random: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_random.png', key: 'elixir_random', $$expPercent: 100 }
+    if (lev < 200) return base // 200 미만은 100%
+
+    base.$$expPercent = helpers.asPercent(levelExpTable[198] / levelExpTable[lev - 1])
+    return base
+  },
+  // TODO: 궁성비 (이건 부정확해서 수정 필요)
+  _ultimateUnion: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_ultimate_union.png', key: 'elixir_ultimate_union', $$expPercent: 0 }
+
+    base.$$expPercent = helpers.asPercent(expSumRequiredTo200 / levelExpTable[lev - 1])
+    return base
+  },
+  // 태성비
+  _240: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_240.png', key: 'elixir_240', $$expPercent: 100 }
+    if (lev < 240) return base // 240 미만은 100%
+
+    base.$$expPercent = helpers.asPercent(levelExpTable[238] / levelExpTable[lev - 1])
+    return base
+  },
+  // 극성비
+  _250: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_250.webp', key: 'elixir_250', $$expPercent: 100 }
+    if (lev < 250) return base // 250 미만은 100%
+
+    base.$$expPercent = helpers.asPercent(levelExpTable[248] / levelExpTable[lev - 1])
+    return base
+  },
+  // 초성비
+  _270: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_270.webp', key: 'elixir_270', $$expPercent: 100 }
+    if (lev < 270) return base // 270 미만은 100%
+
+    base.$$expPercent = helpers.asPercent(levelExpTable[268] / levelExpTable[lev - 1])
+    return base
+  },
+}
