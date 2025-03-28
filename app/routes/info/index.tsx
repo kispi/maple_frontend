@@ -15,6 +15,8 @@ const createMetaTitle = (c: CharacterInfo) => {
   if (!c) return '에브리메이플'
 
   let title = `${c.basic.character_name}`
+  if (c.basic.character_level && c.basic.character_exp_rate) title += ` (${c.basic.character_level}, ${c.basic.character_exp_rate}%)`
+
   if (!c.basic.character_guild_name) title += ` (${c.basic.world_name})`
   else title += ` (${c.basic.world_name}@${c.basic.character_guild_name})`
   title += ' - 에브리메이플'
