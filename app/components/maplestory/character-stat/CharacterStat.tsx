@@ -91,7 +91,7 @@ export const CharacterStat = ({ character }: { character: CharacterInfo }) => {
         return <div
           key={idx}
           className="grid card"
-          style={{...autoRows(group), ...(idx === 0 ? { background: 'var(--gray-400);'} : {})}}>
+          style={{...autoRows(group), ...(idx === 0 ? { background: 'var(--gray-500)' } : {})}}>
           <SubPanel keyGroup={group} stats={character.stat.final_stat} />
         </div>
       })}

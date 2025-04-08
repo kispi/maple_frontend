@@ -2,207 +2,231 @@ import { CharacterInfo } from '~/types'
 import { useEffect, useMemo, useState } from 'react'
 import { dailyContents, elixirs, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
 import {
-  ModalHighMountain,
-  ModalAnglerCompany,
-  ModalExtremeMonsterPark,
-  ModalVipAfk,
-  ModalMonsterPark,
-  ModalExpCouponBasic,
-  ModalExpCouponAdvanced,
+  ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalVipAfk,
+  ModalMonsterPark, ModalExpCouponBasic, ModalExpCouponAdvanced,
+  ModalElixir240, ModalElixir250, ModalElixir270,
 } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import './character-contents-exp.scss'
 
-type ExpBoyak = {
-  arcaneRiver: number,
-  grandis: number,
-  monsterPark: number,
+type ExpBoyak = { arcaneRiver: number, grandis: number, monsterPark: number }
+type FoldedState = Record<string, boolean>
+
+const MODAL_MAP = {
+  high_mountain: ModalHighMountain,
+  angler_company: ModalAnglerCompany,
+  extreme_monster_park: ModalExtremeMonsterPark,
+  vip_afk: ModalVipAfk,
+  monsterPark: ModalMonsterPark,
+  exp_coupon_basic: ModalExpCouponBasic,
+  exp_coupon_advanced: ModalExpCouponAdvanced,
+  // elixir_random: ModalElixirRandom,
+  elixir_240: ModalElixir240,
+  elixir_250: ModalElixir250,
+  elixir_270: ModalElixir270,
 }
 
-const ContentRow = ({
-  row,
-  lev,
-  boyak,
-}: {
-  row: ExpRow,
-  lev?: number,
-  boyak?: number,
-}) => {
-  const modal = useMemo(() => {
-    if (row.key === 'high_mountain') return ModalHighMountain
-    if (row.key === 'angler_company') return ModalAnglerCompany
-    if (row.key === 'extreme_monster_park') return ModalExtremeMonsterPark
-    if (row.key === 'vip_afk') return ModalVipAfk
-    if (row.boyakRegion === 'monsterPark') return ModalMonsterPark
-    if (row.key === 'exp_coupon_basic') return ModalExpCouponBasic
-    if (row.key === 'exp_coupon_advanced') return ModalExpCouponAdvanced
-  }, [row.key, row.boyakRegion])
+const ContentRow = ({ row, lev, boyak }: { row: ExpRow, lev?: number, boyak?: number }) => {
+  const modal = MODAL_MAP[row.key as keyof typeof MODAL_MAP] || (row.boyakRegion === 'monsterPark' ? ModalMonsterPark : null)
 
-  return <div
-    onClick={() => modal && helpers.modal.open({ component: modal, options: { lev } })}
-    className={`content-row ${modal ? 'cursor-pointer' : ''}`}>
-    <div className="key">
-      <img src={helpers.withCdn(`images/${row.img}`)} alt={row.key} />
-      {helpers.$t(row.$$title || row.key)}
-      {['angler_company', 'high_mountain'].includes(row.key) && <span>({helpers.$t('REWARD')} Lv.2)</span>}
-      {row.key.includes('exp_coupon') && <span>(1000개당)</span>}
+  return (
+    <div
+      onClick={() => modal && helpers.modal.open({ component: modal, options: { lev } })}
+      className={`content-row ${modal ? 'cursor-pointer' : ''}`}
+    >
+      <div className="key">
+        <img src={helpers.withCdn(`images/${row.img}`)} alt={row.key} />
+        {helpers.$t(row.$$title || row.key)}
+        {['angler_company', 'high_mountain'].includes(row.key) && <span>({helpers.$t('REWARD')} Lv.2)</span>}
+        {row.key.includes('exp_coupon') && <span>(1000개당)</span>}
+      </div>
+      <div className="value">
+        {row.$$expPercent}%
+        {(boyak || 0) > 0 && <BadgeGlass className="m-l-8">{`보약 +${boyak}%`}</BadgeGlass>}
+      </div>
     </div>
-    <div className="value">
-      {row.$$expPercent}%{(boyak && boyak > 0) ? <BadgeGlass className="m-l-8">{`보약 +${boyak}%`}</BadgeGlass> : null}
-    </div>
-  </div>
+  )
 }
 
-export const CharacterContentsExp = ({
-  character,
-}: {
-  character: CharacterInfo,
+const FoldableSection = ({ title, items, folded, toggleFold, lev, boyak }: {
+  title: string, items: ExpRow[], folded: boolean, toggleFold: () => void, lev: number, boyak?: ExpBoyak
 }) => {
-  const [folded, setFolded] = useState({ daily: false, weekly: false, expCoupons: false, elixirs: false })
+  const expSum = useMemo(() => {
+    return items.reduce((sum, item) => {
+      if (Array.isArray(item)) {
+        return sum + item.reduce((subSum, row: ExpRow) => subSum + (row.$$expPercent || 0), 0)
+      }
+      return Math.round((sum + (item.$$expPercent || 0)) * 10000) / 10000
+    }, 0)
+  }, [items])
+
+  return items.length > 0 && (
+    <div className="contents">
+      <div className="foldable" onClick={toggleFold}>
+        <span className="title">
+          {helpers.$t(title)} {['ARCANE_RIVER', 'TENEBRIS', 'GRANDIS'].includes(title) && (
+            <span>({helpers.$t('SUM')}: {expSum}%)</span>
+          )}
+        </span>
+        <i className={`fa fa-chevron-${folded ? 'down' : 'up'}`} />
+      </div>
+      {!folded && (
+        <div className="content m-t-4 m-b-8">
+          <div className="content-body">
+            {items.map((item: ExpRow) => (
+              Array.isArray(item) ? item.map(row => (
+                <ContentRow key={row.key} row={row} lev={lev} boyak={boyak?.[row.boyakRegion as keyof ExpBoyak]} />
+              )) : (
+                <ContentRow
+                  key={item.key}
+                  row={item}
+                  lev={lev}
+                  boyak={item.boyakRegion ? boyak?.[item.boyakRegion as keyof ExpBoyak] : undefined}
+                />
+              )
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export const CharacterContentsExp = ({ character }: { character: CharacterInfo }) => {
+  const [folded, setFolded] = useState<FoldedState>({
+    arcaneRiver: false, tenebris: false, grandis: false, monsterPark: false,
+    weekly: false, expCoupons: false, elixirs: false,
+  })
+
+  const lev = character.basic.character_level
 
   const expBoyak = useMemo(() => {
-    const zeroth = ((character.skills.find(o => o.character_skill_grade === '0') || {}).character_skill || []).find(o => o.skill_name === '특제 문어요리')
-    if (!zeroth) return
-
-    const expBonus = {
-      arcaneRiver: 0,
-      grandis: 0,
-      monsterPark: 0,
-    } as ExpBoyak
+    const zeroth = (character.skills.find(o => o.character_skill_grade === '0')?.character_skill || [])
+      .find(o => o.skill_name === '특제 문어요리')
+    if (!zeroth) return { arcaneRiver: 0, grandis: 0, monsterPark: 0 }
 
     const patterns = [
       { key: 'arcaneRiver', regex: /아케인리버 일일퀘스트 완료 시 획득 경험치 (\d+\.?\d*)%/g },
       { key: 'grandis', regex: /그란디스 일일퀘스트 완료 시 획득 경험치 (\d+\.?\d*)%/g },
-      { key: 'monsterPark', regex: /몬스터파크 퇴장 시 획득하는 경험치 (\d+\.?\d*)%/g }
+      { key: 'monsterPark', regex: /몬스터파크 퇴장 시 획득하는 경험치 (\d+\.?\d*)%/g },
     ]
-    
-    patterns.forEach(({ key, regex }) => {
-      const matches = [...zeroth.skill_effect.matchAll(regex)] // 모든 매칭 값을 배열로 변환
-      expBonus[key as keyof typeof expBonus] = matches.reduce((sum, match) => sum + parseFloat(match[1]), 0)
-    })
 
-    return expBonus
+    return patterns.reduce((bonus, { key, regex }) => {
+      bonus[key as keyof ExpBoyak] = [...zeroth.skill_effect.matchAll(regex)]
+        .reduce((sum, match) => sum + parseFloat(match[1]), 0)
+      return bonus
+    }, { arcaneRiver: 0, grandis: 0, monsterPark: 0 } as ExpBoyak)
   }, [character])
 
-  useEffect(() => {
-    setFolded({ daily: false, weekly: false, expCoupons: false, elixirs: false })
-  }, [character.basic.character_level])
-
   const playable = useMemo(() => ({
-    daily: [
-      dailyContents.dailyQuestsExp.arcaneRiver({ lev: character.basic.character_level, additionalPercentage: expBoyak?.arcaneRiver }),
-      dailyContents.dailyQuestsExp.tenebris({ lev: character.basic.character_level, additionalPercentage: expBoyak?.arcaneRiver }),
-      dailyContents.dailyQuestsExp.grandis({ lev: character.basic.character_level, additionalPercentage: expBoyak?.grandis }),
-      dailyContents.monsterPark({ lev: character.basic.character_level, additionalPercentage: expBoyak?.monsterPark }),
-    ].filter(o => o.length > 0),
+    arcaneRiver: dailyContents.dailyQuestsExp.arcaneRiver({ lev, additionalPercentage: expBoyak.arcaneRiver }).filter(o => o.$$expPercent > 0),
+    tenebris: dailyContents.dailyQuestsExp.tenebris({ lev, additionalPercentage: expBoyak.arcaneRiver }).filter(o => o.$$expPercent > 0),
+    grandis: dailyContents.dailyQuestsExp.grandis({ lev, additionalPercentage: expBoyak.grandis }).filter(o => o.$$expPercent > 0),
+    monsterPark: dailyContents.monsterPark({ lev, additionalPercentage: expBoyak.monsterPark }).filter(o => o.$$expPercent > 0),
     weekly: [
-      weeklyContents.extremeMonsterPark({ lev: character.basic.character_level, additionalPercentage: expBoyak?.monsterPark }),
-      weeklyContents.vipAfk({ lev: character.basic.character_level }),
-      weeklyContents.highMountain({ lev: character.basic.character_level, rewardLev: 2 }),
-      weeklyContents.anglerCompany({ lev: character.basic.character_level, rewardLev: 2 }),
+      weeklyContents.extremeMonsterPark({ lev, additionalPercentage: expBoyak.monsterPark }),
+      weeklyContents.vipAfk({ lev }),
+      weeklyContents.highMountain({ lev, rewardLev: 2 }),
+      weeklyContents.anglerCompany({ lev, rewardLev: 2 }),
     ].filter(o => o.$$expPercent),
-    expCoupons: [
-      expCoupons.basic({ lev: character.basic.character_level }),
-      expCoupons.advanced({ lev: character.basic.character_level }),
-    ].filter(o => o.$$expPercent),
+    expCoupons: [expCoupons.basic({ lev }), expCoupons.advanced({ lev })].filter(o => o.$$expPercent),
     elixirs: [
-      elixirs._random({ lev: character.basic.character_level }),
-      // elixirs._ultimateUnion({ lev: character.basic.character_level }),
-      elixirs._240({ lev: character.basic.character_level }),
-      elixirs._250({ lev: character.basic.character_level }),
-      elixirs._270({ lev: character.basic.character_level }),
+      elixirs._random({ lev }),
+      elixirs._240({ lev }),
+      elixirs._250({ lev }),
+      elixirs._270({ lev }),
     ].filter(o => o.$$expPercent),
-  }), [character, expBoyak])
+  }), [lev, expBoyak])
 
-  return <div className="character-contents-exp flex g-16">
-    {playable.daily.length > 0 && <div className="contents">
-      <div
-        className="foldable"
-        onClick={() => setFolded({ ...folded, daily: !folded.daily })}>
-        <span className="title">{helpers.$t('DAILY_CONTENTS')}</span>
-        <i className={`fa fa-chevron-${folded.daily ? 'down' : 'up'}`} onClick={() => setFolded({ ...folded, daily: !folded.daily })} />
-      </div>
-      {!folded.daily && <div className="flex g-8 m-t-8">
-        {playable.daily.map((o, i) => <div className="content" key={i}>
-          <div className="content-body">
-            {o.map(o => <ContentRow
-              key={o.key}
-              row={o}
-              lev={character.basic.character_level}
-              boyak={(expBoyak || {})[o.boyakRegion as keyof ExpBoyak]}
-            />)}
-          </div>
+  useEffect(() => {
+    const symbols = character.symbolEquipment?.symbol || []
+    
+    const arcaneSymbols = symbols.filter(s => s.symbol_name.includes('아케인'))
+    const allArcaneMaxed = arcaneSymbols.length > 0 && arcaneSymbols.every(s => s.symbol_level >= 20)
+
+    const authenticSymbols = symbols.filter(s => s.symbol_name.includes('어센틱'))
+    const allAuthenticMaxed = authenticSymbols.length > 0 && authenticSymbols.every(s => s.symbol_level >= 11)
+
+    const isHighLevel = lev >= 275
+
+    setFolded({
+      arcaneRiver: allArcaneMaxed,
+      tenebris: allArcaneMaxed,
+      grandis: allAuthenticMaxed,
+      monsterPark: isHighLevel,
+      weekly: false,
+      expCoupons: false,
+      elixirs: false,
+    })
+  }, [lev, character.symbolEquipment])
+
+  return (
+    <div className="character-contents-exp flex g-4">
+      <FoldableSection
+        title='ARCANE_RIVER'
+        items={playable.arcaneRiver}
+        folded={folded.arcaneRiver}
+        toggleFold={() => setFolded(f => ({ ...f, arcaneRiver: !f.arcaneRiver }))}
+        lev={lev}
+        boyak={expBoyak}
+      />
+      <FoldableSection
+        title='TENEBRIS'
+        items={playable.tenebris}
+        folded={folded.tenebris}
+        toggleFold={() => setFolded(f => ({ ...f, tenebris: !f.tenebris }))}
+        lev={lev}
+        boyak={expBoyak}
+      />
+      <FoldableSection
+        title='GRANDIS'
+        items={playable.grandis}
+        folded={folded.grandis}
+        toggleFold={() => setFolded(f => ({ ...f, grandis: !f.grandis }))}
+        lev={lev}
+        boyak={expBoyak}
+      />
+      <FoldableSection
+        title='MONSTER_PARK'
+        items={playable.monsterPark}
+        folded={folded.monsterPark}
+        toggleFold={() => setFolded(f => ({ ...f, monsterPark: !f.monsterPark }))}
+        lev={lev}
+        boyak={expBoyak}
+      />
+      <FoldableSection
+        title='WEEKLY_CONTENTS'
+        items={playable.weekly}
+        folded={folded.weekly}
+        toggleFold={() => setFolded(f => ({ ...f, weekly: !f.weekly }))}
+        lev={lev}
+        boyak={expBoyak}
+      />
+      <FoldableSection
+        title='EXP_COUPONS'
+        items={playable.expCoupons}
+        folded={folded.expCoupons}
+        toggleFold={() => setFolded(f => ({ ...f, expCoupons: !f.expCoupons }))}
+        lev={lev}
+      />
+      <FoldableSection
+        title='ELIXIRS'
+        items={playable.elixirs}
+        folded={folded.elixirs}
+        toggleFold={() => setFolded(f => ({ ...f, elixirs: !f.elixirs }))}
+        lev={lev}
+      />
+      {lev < 200 && (
+        <div className="level-too-low">
+          캐릭터의 레벨이 200 미만이어서 이용가능한 일일 퀘스트와 주간 컨텐츠가 없습니다. 더 강해져서 돌아오세요!
         </div>
-        )}
-      </div>}
-    </div>}
-    {playable.weekly.length > 0 && <div className="contents">
-      <div
-        className="foldable"
-        onClick={() => setFolded({ ...folded, weekly: !folded.weekly })}>
-        <span className="title">{helpers.$t('WEEKLY_CONTENTS')}</span>
-        <i className={`fa fa-chevron-${folded.weekly ? 'down' : 'up'}`} onClick={() => setFolded({ ...folded, weekly: !folded.weekly })} />
-      </div>
-      {!folded.weekly && <div className="flex g-8 m-t-8">
-        <div className="content">
-          <div className="content-body">
-            {playable.weekly.map(o =>
-              <ContentRow
-                key={o.key}
-                row={o}
-                boyak={o.key === 'extreme_monster_park' ? expBoyak?.monsterPark : undefined}
-                lev={character.basic.character_level}
-              />)}
-          </div>
+      )}
+      {lev === 300 && (
+        <div className="level-too-high">
+          <strong>{character.basic.character_name}</strong>님의 만렙을 축하합니다. 리스펙 🫡
         </div>
-      </div>}
-    </div>}
-    {playable.expCoupons.length > 0 && <div className="contents">
-      <div
-        className="foldable"
-        onClick={() => setFolded({ ...folded, expCoupons: !folded.expCoupons })}>
-        <span className="title">{helpers.$t('EXP_COUPONS')}</span>
-        <i className={`fa fa-chevron-${folded.expCoupons ? 'down' : 'up'}`} onClick={() => setFolded({ ...folded, expCoupons: !folded.expCoupons })} />
-      </div>
-      {!folded.expCoupons && <div className="flex g-8 m-t-8">
-        <div className="content">
-          <div className="content-body">
-            {playable.expCoupons.map(o =>
-              <ContentRow
-                key={o.key}
-                row={o}
-                lev={character.basic.character_level}
-              />)}
-          </div>
-        </div>
-      </div>}
-    </div>}
-    {playable.elixirs.length > 0 && <div className="contents">
-      <div
-        className="foldable"
-        onClick={() => setFolded({ ...folded, elixirs: !folded.elixirs })}>
-        <span className="title">{helpers.$t('ELIXIRS')}</span>
-        <i className={`fa fa-chevron-${folded.elixirs ? 'down' : 'up'}`} onClick={() => setFolded({ ...folded, elixirs: !folded.elixirs })} />
-      </div>
-      {!folded.elixirs && <div className="flex g-8 m-t-8">
-        <div className="content">
-          <div className="content-body">
-            {playable.elixirs.map(o =>
-              <ContentRow
-                key={o.key}
-                row={o}
-                lev={character.basic.character_level}
-              />)}
-          </div>
-        </div>
-      </div>}
-    </div>}
-    {character.basic.character_level < 200 && <div className="level-too-low">
-      캐릭터의 레벨이 200 미만이어서 이용가능한 일일 퀘스트와 주간 컨텐츠가 없습니다. 더 강해져서 돌아오세요!
-    </div>}
-    {character.basic.character_level === 300 && <div className="level-too-high">
-      <strong>{character.basic.character_name}</strong>님의 만렙을 축하합니다. 리스펙 🫡
-    </div>}
-  </div>
+      )}
+    </div>
+  )
 }

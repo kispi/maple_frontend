@@ -1,7 +1,7 @@
 import { highMountainData, anglerCompanyData } from '~/assets/constants/data-epic-dungeon'
 import { extremeMonsterPark, monsterPark } from '~/assets/constants/data-monster-park'
 import { vipAfkData } from '~/assets/constants/data-afk'
-import { expCoupons } from '~/assets/constants/exp'
+import { elixirs, expCoupons, ExpRow } from '~/assets/constants/exp'
 import { levelExpTable } from '~/assets/constants/data-level-exp'
 import { useEffect } from 'react'
 import ModalHeader from '../ModalHeader'
@@ -309,3 +309,74 @@ export const ModalExpCouponAdvanced = ({
     </div>
   </div>
 }
+
+const createModalElixir = ({
+  title,
+  img,
+  startLevel,
+  foo,
+}: {
+  title: string,
+  img: string,
+  startLevel: number,
+  foo: ({ lev }: { lev: number }) => ExpRow,
+}) => {
+  const ModalElixir = ({
+    options,
+    onClose,
+  }: {
+    options?: { lev: number },
+    onClose: () => void,
+  }) => {
+    useAutoFocus()
+
+    return <div className="modal-elixir modal-base-style modal-exp-table scrollable-body">
+      <ModalHeader title={modalTitle(title, img)} onClose={() => onClose()} />
+      <div className="modal-body pretty-scrollbar">
+        <div className="table">
+          <div className="thead">
+            <div className="tr">
+              <div className="th">{helpers.$t('LEVEL')}</div>
+              <div className="th">1개당</div>
+            </div>
+          </div>
+          <div className="tbody">
+            <div className="tr">
+              <div className="td">&lt; {startLevel}</div>
+              <div className="td">100%</div>
+            </div>
+            {createLevels(startLevel, 300 - startLevel).map((lev, idx) => <div
+              key={idx}
+              className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
+              <div className="td">{lev}</div>
+              <div className="td">{foo({ lev }).$$expPercent}%</div>
+            </div>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  return ModalElixir
+}
+
+export const ModalElixir240 = createModalElixir({
+  title: 'ELIXIR_240',
+  img: 'elixir_240.png',
+  startLevel: 240,
+  foo: ({ lev }) => elixirs._240({ lev }),
+})
+
+export const ModalElixir250 = createModalElixir({
+  title: 'ELIXIR_250',
+  img: 'elixir_250.webp',
+  startLevel: 250,
+  foo: ({ lev }) => elixirs._250({ lev }),
+})
+
+export const ModalElixir270 = createModalElixir({
+  title: 'ELIXIR_270',
+  img: 'elixir_270.webp',
+  startLevel: 270,
+  foo: ({ lev }) => elixirs._270({ lev }),
+})

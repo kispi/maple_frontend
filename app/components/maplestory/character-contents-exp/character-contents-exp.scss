@@ -7,11 +7,6 @@
     user-select: none;
     cursor: pointer;
 
-    .title {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
     &:hover {
       background: var(--background-light);
       border-radius: 8px;
@@ -26,13 +21,14 @@
 
   .content-body {
     display: grid;
-    row-gap: 8px;
+    gap: 4px;
   }
 
   .content-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 13px;
 
     .key {
       display: flex;
@@ -52,12 +48,6 @@
 
     &.cursor-pointer:hover {
       text-decoration: underline;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .content-row {
-      font-size: 12px;
     }
   }
 }

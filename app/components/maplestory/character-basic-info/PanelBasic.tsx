@@ -16,24 +16,34 @@ const BasicDetails = ({
   if (character.basic.character_guild_name) base.push({ key: 'GUILD', value: character.basic.character_guild_name })
   if (character.popularity) base.push({ key: 'POPULARITY', value: character.popularity.popularity.toLocaleString() })
   if (character.dojang.dojang_best_floor) base.push({ key: 'DOJANG', value: `${character.dojang.dojang_best_floor.toLocaleString()}층` })
-  if (character.union.union_level) base.push({ key: 'UNION', value: `Lv. ${character.union.union_level.toLocaleString()}` })
+  if (character.union.union_level) base.push({ key: 'UNION', value: `Lv. ${character.union.union_level.toLocaleString()}`, link: `https://maplestory.nexon.com/N23Ranking/World/Union?c=${character.basic.character_name}` })
   if (character.union.union_artifact_level) base.push({ key: 'ARTIFACT', value: `Lv. ${character.union.union_artifact_level.toLocaleString()}` })
-  if (character.ranking?.overall) rankings.push({ key: 'RANKING_OVERALL', value: `${character.ranking.overall.ranking.toLocaleString()}위 (${character.ranking.overall_world.ranking.toLocaleString()}위)` })
+  if (character.ranking?.overall) rankings.push({ key: 'RANKING_OVERALL', value: `${character.ranking.overall.ranking.toLocaleString()}위 (${character.ranking.overall_world.ranking.toLocaleString()}위)`, link: `https://maplestory.nexon.com/N23Ranking/World/Total?c=${character.basic.character_name}` })
   if (character.ranking?.class) rankings.push({ key: 'RANKING_CLASS', value: `${character.ranking.class.ranking.toLocaleString()}위 (${character.ranking.class_world.ranking.toLocaleString()}위)` })
-  if (character.ranking?.union) rankings.push({ key: 'RANKING_UNION', value: `${character.ranking.union.ranking.toLocaleString()}위 (${character.ranking.union_world.ranking.toLocaleString()}위)` })
+  if (character.ranking?.union) rankings.push({ key: 'RANKING_UNION', value: `${character.ranking.union.ranking.toLocaleString()}위 (${character.ranking.union_world.ranking.toLocaleString()}위)`, link: `https://maplestory.nexon.com/N23Ranking/World/Union?c=${character.basic.character_name}` })
   
   return <div className="basic-details">
     <div>
-      {base.map((pair, index) => <div key={index} className="flex-row align-center g-8">
+      {base.map((pair, index) => <a
+        key={index}
+        className="flex-row align-center fit-content g-8"
+        href={pair.link}
+        target="_blank"
+        rel="noreferrer">
         <div className="key">{helpers.$t(pair.key)}</div>
         <div className="value">{pair.value}</div>
-      </div>)}
+      </a>)}
     </div>
     <div>
-      {rankings.map((pair, index) => <div key={index} className="flex-row align-center g-8">
+      {rankings.map((pair, index) => <a
+        key={index}
+        className="flex-row align-center fit-content g-8"
+        href={pair.link}
+        target="_blank"
+        rel="noreferrer">
         <div className="key">{helpers.$t(pair.key)}</div>
         <div className="value">{pair.value}</div>
-      </div>)}
+      </a>)}
     </div>
   </div>
 }
