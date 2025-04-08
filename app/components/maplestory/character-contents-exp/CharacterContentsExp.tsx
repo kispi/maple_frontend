@@ -155,9 +155,9 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
     ].filter(o => o.$$expPercent),
   }), [lev, expBoyak])
 
-  // useEffect(() => {
-  //   setFolded(populatedFolded())
-  // }, [character, populatedFolded])
+  useEffect(() => {
+    setFolded(populatedFolded())
+  }, [character, populatedFolded])
 
   return (
     <div className="character-contents-exp flex g-4">

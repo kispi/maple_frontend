@@ -1,5 +1,6 @@
 import { translate } from './translate'
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import dom from './dom'
 import image from './image'
 import localStorage from './local-storage'
@@ -10,6 +11,8 @@ import template from './template'
 import toast from './toast'
 import tooltip from './tooltip'
 import util from './util'
+
+dayjs.extend(utc)
 
 const helpers = {
   dayjs,
