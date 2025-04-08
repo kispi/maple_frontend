@@ -1,5 +1,5 @@
 import { CharacterInfo } from '~/types'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { dailyContents, elixirs, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
 import {
   ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalVipAfk,
@@ -21,7 +21,7 @@ const MODAL_MAP = {
   monsterPark: ModalMonsterPark,
   exp_coupon_basic: ModalExpCouponBasic,
   exp_coupon_advanced: ModalExpCouponAdvanced,
-  // elixir_random: ModalElixirRandom,
+  elixir_random: null,
   elixir_240: ModalElixir240,
   elixir_250: ModalElixir250,
   elixir_270: ModalElixir270,
@@ -94,11 +94,6 @@ const FoldableSection = ({ title, items, folded, toggleFold, lev, boyak }: {
 }
 
 export const CharacterContentsExp = ({ character }: { character: CharacterInfo }) => {
-  const [folded, setFolded] = useState<FoldedState>({
-    arcaneRiver: false, tenebris: false, grandis: false, monsterPark: false,
-    weekly: false, expCoupons: false, elixirs: false,
-  })
-
   const lev = character.basic.character_level
 
   const expBoyak = useMemo(() => {
@@ -118,6 +113,27 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
       return bonus
     }, { arcaneRiver: 0, grandis: 0, monsterPark: 0 } as ExpBoyak)
   }, [character])
+
+  const populatedFolded = useCallback(() => {
+    const symbols = character.symbolEquipment?.symbol || []
+    const arcaneSymbols = symbols.filter(s => s.symbol_name.includes('아케인'))
+    const allArcaneMaxed = arcaneSymbols.length > 0 && arcaneSymbols.every(s => s.symbol_level >= 20)
+    const authenticSymbols = symbols.filter(s => s.symbol_name.includes('어센틱'))
+    const allAuthenticMaxed = authenticSymbols.length > 0 && authenticSymbols.every(s => s.symbol_level >= 11)
+    const isHighLevel = lev >= 275
+
+    return {
+      arcaneRiver: allArcaneMaxed,
+      tenebris: allArcaneMaxed,
+      grandis: allAuthenticMaxed,
+      monsterPark: isHighLevel,
+      weekly: false,
+      expCoupons: false,
+      elixirs: false,
+    }
+  }, [character, lev])
+
+  const [folded, setFolded] = useState<FoldedState>(populatedFolded())
 
   const playable = useMemo(() => ({
     arcaneRiver: dailyContents.dailyQuestsExp.arcaneRiver({ lev, additionalPercentage: expBoyak.arcaneRiver }).filter(o => o.$$expPercent > 0),
@@ -140,26 +156,8 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
   }), [lev, expBoyak])
 
   useEffect(() => {
-    const symbols = character.symbolEquipment?.symbol || []
-    
-    const arcaneSymbols = symbols.filter(s => s.symbol_name.includes('아케인'))
-    const allArcaneMaxed = arcaneSymbols.length > 0 && arcaneSymbols.every(s => s.symbol_level >= 20)
-
-    const authenticSymbols = symbols.filter(s => s.symbol_name.includes('어센틱'))
-    const allAuthenticMaxed = authenticSymbols.length > 0 && authenticSymbols.every(s => s.symbol_level >= 11)
-
-    const isHighLevel = lev >= 275
-
-    setFolded({
-      arcaneRiver: allArcaneMaxed,
-      tenebris: allArcaneMaxed,
-      grandis: allAuthenticMaxed,
-      monsterPark: isHighLevel,
-      weekly: false,
-      expCoupons: false,
-      elixirs: false,
-    })
-  }, [lev, character.symbolEquipment])
+    setFolded(populatedFolded())
+  }, [character, populatedFolded])
 
   return (
     <div className="character-contents-exp flex g-4">
