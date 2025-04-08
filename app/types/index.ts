@@ -18,6 +18,7 @@ import { Union, UnionRaider } from './union'
 
 export type DefaultError = {
   data: {
+    statusCode?: string
     code: string
     message: string
   }
