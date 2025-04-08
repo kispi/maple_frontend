@@ -122,18 +122,14 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
     const allAuthenticMaxed = authenticSymbols.length > 0 && authenticSymbols.every(s => s.symbol_level >= 11)
     const isHighLevel = lev >= 275
 
-    // return {
-    //   arcaneRiver: allArcaneMaxed,
-    //   tenebris: allArcaneMaxed,
-    //   grandis: allAuthenticMaxed,
-    //   monsterPark: isHighLevel,
-    //   weekly: false,
-    //   expCoupons: false,
-    //   elixirs: false,
-    // }
-
     return {
-      arcaneRiver: false, tenebris: false, grandis: false, monsterPark: false, weekly: false, expCoupons: false, elixirs: false,
+      arcaneRiver: allArcaneMaxed,
+      tenebris: allArcaneMaxed,
+      grandis: allAuthenticMaxed,
+      monsterPark: isHighLevel,
+      weekly: false,
+      expCoupons: false,
+      elixirs: false,
     }
   }, [character, lev])
 
@@ -159,9 +155,9 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
     ].filter(o => o.$$expPercent),
   }), [lev, expBoyak])
 
-  useEffect(() => {
-    setFolded(populatedFolded())
-  }, [character, populatedFolded])
+  // useEffect(() => {
+  //   setFolded(populatedFolded())
+  // }, [character, populatedFolded])
 
   return (
     <div className="character-contents-exp flex g-4">
