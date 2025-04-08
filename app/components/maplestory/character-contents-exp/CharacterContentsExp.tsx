@@ -4,6 +4,7 @@ import { dailyContents, elixirs, expCoupons, ExpRow, weeklyContents } from '~/as
 import {
   ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalVipAfk,
   ModalMonsterPark, ModalExpCouponBasic, ModalExpCouponAdvanced,
+  ModalElixir210, ModalElixir220, ModalElixir230,
   ModalElixir240, ModalElixir250, ModalElixir270,
 } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
@@ -22,6 +23,9 @@ const MODAL_MAP = {
   exp_coupon_basic: ModalExpCouponBasic,
   exp_coupon_advanced: ModalExpCouponAdvanced,
   elixir_random: null,
+  elixir_210: ModalElixir210,
+  elixir_220: ModalElixir220,
+  elixir_230: ModalElixir230,
   elixir_240: ModalElixir240,
   elixir_250: ModalElixir250,
   elixir_270: ModalElixir270,
@@ -149,6 +153,9 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
     expCoupons: [expCoupons.basic({ lev }), expCoupons.advanced({ lev })].filter(o => o.$$expPercent),
     elixirs: [
       elixirs._random({ lev }),
+      elixirs._210({ lev }),
+      elixirs._220({ lev }),
+      elixirs._230({ lev }),
       elixirs._240({ lev }),
       elixirs._250({ lev }),
       elixirs._270({ lev }),

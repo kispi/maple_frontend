@@ -215,6 +215,18 @@
     "kr": "궁극의 유니온 성장의 비약",
     "en": "Ultimate Union Elixir"
   },
+  "ELIXIR_210": {
+    "kr": "성장의 비약 (200-209)",
+    "en": "Elixir (200-209)"
+  },
+  "ELIXIR_220": {
+    "kr": "성장의 비약 (200-219)",
+    "en": "Elixir (210-219)"
+  },
+  "ELIXIR_230": {
+    "kr": "성장의 비약 (200-229)",
+    "en": "Typhoon Elixir"
+  },
   "ELIXIR_240": {
     "kr": "태풍 성장의 비약",
     "en": "Typhoon Elixir"

@@ -360,6 +360,27 @@ const createModalElixir = ({
   return ModalElixir
 }
 
+export const ModalElixir210 = createModalElixir({
+  title: 'ELIXIR_210',
+  img: 'elixir_210.png',
+  startLevel: 210,
+  foo: ({ lev }) => elixirs._210({ lev }),
+})
+
+export const ModalElixir220 = createModalElixir({
+  title: 'ELIXIR_220',
+  img: 'elixir_220.png',
+  startLevel: 220,
+  foo: ({ lev }) => elixirs._220({ lev }),
+})
+
+export const ModalElixir230 = createModalElixir({
+  title: 'ELIXIR_230',
+  img: 'elixir_230.png',
+  startLevel: 230,
+  foo: ({ lev }) => elixirs._230({ lev }),
+})
+
 export const ModalElixir240 = createModalElixir({
   title: 'ELIXIR_240',
   img: 'elixir_240.png',
