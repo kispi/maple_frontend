@@ -51,8 +51,8 @@ export const links: LinksFunction = () => [
 export const meta: MetaFunction = () => ([
   ...createMetaTags(),
   ...[
-    { name: 'google-site-verification', content: 'sJHY21K0pIbj_iV1G5KdPL0OUxDiHAwUdLMDyyQvqiA' },
-    { name: 'naver-site-verification', content: '27118f24e98ba45698f9cf7b7de3c81a8d13fdc5' },
+    { name: 'google-site-verification', content: 'e1Il9p10cWwATUd09D06pEn6EeZrPCdy3724P6k6Ib0' },
+    { name: 'naver-site-verification', content: '388e9ec9156574ffb6886e0ddfeebd2353e48937' },
   ],
 ])
 
