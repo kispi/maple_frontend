@@ -3,8 +3,8 @@ import { useLoaderData, useNavigate, useSearchParams } from '@remix-run/react'
 import { MetaFunction } from '@remix-run/node'
 import { useEffect, useMemo } from 'react'
 import { $http } from '~/modules/axios'
+import useMapleStore, { zustandCacheMaple } from '~/store/maple'
 import useAppStore from '~/store/app'
-import useMapleStore from '~/store/maple'
 import helpers from '~/helpers'
 import CharacterBasicInfo from '~/components/maplestory/character-basic-info/CharacterBasicInfo'
 import SearchCharacter from '~/components/maplestory/search-character/SearchCharacter'
@@ -33,6 +33,9 @@ export const loader = async ({ request }: { request: Request }) => {
 
   const name = url.searchParams.get('name')
   if (!name) return { preparedCharacter: null }
+
+  const preparedCharacter = zustandCacheMaple().get(name)
+  if (preparedCharacter) return { preparedCharacter }
 
   try {
     const data = await $http.get('maple/info', { params: { character_name: name }}) as CharacterInfo

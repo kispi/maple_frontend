@@ -24,7 +24,7 @@ const SearchCharacter = () => {
 
   const refInput = useRef<HTMLInputElement>(null)
 
-  const name = searchParams.get('name')
+  const queryName = searchParams.get('name')
 
   const getCharacterInfo = useCallback(async (name: string) => {
     if (refInput.current) refInput.current.blur()
@@ -40,7 +40,7 @@ const SearchCharacter = () => {
   const onSearch = async () => {
     if (isComposing) return // 컴포지션 중에는 실행 안 함
 
-    if (!characterName || characterName === name) return // 빈 값이거나 동일하면 중단
+    if (!characterName || characterName === queryName) return // 빈 값이거나 동일하면 중단
 
     try {
       await getCharacterInfo(characterName) // 먼저 fetch 시도
@@ -54,25 +54,25 @@ const SearchCharacter = () => {
 
   useEffect(() => {
     // SSR 모드 처리
-    if (preparedCharacter?.basic.character_name === name && ssrMode.current) {
+    if (preparedCharacter?.basic.character_name === queryName && ssrMode.current) {
       ssrMode.current = false
-      setCharacterName(name || '') // SSR에서 초기값 설정
+      setCharacterName(queryName || '') // SSR에서 초기값 설정
       return
     }
 
     // 뒤로가기나 쿼리 파라미터 변경 시 처리
-    if (name && name !== characterName) {
-      getCharacterInfo(name).catch(() => {
+    if (queryName && queryName !== characterName) {
+      getCharacterInfo(queryName).catch(() => {
         // 에러 시 초기화
-        setSelectedCharacter()
+        setSelectedCharacter(null)
         navigate('/', { replace: true })
       })
-    } else if (!name) {
-      setSelectedCharacter()
+    } else if (!queryName) {
+      setSelectedCharacter(null)
       setCharacterName('')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, preparedCharacter, getCharacterInfo, setSelectedCharacter])
+  }, [queryName, preparedCharacter, getCharacterInfo, setSelectedCharacter])
 
   return (
     <div className="search-character input-wrapper">
