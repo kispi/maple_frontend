@@ -1,3 +1,5 @@
+declare const window: Window & { ImageResize: any }
+
 const image = {
   dataURLToBlob: async (dataUrl: string) => {
     const result = await fetch(dataUrl)
@@ -17,9 +19,9 @@ const image = {
     quality?: number,
     reSample?: boolean,
   }) => {
-    if (typeof ImageResize === 'undefined') return file
+    if (typeof window.ImageResize === 'undefined') return file
 
-    const o = new ImageResize({
+    const o = new window.ImageResize({
       format,
       width,
       quality,

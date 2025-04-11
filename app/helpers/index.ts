@@ -1,4 +1,5 @@
 import { translate } from './translate'
+import createBus from './bus'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dom from './dom'
@@ -15,6 +16,7 @@ import util from './util'
 dayjs.extend(utc)
 
 const helpers = {
+  bus: createBus(),
   dayjs,
   dom,
   image,

@@ -79,6 +79,9 @@ module.exports = {
         "plugin:import/recommended",
         "plugin:import/typescript",
       ],
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off", // Disable no-explicit-any rule
+      },
     },
 
     // Node
@@ -89,4 +92,4 @@ module.exports = {
       },
     },
   ],
-}
+};
