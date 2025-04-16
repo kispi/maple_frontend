@@ -2,7 +2,7 @@ import { CharacterInfo } from '~/types'
 import { ItemEquipment } from '~/types/item-equipment'
 import { ItemEquipmentDetail } from './ItemEquipmentDetail'
 import { PanelSymbolEquipment } from './PanelSymbolEquipment'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import helpers from '~/helpers'
 import './character-item-equipment.scss'
 
