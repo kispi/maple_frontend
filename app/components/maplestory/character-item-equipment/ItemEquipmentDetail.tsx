@@ -97,8 +97,8 @@ const ItemOptionsExceptional = ({ itemEquipment }: { itemEquipment: ItemEquipmen
         <GradeBadge grade={'익셉셔널'} /><span className={`c-${helpers.logic.gradeClass(['익셉셔널'])}`}>익셉셔널</span>
       </div>
       {['str', 'dex', 'int', 'luk'].every(key => o[key as keyof typeof o] > '0') ? <div>올스탯 : +{o.str}</div> : null}
-      {['max_hp', 'max_mp'].every(key => o[key as keyof typeof o] > '0') ? <div>최대 HP / 최대 MP : +${o.max_hp}</div> : null}
-      {['attack_power', 'magic_power'].every(key => o[key as keyof typeof o] > '0') ? <div>공격력 / 마력 : +${o.attack_power}</div> : null}
+      {['max_hp', 'max_mp'].every(key => o[key as keyof typeof o] > '0') ? <div>최대 HP / 최대 MP : +{o.max_hp}</div> : null}
+      {['attack_power', 'magic_power'].every(key => o[key as keyof typeof o] > '0') ? <div>공격력 / 마력 : +{o.attack_power}</div> : null}
     </div>
   </>
 }
