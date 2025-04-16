@@ -97,6 +97,7 @@ export const ItemEquipmentDetail = ({
       {itemEquipment.soul_name && <div className="soul-name">{itemEquipment.soul_name.split(' 소울 적용')[0]}</div>}
       <div className="item-name">{itemEquipment.item_name} {helpers.logic.upgradeable(itemEquipment) && `(+${itemEquipment.scroll_upgrade})`}</div>
       {itemEquipment.potential_option_grade && <div className="potential-option-grade">({itemEquipment.potential_option_grade} 아이템)</div>}
+      {itemEquipment.date_expire && <div className="expire-date">{helpers.dayjs(itemEquipment.date_expire).format('YYYY년 M월 D일 HH시 mm분')}까지 사용가능</div>}
     </div>
     <div className="hr" />
     <div className="flex-row m-t-16 m-b-16 g-8">
