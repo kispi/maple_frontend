@@ -1,0 +1,81 @@
+export const classes = [{
+  category: 'adventurer',
+  class: 'warrior',
+  img: 'class_hero.webp',
+  key: 'hero',
+  name: '히어로',
+}, {
+  category: 'adventurer',
+  class: 'warrior',
+  img: 'class_paladin.webp',
+  key: 'paladin',
+  name: '팔라딘',
+}, {
+  category: 'adventurer',
+  class: 'darkknight',
+  img: 'class_darkknight.webp',
+  key: 'darkknight',
+  name: '다크나이트',
+}, {
+  category: 'adventurer',
+  class: 'magician',
+  img: 'class_archmage_fp.webp',
+  key: 'archmage_fp',
+  name: '아크메이지(불,독)',
+}, {
+  category: 'adventurer',
+  class: 'magician',
+  img: 'class_archmage_il.webp',
+  key: 'archmage_il',
+  name: '아크메이지(썬,콜)',
+}]
+// TODO: Add all classes
+
+// adventurer / cygnus / hero / resistance / nova / flora / overlord / friendsworld / anima
+// warrior / magician / bowman / thief / pirate
+// class_adele.webp
+// class_angelicbuster.webp
+// class_aran.webp
+// class_archmage_fp.webp
+// class_archmage_il.webp
+// class_ark.webp
+// class_battlemage.webp
+// class_bishop.webp
+// class_blaster.webp
+// class_bowmaster.webp
+// class_cadena.webp
+// class_cannonshooter.webp
+// class_captain.webp
+// class_darkknight.webp
+// class_demonavenger.webp
+// class_demonslayer.webp
+// class_dualblade.webp
+// class_eunwol.webp
+// class_evan.webp
+// class_flamewizard.webp
+// class_hero.webp
+// class_hoyoung.webp
+// class_illium.webp
+// class_kain.webp
+// class_kaiser.webp
+// class_khali.webp
+// class_kinesis.webp
+// class_lara.webp
+// class_luminous.webp
+// class_marksman.webp
+// class_mechanic.webp
+// class_mercedes.webp
+// class_mihile.webp
+// class_nightlord.webp
+// class_nightwalker.webp
+// class_paladin.webp
+// class_pathfinder.webp
+// class_phantom.webp
+// class_shadower.webp
+// class_soulmaster.webp
+// class_striker.webp
+// class_viper.webp
+// class_wildhunter.webp
+// class_windbreaker.webp
+// class_xenon.webp
+// class_zero.webp
