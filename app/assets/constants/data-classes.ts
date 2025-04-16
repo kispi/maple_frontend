@@ -1,81 +1,271 @@
-export const classes = [{
+export const classesData = [{
   category: 'adventurer',
-  class: 'warrior',
+  classType: 'warrior',
   img: 'class_hero.webp',
   key: 'hero',
   name: '히어로',
 }, {
   category: 'adventurer',
-  class: 'warrior',
+  classType: 'warrior',
   img: 'class_paladin.webp',
   key: 'paladin',
   name: '팔라딘',
 }, {
   category: 'adventurer',
-  class: 'darkknight',
+  classType: 'darkknight',
   img: 'class_darkknight.webp',
   key: 'darkknight',
   name: '다크나이트',
 }, {
   category: 'adventurer',
-  class: 'magician',
+  classType: 'magician',
   img: 'class_archmage_fp.webp',
   key: 'archmage_fp',
   name: '아크메이지(불,독)',
 }, {
   category: 'adventurer',
-  class: 'magician',
+  classType: 'magician',
   img: 'class_archmage_il.webp',
   key: 'archmage_il',
   name: '아크메이지(썬,콜)',
+}, {
+  category: 'adventurer',
+  classType: 'magician',
+  img: 'class_bishop.webp',
+  key: 'bishop',
+  name: '비숍',
+}, {
+  category: 'adventurer',
+  classType: 'bowman',
+  img: 'class_bowmaster.webp',
+  key: 'bowmaster',
+  name: '보우마스터',
+}, {
+  category: 'adventurer',
+  classType: 'bowman',
+  img: 'class_marksman.webp', 
+  key: 'marksman',
+  name: '신궁',
+}, {
+  category: 'adventurer',
+  classType: 'thief',
+  img: 'class_nightlord.webp',
+  key: 'nightlord',
+  name: '나이트로드',
+}, {
+  category: 'adventurer',
+  classType: 'thief',
+  img: 'class_shadower.webp',
+  key: 'shadower',
+  name: '섀도어',
+}, {
+  category: 'adventurer',
+  classType: 'thief',
+  img: 'class_dualblade.webp',
+  key: 'dualblade',
+  name: '듀얼블레이더',
+}, {
+  category: 'adventurer',
+  classType: 'pirate',
+  img: 'class_viper.webp',
+  key: 'viper',
+  name: '바이퍼',
+}, {
+  category: 'adventurer',
+  classType: 'pirate',
+  img: 'class_captain.webp',
+  key: 'captain',
+  name: '캡틴',
+}, {
+  category: 'adventurer',
+  classType: 'pirate',
+  img: 'class_cannonshooter.webp',
+  key: 'cannonshooter',
+  name: '캐논슈터',
+}, {
+  category: 'cygnus',
+  classType: 'warrior',
+  img: 'class_soulmaster.webp',
+  key: 'soulmaster',
+  name: '소울마스터',
+}, {
+  category: 'cygnus',
+  classType: 'warrior',
+  img: 'class_mihile.webp',
+  key: 'mihile',
+  name: '미하일'
+}, {
+  category: 'cygnus',
+  classType: 'magician',
+  img: 'class_flamewizard.webp',
+  key: 'flamewizard',
+  name: '플레임위자드',
+}, {
+  category: 'cygnus',
+  classType: 'bowman',
+  img: 'class_windbreaker.webp',
+  key: 'windbreaker',
+  name: '윈드브레이커',
+}, {
+  category: 'cygnus',
+  classType: 'thief',
+  img: 'class_nightwalker.webp',
+  key: 'nightwalker',
+  name: '나이트워커',
+}, {
+  category: 'cygnus',
+  classType: 'pirate',
+  img: 'class_striker.webp',
+  key: 'striker',
+  name: '스트라이커',
+}, {
+  category: 'resistance',
+  classType: 'warrior',
+  img: 'class_blaster.webp',
+  key: 'blaster',
+  name: '블래스터',
+}, {
+  category: 'resistance',
+  classType: 'warrior',
+  img: 'class_demonslayer.webp',
+  key: 'demonslayer',
+  name: '데몬슬레이어',
+}, {
+  category: 'resistance',
+  classType: 'warrior',
+  img: 'class_demonavenger.webp',
+  key: 'demonavenger',
+  name: '데몬어벤져',
+}, {
+  category: 'resistance',
+  classType: 'magician',
+  img: 'class_battlemage.webp',
+  key: 'battlemage',
+  name: '배틀메이지',
+}, {
+  category: 'resistance',
+  classType: 'bowman',
+  img: 'class_wildhunter.webp',
+  key: 'wildhunter',
+  name: '와일드헌터',
+}, {
+  category: 'resistance',
+  classType: 'thief',
+  img: 'class_xenon.webp',
+  key: 'xenon',
+  name: '제논',
+}, {
+  category: 'resistance',
+  classType: 'pirate',
+  img: 'class_mechanic.webp',
+  key: 'mechanic',
+  name: '메카닉',
+}, {
+  category: 'hero',
+  classType: 'warrior',
+  img: 'class_aran.webp',
+  key: 'aran',
+  name: '아란',
+}, {
+  category: 'hero',
+  classType: 'magician',
+  img: 'class_evan.webp',
+  key: 'evan',
+  name: '에반',
+}, {
+  category: 'hero',
+  classType: 'magician',
+  img: 'class_luminous.webp',
+  key: 'luminous',
+  name: '루미너스',
+}, {
+  category: 'hero',
+  classType: 'bowman',
+  img: 'class_mercedes.webp',
+  key: 'mercedes',
+  name: '메르세데스',
+}, {
+  category: 'hero',
+  classType: 'thief',
+  img: 'class_phantom.webp',
+  key: 'phantom',
+  name: '팬텀',
+}, {
+  category: 'hero',
+  classType: 'pirate',
+  img: 'class_eunwol.webp',
+  key: 'eunwol',
+  name: '은월',
+}, {
+  category: 'nova',
+  classType: 'warrior',
+  img: 'class_kaiser.webp',
+  key: 'kaiser',
+  name: '카이저',
+}, {
+  category: 'nova',
+  classType: 'bowman',
+  img: 'class_kain.webp',
+  key: 'kain',
+  name: '카인',
+}, {
+  category: 'nova',
+  classType: 'thief',
+  img: 'class_cadena.webp',
+  key: 'cadena',
+  name: '카데나',
+}, {
+  category: 'nova',
+  classType: 'pirate',
+  img: 'class_angelicbuster.webp',
+  key: 'angelicbuster',
+  name: '엔젤릭버스터',
+}, {
+  category: 'flora',
+  classType: 'warrior',
+  img: 'class_adele.webp',
+  key: 'adele',
+  name: '아델',
+}, {
+  category: 'flora',
+  classType: 'magician',
+  img: 'class_illium.webp',
+  key: 'illium',
+  name: '일리움',
+}, {
+  category: 'flora',
+  classType: 'thief',
+  img: 'class_khali.webp',
+  key: 'khali',
+  name: '칼리',
+}, {
+  category: 'flora',
+  classType: 'pirate',
+  img: 'class_ark.webp',
+  key: 'ark',
+  name: '아크',
+}, {
+  category: 'anima',
+  classType: 'magician',
+  img: 'class_lara.webp',
+  key: 'lara',
+  name: '라라',
+}, {
+  category: 'anima',
+  classType: 'thief',
+  img: 'class_hoyoung.webp',
+  key: 'hoyoung',
+  name: '호영',
+}, {
+  category: 'overlord',
+  classType: 'warrior',
+  img: 'class_zero.webp',
+  key: 'zero',
+  name: '제로',
+}, {
+  category: 'friendsworld',
+  classType: 'magician',
+  img: 'class_kinesis.webp',
+  key: 'kinesis',
+  name: '키네시스',
 }]
-// TODO: Add all classes
-
-// adventurer / cygnus / hero / resistance / nova / flora / overlord / friendsworld / anima
-// warrior / magician / bowman / thief / pirate
-// class_adele.webp
-// class_angelicbuster.webp
-// class_aran.webp
-// class_archmage_fp.webp
-// class_archmage_il.webp
-// class_ark.webp
-// class_battlemage.webp
-// class_bishop.webp
-// class_blaster.webp
-// class_bowmaster.webp
-// class_cadena.webp
-// class_cannonshooter.webp
-// class_captain.webp
-// class_darkknight.webp
-// class_demonavenger.webp
-// class_demonslayer.webp
-// class_dualblade.webp
-// class_eunwol.webp
-// class_evan.webp
-// class_flamewizard.webp
-// class_hero.webp
-// class_hoyoung.webp
-// class_illium.webp
-// class_kain.webp
-// class_kaiser.webp
-// class_khali.webp
-// class_kinesis.webp
-// class_lara.webp
-// class_luminous.webp
-// class_marksman.webp
-// class_mechanic.webp
-// class_mercedes.webp
-// class_mihile.webp
-// class_nightlord.webp
-// class_nightwalker.webp
-// class_paladin.webp
-// class_pathfinder.webp
-// class_phantom.webp
-// class_shadower.webp
-// class_soulmaster.webp
-// class_striker.webp
-// class_viper.webp
-// class_wildhunter.webp
-// class_windbreaker.webp
-// class_xenon.webp
-// class_zero.webp

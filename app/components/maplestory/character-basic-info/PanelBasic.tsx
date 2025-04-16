@@ -1,4 +1,5 @@
 import { CharacterInfo } from '~/types'
+import { classesData } from '~/assets/constants/data-classes'
 import { useMemo } from 'react'
 import ExpBar from '../exp-bar/ExpBar'
 import helpers from '~/helpers'
@@ -77,7 +78,16 @@ export const PanelBasic = ({
 }: {
   character: CharacterInfo,
 }) => {
+  const curClass = classesData.find(c => c.name === character.basic.character_class)
+
   return <div className="panel-basic flex g-8">
+    {curClass && <div className="class-image-container">
+      <img
+        src={helpers.withCdn(`images/${curClass?.img}`)}
+        alt={character.basic.character_class}
+        className="class-image"
+      />
+    </div>}
     <div className="text-nowrap flex-row align-center g-8">
       <div className="f-16 f-700 c-unique">Lv. {character.basic.character_level}</div>
       <div className="f-16 f-700">{character.basic.character_name}</div>

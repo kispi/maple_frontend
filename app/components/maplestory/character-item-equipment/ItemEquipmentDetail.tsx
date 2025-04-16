@@ -79,7 +79,7 @@ const StatInline = ({ itemEquipment, statKey }: { itemEquipment: ItemEquipment, 
     <span className={`${enchanted ? 'c-rare' : ''}`}>{helpers.$t(statKey.toUpperCase())} : <span className="plus">+</span>{stat}{statKey === 'all_stat' ? '%' : ''}</span>
     {enchanted && <span>(
       {baseStat}{statKey === 'all_stat' ? '%' : ''}
-      {addStat && parseInt(addStat) ? <span className="c-legendary"><span className="plus">+</span>{addStat}{statKey === 'all_stat' ? '%' : ''}</span> : ''}
+      {addStat && parseInt(addStat as string) ? <span className="c-legendary"><span className="plus">+</span>{addStat}{statKey === 'all_stat' ? '%' : ''}</span> : ''}
       {etcStat && parseInt(etcStat) ? <span style={{ color: 'var(--gray-500)' }}><span className="plus">+</span>{etcStat}</span> : ''}
       {starforceStat && parseInt(starforceStat) ? <span className="c-unique"><span className="plus">+</span>{starforceStat}</span> : ''}
     )</span>}

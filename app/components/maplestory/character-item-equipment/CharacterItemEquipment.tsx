@@ -17,19 +17,11 @@ export const CharacterItemEquipmentSummary = ({
 }) => {
   const [selectedItemEquipment, setSelectedItemEquipment] = useState<ItemEquipment | null>(null)
 
-  const setSelectedItemEquipmentAsNull = (e: MouseEvent) => {
-    if ((e.target as HTMLElement).closest('.item-equipment-detail-container')) return
+  const setSelectedItemEquipmentAsNull = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('.item-equipment-detail')) return
 
     setSelectedItemEquipment(null)
   }
-
-  useEffect(() => {
-    document.addEventListener('click', setSelectedItemEquipmentAsNull)
-
-    return () => {
-      document.removeEventListener('click', setSelectedItemEquipmentAsNull)
-    }
-  })
 
   return <>
     <div
@@ -53,13 +45,18 @@ export const CharacterItemEquipmentSummary = ({
       </div>
     </div>
     {selectedItemEquipment && <div
+      onClick={setSelectedItemEquipmentAsNull}
       className="item-equipment-detail-container"
       style={{
         position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        zIndex: 1,
+        top: '0',
+        left: '0',
+        right: '0',
+        bottom: '0',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 2,
       }}>
       <ItemEquipmentDetail itemEquipment={selectedItemEquipment}/>
     </div>}

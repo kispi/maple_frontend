@@ -2,8 +2,26 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+  background: linear-gradient(to right, var(--background-base), rgba(0, 0, 0, 0.5));
 
   .panel-basic {
+    .class-image-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      max-height: 100%;
+      z-index: -1;
+
+      .class-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
     .image-container {
       width: 96px;
       height: 112px;
@@ -12,7 +30,7 @@
       overflow: hidden;
       border-radius: 8px;
       border: 1px solid var(--border-base);
-      background: var(--background-light);
+      background: var(--background-base);
 
       .created-at {
         text-align: center;
@@ -54,5 +72,11 @@
     .basic-details {
       flex-direction: column;
     }
+  }
+}
+
+.theme-light {
+  .character-basic-info {
+    background: linear-gradient(to right, var(--background-base), rgba(255, 255, 255, 0.5));
   }
 }
