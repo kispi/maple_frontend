@@ -48,6 +48,12 @@ export const classesData = [{
   name: '신궁',
 }, {
   category: 'adventurer',
+  classType: 'bowman',
+  img: 'class_pathfinder.webp',
+  key: 'pathfinder',
+  name: '패스파인더',
+}, {
+  category: 'adventurer',
   classType: 'thief',
   img: 'class_nightlord.webp',
   key: 'nightlord',
@@ -79,9 +85,9 @@ export const classesData = [{
 }, {
   category: 'adventurer',
   classType: 'pirate',
-  img: 'class_cannonshooter.webp',
-  key: 'cannonshooter',
-  name: '캐논슈터',
+  img: 'class_cannonmaster.webp',
+  key: 'cannonmaster',
+  name: '캐논마스터',
 }, {
   category: 'cygnus',
   classType: 'warrior',
