@@ -1,6 +1,7 @@
+import { Toast } from '~/types'
 import { useEffect, useState } from 'react'
 import helpers from '~/helpers'
-import useAppStore, { Toast } from '~/store/app'
+import useAppStore from '~/store/app'
 
 const AppToast = ({ toast }: { toast: Toast }) => {
   const [show, setShow] = useState(false)
