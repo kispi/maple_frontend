@@ -86,6 +86,23 @@ const StatInline = ({ itemEquipment, statKey }: { itemEquipment: ItemEquipment, 
   </div>
 }
 
+const ItemOptionsExceptional = ({ itemEquipment }: { itemEquipment: ItemEquipment }) => {
+  const o = itemEquipment.item_exceptional_option
+  if (!o.exceptional_upgrade) return
+
+  return o && <>
+    <div className="hr" />
+    <div className="item-options exceptional">
+      <div className="flex-row align-center g-4">
+        <GradeBadge grade={'익셉셔널'} /><span className={`c-${helpers.logic.gradeClass(['익셉셔널'])}`}>익셉셔널</span>
+      </div>
+      {['str', 'dex', 'int', 'luk'].every(key => o[key as keyof typeof o] > '0') ? <div>올스탯 : +{o.str}</div> : null}
+      {['max_hp', 'max_mp'].every(key => o[key as keyof typeof o] > '0') ? <div>최대 HP / 최대 MP : +${o.max_hp}</div> : null}
+      {['attack_power', 'magic_power'].every(key => o[key as keyof typeof o] > '0') ? <div>공격력 / 마력 : +${o.attack_power}</div> : null}
+    </div>
+  </>
+}
+
 export const ItemEquipmentDetail = ({
   itemEquipment,
 }: {
@@ -142,7 +159,7 @@ export const ItemEquipmentDetail = ({
     {itemEquipment.additional_potential_option_1 && <>
       <div className="hr" />
       <div className="item-options additional-potential">
-      <div className="flex-row align-center g-4">
+        <div className="flex-row align-center g-4">
           <GradeBadge grade={itemEquipment.additional_potential_option_grade} /><span className={`c-${helpers.logic.gradeClass([itemEquipment.additional_potential_option_grade])}`}>잠재옵션</span>
         </div>
         {itemEquipment.additional_potential_option_1 && <div className="additional-potential-option">+ {itemEquipment.additional_potential_option_1}</div>}
@@ -150,6 +167,7 @@ export const ItemEquipmentDetail = ({
         {itemEquipment.additional_potential_option_3 && <div className="additional-potential-option">+ {itemEquipment.additional_potential_option_3}</div>}
       </div>
     </>}
+    <ItemOptionsExceptional itemEquipment={itemEquipment} />
     {itemEquipment.soul_option && <>
       <div className="hr" />
       <div className="item-options soul">

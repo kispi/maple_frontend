@@ -15,6 +15,7 @@ const logic = {
     grandis: (symbols: TypeSymbol[]) => symbols.filter(s => s.symbol_name.startsWith('어센틱')).every(s => s.symbol_level === 11),
   },
   gradeClass: (grades: string[]) => {
+    if (grades.includes('익셉셔널')) return 'danger'
     if (grades.includes('레전드리')) return 'legendary'
     if (grades.includes('유니크')) return 'unique'
     if (grades.includes('에픽')) return 'epic'

@@ -48,6 +48,7 @@ export const CharacterItemEquipmentSummary = ({
           {itemEquipment.potential_option_grade && <GradeBadge grade={itemEquipment.potential_option_grade} />}
           {itemEquipment.additional_potential_option_grade && <GradeBadge grade={itemEquipment.additional_potential_option_grade} />}
           {itemEquipment.special_ring_level > 0 && <span className="badge-fill bg-text-base c-border-base c-white f-400 f-10">Lv.{itemEquipment.special_ring_level}</span>}
+          {itemEquipment.item_exceptional_option.exceptional_upgrade && <GradeBadge grade="익셉셔널" />}
         </div>
       </div>
     </div>
