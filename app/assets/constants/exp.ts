@@ -69,7 +69,7 @@ export const dailyContents = {
 // 경험치 절댓값이 아닌 %로 리턴함
 export const weeklyContents = {
   extremeMonsterPark: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow => {
-    const base = { img: 'bigfoot.png', key: 'extreme_monster_park', $$expPercent: 0 }
+    const base = { img: 'bigfoot.png', key: 'extreme_monster_park', $$expPercent: 0, boyakRegion: 'monsterPark' }
     if (lev < 260) return base // 260 이상부터 가능
 
     base.$$expPercent = helpers.asPercent((extremeMonsterPark[lev - 260] * Math.pow(10, 8) / levelExpTable[lev - 1] * (100 + additionalPercentage) / 100))
