@@ -2,7 +2,7 @@ import { CharacterInfo } from '~/types'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { dailyContents, elixirs, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
 import {
-  ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalVipAfk,
+  ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalMvpAfk,
   ModalMonsterPark, ModalExpCouponBasic, ModalExpCouponAdvanced,
   ModalElixir210, ModalElixir220, ModalElixir230,
   ModalElixir240, ModalElixir250, ModalElixir270,
@@ -18,7 +18,7 @@ const MODAL_MAP = {
   high_mountain: ModalHighMountain,
   angler_company: ModalAnglerCompany,
   extreme_monster_park: ModalExtremeMonsterPark,
-  vip_afk: ModalVipAfk,
+  mvp_afk: ModalMvpAfk,
   monsterPark: ModalMonsterPark,
   exp_coupon_basic: ModalExpCouponBasic,
   exp_coupon_advanced: ModalExpCouponAdvanced,

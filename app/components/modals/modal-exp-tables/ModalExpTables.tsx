@@ -185,7 +185,7 @@ export const ModalMonsterPark = ({
   </div>
 }
 
-export const ModalVipAfk = ({
+export const ModalMvpAfk = ({
   options,
   onClose,
 }: {
@@ -222,7 +222,7 @@ export const ModalVipAfk = ({
   }
 
   return <div className="modal-vip-afk modal-base-style modal-exp-table scrollable-body">
-    <ModalHeader title={modalTitle('VIP_AFK', 'vip_afk.png')} onClose={() => onClose()} />
+    <ModalHeader title={modalTitle('MVP_AFK', 'mvp_afk.png')} onClose={() => onClose()} />
     <div className="modal-body pretty-scrollbar">
       <div className="table">
         <div className="thead">

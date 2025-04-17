@@ -191,6 +191,10 @@
     "kr": "VIP 사우나 (시간당)",
     "en": "VIP Sauna (Per Hour)"
   },
+  "MVP_AFK": {
+    "kr": "MVP 리조트 (시간당)",
+    "en": "MVP Resort (Per Hour)"
+  },
   "EXP_COUPONS": {
     "kr": "EXP 교환권",
     "en": "EXP Coupons"
