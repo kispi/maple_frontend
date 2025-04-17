@@ -56,10 +56,10 @@ export const IconSkill = ({
 }
 
 export const CharacterSkills = ({ character }: { character: CharacterInfo }) => {
-  const eventSkill = useMemo(() => {
-    return (character.skills || [])
-      .find(skill => skill.character_skill_grade === '0')?.character_skill
-      .find(skill => skill.skill_name.includes('문어'))
+  const eventSkills = useMemo(() => {
+    return ((character.skills || [])
+      .find(skill => skill.character_skill_grade === '0')?.character_skill || [])
+      .filter(skill => ['특별 강의'].includes(skill.skill_name))
   }, [character.skills])
 
   const hexaSkills = useMemo(() => {
@@ -81,8 +81,10 @@ export const CharacterSkills = ({ character }: { character: CharacterInfo }) => 
   }, [character.skills]) as CharacterSkill
 
   return <div className="character-skills">
-    {eventSkill && <div className="skills-group">
-      <IconSkill skill={eventSkill} withEffect={true} />
+    {eventSkills.length > 0 && <div className="skills-group">
+      {eventSkills.map((eventSkill, idx) => {
+        return <IconSkill key={idx} skill={eventSkill} className="event-skill" withEffect={true} />
+      })}
     </div>}
     {hexaSkills && <div className="skills-group">
       {hexaSkills.character_skill.map((skill, idx) => <IconSkill key={idx} skill={skill} />)}

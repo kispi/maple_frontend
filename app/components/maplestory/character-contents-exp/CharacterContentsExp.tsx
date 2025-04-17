@@ -102,7 +102,7 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
 
   const expBoyak = useMemo(() => {
     const zeroth = (character.skills.find(o => o.character_skill_grade === '0')?.character_skill || [])
-      .find(o => o.skill_name === '특제 문어요리')
+      .find(o => ['특별 강의'].includes(o.skill_name))
     if (!zeroth) return { arcaneRiver: 0, grandis: 0, monsterPark: 0 }
 
     const patterns = [
