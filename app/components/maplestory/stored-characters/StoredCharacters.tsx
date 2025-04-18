@@ -1,9 +1,11 @@
 import { CharacterInfo, DefaultError, SimpleCharacter } from '~/types'
 import { useLocation, useNavigate } from '@remix-run/react'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
+import { classesData } from '~/assets/constants/data-classes'
 import useLocalCharacters from 'hooks/local-characters'
 import useAppStore from '~/store/app'
 import ExpBar from '../exp-bar/ExpBar'
+import ClientOnly from '~/components/app/ClientOnly'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
 import helpers from '~/helpers'
 import './stored-characters.scss'
@@ -23,7 +25,8 @@ const hoursAgo = (date: string) => {
 }
 
 const LastStored = ({ lastUpdated }: { lastUpdated: string }) => {
-  return <span className="last-stored m-l-4">({hoursAgo(lastUpdated)})</span>
+  const last = useMemo(() => hoursAgo(lastUpdated), [lastUpdated])
+  return <span className="last-stored m-l-4">({last})</span>
 }
 
 const StoredCharacters = ({
@@ -83,6 +86,8 @@ const StoredCharacters = ({
     helpers.tooltip.hide('tooltip-simple-character')
   }
 
+  const randomClassImg = useMemo(() => classesData[Math.floor(Math.random() * classesData.length)].img, [])
+
   return <div className={`stored-characters ${className || ''}`}>
     {sortedLocalCharacters.length > 0 && <div className={`grid ${selectedCharacter ? 'pretty-scrollbar' : ''}`}>
       {sortedLocalCharacters.map((character, index) => (
@@ -123,7 +128,9 @@ const StoredCharacters = ({
       ))}
     </div>}
     {pathname === '/' && sortedLocalCharacters.length === 0 && !loading.global && <div className="empty m-t-64">
-      <img src={helpers.withCdn('images/class_hero.webp')} alt="maplestory hero" />
+      <ClientOnly>
+        <img src={helpers.withCdn(`images/${randomClassImg}`)} alt="maplestory hero" />
+      </ClientOnly>
       <div className="f-poppins">
         <div>Maplestory Everyday,</div>
         <h1>

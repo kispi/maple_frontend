@@ -33,16 +33,16 @@ const isValidNickname = (nickname: string): boolean => {
 }
 
 type MapleState = {
-  selectedCharacter: CharacterInfo | null
-  setSelectedCharacter: (character: CharacterInfo | null) => void
+  selectedCharacter?: CharacterInfo
+  setSelectedCharacter: (character?: CharacterInfo | undefined) => void
 
   characters: Record<string, CharacterInfo>
   loadCharacter: (characterName: string) => Promise<unknown>
 }
 
 const useMapleStore = create<MapleState>((set, get) => ({
-  selectedCharacter: null,
-  setSelectedCharacter: (character: CharacterInfo | null) => {
+  selectedCharacter: undefined,
+  setSelectedCharacter: (character?: CharacterInfo | undefined) => {
     set({ selectedCharacter: character })
   },
 
