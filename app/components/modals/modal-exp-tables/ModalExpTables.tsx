@@ -185,67 +185,6 @@ export const ModalMonsterPark = ({
   </div>
 }
 
-export const ModalMvpAfk = ({
-  options,
-  onClose,
-}: {
-  options?: { lev: number },
-  onClose: () => void,
-}) => {
-  useAutoFocus()
-
-  const displayValue = (lev: number) => {
-    const ticksPerHour = 720 // 1시간 = 5초 * 720틱
-    let currentLevel = lev // 현재 레벨
-    let totalExp = 0 // 누적 경험치
-    let remainingTicks = ticksPerHour // 남은 틱 수
-
-    while (remainingTicks > 0) {
-      const requiredExp = levelExpTable[currentLevel - 1] // 현재 레벨 필요 경험치 (1레벨부터)
-      const expPerTick = vipAfkData[currentLevel - 200] // 현재 레벨 틱당 경험치 (200레벨부터)
-      const expThisLevel = expPerTick * remainingTicks // 남은 틱으로 얻을 수 있는 경험치
-
-      if (expThisLevel < requiredExp) {
-        // 레벨업 못하면 현재 레벨에서 % 계산
-        totalExp += expThisLevel
-        const percentage = (totalExp / requiredExp) * 100
-        return `${currentLevel !== lev ? `(Lv.${currentLevel + 1})` : ''} ${percentage.toFixed(3)}%`
-      } else {
-        // 레벨업 가능한 경우
-        const ticksToLevelUp = Math.ceil(requiredExp / expPerTick) // 레벨업까지 틱 수
-        totalExp = requiredExp // 현재 레벨 필요 경험치까지만 추가
-        remainingTicks -= ticksToLevelUp // 남은 틱 갱신
-        currentLevel++ // 다음 레벨로 이동
-        totalExp = 0 // 다음 레벨로 넘어가며 경험치 초기화
-      }
-    }
-  }
-
-  return <div className="modal-vip-afk modal-base-style modal-exp-table scrollable-body">
-    <ModalHeader title={modalTitle('MVP_AFK', 'mvp_afk.png')} onClose={() => onClose()} />
-    <div className="modal-body pretty-scrollbar">
-      <div className="table">
-        <div className="thead">
-          <div className="tr">
-            <div className="th">{helpers.$t('LEVEL')}</div>
-            <div className="th">경험치/1틱(5초)</div>
-            <div className="th">1시간</div>
-          </div>
-        </div>
-        <div className="tbody">
-          {vipAfkData.map((exp, idx) => <div
-            key={idx}
-            className={`tr ${options?.lev === idx + 200 ? 'selected' : ''}`}>
-            <div className="td">{idx + 200}</div>
-            <div className="td">{exp.toLocaleString()}</div>
-            <div className="td">{displayValue(idx + 200)}</div>
-          </div>)}
-        </div>
-      </div>
-    </div>
-  </div>
-}
-
 export const ModalExpCouponBasic = ({
   options,
   onClose,
@@ -310,6 +249,77 @@ export const ModalExpCouponAdvanced = ({
   </div>
 }
 
+const displayValue = (lev: number) => {
+  const ticksPerHour = 720 // 1시간 = 5초 * 720틱
+  let currentLevel = lev // 현재 레벨
+  let totalExp = 0 // 누적 경험치
+  let remainingTicks = ticksPerHour // 남은 틱 수
+
+  while (remainingTicks > 0) {
+    const requiredExp = levelExpTable[currentLevel - 1] // 현재 레벨 필요 경험치 (1레벨부터)
+    const expPerTick = vipAfkData[currentLevel - 200] // 현재 레벨 틱당 경험치 (200레벨부터)
+    const expThisLevel = expPerTick * remainingTicks // 남은 틱으로 얻을 수 있는 경험치
+
+    if (expThisLevel < requiredExp) {
+      // 레벨업 못하면 현재 레벨에서 % 계산
+      totalExp += expThisLevel
+      const percentage = (totalExp / requiredExp) * 100
+      return `${currentLevel !== lev ? `(Lv.${currentLevel + 1})` : ''} ${percentage.toFixed(3)}%`
+    } else {
+      // 레벨업 가능한 경우
+      const ticksToLevelUp = Math.ceil(requiredExp / expPerTick) // 레벨업까지 틱 수
+      totalExp = requiredExp // 현재 레벨 필요 경험치까지만 추가
+      remainingTicks -= ticksToLevelUp // 남은 틱 갱신
+      currentLevel++ // 다음 레벨로 이동
+      totalExp = 0 // 다음 레벨로 넘어가며 경험치 초기화
+    }
+  }
+}
+
+const createModalAfk = ({
+  title,
+  img,
+}: {
+  title: string,
+  img: string,
+}) => {
+  const ModalAfk = ({
+    options,
+    onClose,
+  }: {
+    options?: { lev: number },
+    onClose: () => void,
+  }) => {
+    useAutoFocus()
+
+    return <div className="modal-vip-afk modal-base-style modal-exp-table scrollable-body">
+      <ModalHeader title={modalTitle(title, img)} onClose={() => onClose()} />
+      <div className="modal-body pretty-scrollbar">
+        <div className="table">
+          <div className="thead">
+            <div className="tr">
+              <div className="th">{helpers.$t('LEVEL')}</div>
+              <div className="th">경험치/1틱(5초)</div>
+              <div className="th">1시간</div>
+            </div>
+          </div>
+          <div className="tbody">
+            {vipAfkData.map((exp, idx) => <div
+              key={idx}
+              className={`tr ${options?.lev === idx + 200 ? 'selected' : ''}`}>
+              <div className="td">{idx + 200}</div>
+              <div className="td">{exp.toLocaleString()}</div>
+              <div className="td">{displayValue(idx + 200)}</div>
+            </div>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  return ModalAfk
+}
+
 const createModalElixir = ({
   title,
   img,
@@ -359,6 +369,10 @@ const createModalElixir = ({
 
   return ModalElixir
 }
+
+export const ModalVipAfk = createModalAfk({ title: 'VIP_AFK', img: 'vip_afk.png' })
+
+export const ModalMvpAfk = createModalAfk({ title: 'MVP_AFK', img: 'mvp_afk.png' })
 
 export const ModalElixir210 = createModalElixir({
   title: 'ELIXIR_210',

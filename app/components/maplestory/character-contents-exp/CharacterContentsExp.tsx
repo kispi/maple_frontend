@@ -2,7 +2,7 @@ import { CharacterInfo } from '~/types'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { dailyContents, elixirs, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
 import {
-  ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalMvpAfk,
+  ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalMvpAfk, ModalVipAfk,
   ModalMonsterPark, ModalExpCouponBasic, ModalExpCouponAdvanced,
   ModalElixir210, ModalElixir220, ModalElixir230,
   ModalElixir240, ModalElixir250, ModalElixir270,
@@ -19,6 +19,7 @@ const MODAL_MAP = {
   angler_company: ModalAnglerCompany,
   extreme_monster_park: ModalExtremeMonsterPark,
   mvp_afk: ModalMvpAfk,
+  vip_afk: ModalVipAfk,
   monsterPark: ModalMonsterPark,
   exp_coupon_basic: ModalExpCouponBasic,
   exp_coupon_advanced: ModalExpCouponAdvanced,
@@ -147,6 +148,7 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
     weekly: [
       weeklyContents.extremeMonsterPark({ lev, additionalPercentage: expBoyak.monsterPark }),
       weeklyContents.vipAfk({ lev }),
+      weeklyContents.mvpAfk({ lev }),
       weeklyContents.highMountain({ lev, rewardLev: 2 }),
       weeklyContents.anglerCompany({ lev, rewardLev: 2 }),
     ].filter(o => o.$$expPercent),

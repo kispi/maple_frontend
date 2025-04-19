@@ -90,6 +90,13 @@ export const weeklyContents = {
     return base
   },
   vipAfk: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'vip_afk.png', key: 'vip_afk', $$expPercent: 0 }
+    if (lev < 200) return base // 200 미만도 가능하긴 한데 효율 나쁨
+
+    base.$$expPercent = helpers.asPercent(vipAfkData[lev - 200] * 720 / levelExpTable[lev - 1])
+    return base
+  },
+  mvpAfk: ({ lev }: { lev: number }): ExpRow => {
     const base = { img: 'mvp_afk.png', key: 'mvp_afk', $$expPercent: 0 }
     if (lev < 200) return base // 200 미만도 가능하긴 한데 효율 나쁨
 
