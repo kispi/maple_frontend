@@ -67,6 +67,14 @@
     "kr": "보스 몬스터 공격 시 데미지",
     "en": "Boss Damage"
   },
+  "DAMAGE": {
+    "kr": "데미지",
+    "en": "Damage"
+  },
+  "IGNORE_MONSTER_ARMOR": {
+    "kr": "몬스터 방어율 무시",
+    "en": "Ignore Monster Armor"
+  },
   "ARMOR": {
     "kr": "방어력",
     "en": "Armor"

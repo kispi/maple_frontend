@@ -74,7 +74,7 @@ const StatInline = ({ itemEquipment, statKey }: { itemEquipment: ItemEquipment, 
 
   if (!stat || stat === '0') return null
 
-  const suffix = ['all_stat', 'boss_damage'].includes(statKey) ? '%' : ''
+  const suffix = ['all_stat', 'boss_damage', 'damage', 'ignore_monster_armor'].includes(statKey) ? '%' : ''
   const enchanted = baseStat !== stat
   return <div className="stat-inline">
     <span className={`${enchanted ? 'c-rare' : ''}`}>{helpers.$t(statKey.toUpperCase())} : <span className="plus">+</span>{stat}{suffix}</span>
@@ -134,7 +134,7 @@ export const ItemEquipmentDetail = ({
       <div className="item-slot-part">
         {itemEquipment.item_equipment_slot === '무기' ? '무기' : '장비'}분류: {itemEquipment.item_equipment_part}
       </div>
-      {['str', 'dex', 'int', 'luk', 'max_hp', 'max_mp', 'attack_power', 'magic_power', 'boss_damage', 'armor', 'speed', 'jump', 'all_stat']
+      {['str', 'dex', 'int', 'luk', 'max_hp', 'max_mp', 'attack_power', 'magic_power', 'speed', 'jump', 'all_stat', 'damage', 'boss_damage', 'ignore_monster_armor']
         .map((key: string) => <StatInline key={key} itemEquipment={itemEquipment} statKey={key} />)}
       {itemEquipment.golden_hammer_flag === '적용' && <div className="golden-hammer-flag">황금 망치 재련 적용</div>}
       {helpers.logic.upgradeable(itemEquipment) ?
