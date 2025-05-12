@@ -74,12 +74,13 @@ const StatInline = ({ itemEquipment, statKey }: { itemEquipment: ItemEquipment, 
 
   if (!stat || stat === '0') return null
 
+  const suffix = ['all_stat', 'boss_damage'].includes(statKey) ? '%' : ''
   const enchanted = baseStat !== stat
   return <div className="stat-inline">
-    <span className={`${enchanted ? 'c-rare' : ''}`}>{helpers.$t(statKey.toUpperCase())} : <span className="plus">+</span>{stat}{statKey === 'all_stat' ? '%' : ''}</span>
+    <span className={`${enchanted ? 'c-rare' : ''}`}>{helpers.$t(statKey.toUpperCase())} : <span className="plus">+</span>{stat}{suffix}</span>
     {enchanted && <span>(
-      {baseStat}{statKey === 'all_stat' ? '%' : ''}
-      {addStat && parseInt(addStat as string) ? <span className="c-legendary"><span className="plus">+</span>{addStat}{statKey === 'all_stat' ? '%' : ''}</span> : ''}
+      {baseStat}{suffix}
+      {addStat && parseInt(addStat as string) ? <span className="c-legendary"><span className="plus">+</span>{addStat}{suffix}</span> : ''}
       {etcStat && parseInt(etcStat) ? <span style={{ color: 'var(--gray-500)' }}><span className="plus">+</span>{etcStat}</span> : ''}
       {starforceStat && parseInt(starforceStat) ? <span className="c-unique"><span className="plus">+</span>{starforceStat}</span> : ''}
     )</span>}
@@ -133,7 +134,7 @@ export const ItemEquipmentDetail = ({
       <div className="item-slot-part">
         {itemEquipment.item_equipment_slot === '무기' ? '무기' : '장비'}분류: {itemEquipment.item_equipment_part}
       </div>
-      {['str', 'dex', 'int', 'luk', 'max_hp', 'max_mp', 'attack_power', 'magic_power', 'armor', 'speed', 'jump', 'all_stat']
+      {['str', 'dex', 'int', 'luk', 'max_hp', 'max_mp', 'attack_power', 'magic_power', 'boss_damage', 'armor', 'speed', 'jump', 'all_stat']
         .map((key: string) => <StatInline key={key} itemEquipment={itemEquipment} statKey={key} />)}
       {itemEquipment.golden_hammer_flag === '적용' && <div className="golden-hammer-flag">황금 망치 재련 적용</div>}
       {helpers.logic.upgradeable(itemEquipment) ?

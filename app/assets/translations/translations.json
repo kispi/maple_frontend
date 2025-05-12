@@ -63,6 +63,10 @@
     "kr": "마력",
     "en": "Magic Power"
   },
+  "BOSS_DAMAGE": {
+    "kr": "보스 몬스터 공격 시 데미지",
+    "en": "Boss Damage"
+  },
   "ARMOR": {
     "kr": "방어력",
     "en": "Armor"
