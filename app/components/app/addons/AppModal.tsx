@@ -8,6 +8,8 @@ const AppModal = ({ modal }: { modal: Modal }) => {
 
   const refModal = useRef<HTMLDivElement>(null)
 
+  const { removeAllModals } = useAppStore()
+
   const [show, setShow] = useState(false)
 
   const store = useAppStore()
@@ -41,6 +43,15 @@ const AppModal = ({ modal }: { modal: Modal }) => {
     return () => document.removeEventListener('keydown', onKeydownEscape)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.windowInnerWidth])
+
+  useEffect(() => {
+    window.addEventListener('popstate', removeAllModals)
+
+    return () => {
+      window.removeEventListener('popstate', removeAllModals)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   return <div
     ref={refModal}
