@@ -94,4 +94,19 @@ export const monsterPark = [{
   exp: 15552557400,
   reqLev: 255,
   img: 'map_limen.png',
+}, {
+  key: 'cernium',
+  exp: 37474604460,
+  reqLev: 260,
+  img: 'map_cernium.webp',
+}, {
+  key: 'hotel_arcus',
+  reqLev: 265,
+  exp: 44435446300,
+  img: 'map_hotel_arcus.webp',
+}, {
+  key: 'odium',
+  reqLev: 270,
+  exp: 52818835200,
+  img: 'map_odium.png',
 }]
