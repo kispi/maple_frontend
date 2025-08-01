@@ -263,6 +263,12 @@ export const classesData = [{
   key: 'hoyoung',
   name: '호영',
 }, {
+  category: 'anima',
+  classType: 'warrior',
+  img: 'class_len.webp',
+  key: 'len',
+  name: '렌',
+}, {
   category: 'overlord',
   classType: 'warrior',
   img: 'class_zero.webp',
