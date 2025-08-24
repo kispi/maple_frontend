@@ -32,6 +32,13 @@
       border: 1px solid var(--border-base);
       background: var(--background-base);
 
+      img {
+        width: 96px;
+        height: 96px;
+        object-fit: none;
+        object-position: center;
+      }
+
       .created-at {
         text-align: center;
         position: absolute;
