@@ -75,3 +75,7 @@ export const anglerCompanyData = {
   298: [0.00062, 0.00311, 0.00561],
   299: [0.00042, 0.00208, 0.00374],
 }
+
+export const nightmareParadiseData = {
+  280: [],
+}

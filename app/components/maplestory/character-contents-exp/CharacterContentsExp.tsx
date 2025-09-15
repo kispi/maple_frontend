@@ -2,7 +2,7 @@ import { CharacterInfo } from '~/types'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { dailyContents, elixirs, expCoupons, ExpRow, weeklyContents } from '~/assets/constants/exp'
 import {
-  ModalHighMountain, ModalAnglerCompany, ModalExtremeMonsterPark, ModalMvpAfk, ModalVipAfk,
+  ModalHighMountain, ModalAnglerCompany, ModalNightmareParadise, ModalExtremeMonsterPark, ModalMvpAfk, ModalVipAfk,
   ModalMonsterPark, ModalExpCouponBasic, ModalExpCouponAdvanced,
   ModalElixir210, ModalElixir220, ModalElixir230,
   ModalElixir240, ModalElixir250, ModalElixir270,
@@ -17,6 +17,7 @@ type FoldedState = Record<string, boolean>
 const MODAL_MAP = {
   high_mountain: ModalHighMountain,
   angler_company: ModalAnglerCompany,
+  nightmare_paradise: ModalNightmareParadise,
   extreme_monster_park: ModalExtremeMonsterPark,
   mvp_afk: ModalMvpAfk,
   vip_afk: ModalVipAfk,
@@ -43,7 +44,7 @@ const ContentRow = ({ row, lev, boyak }: { row: ExpRow, lev?: number, boyak?: nu
       <div className="key">
         <img src={helpers.withCdn(`images/${row.img}`)} alt={row.key} />
         {helpers.$t(row.$$title || row.key)}
-        {['angler_company', 'high_mountain'].includes(row.key) && <span>({helpers.$t('REWARD')} Lv.2)</span>}
+        {['angler_company', 'high_mountain', 'nightmare_paradise'].includes(row.key) && <span>({helpers.$t('REWARD')} Lv.2)</span>}
         {row.key.includes('exp_coupon') && <span>(1000개당)</span>}
       </div>
       <div className="value">
@@ -151,6 +152,7 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
       weeklyContents.mvpAfk({ lev }),
       weeklyContents.highMountain({ lev, rewardLev: 2 }),
       weeklyContents.anglerCompany({ lev, rewardLev: 2 }),
+      weeklyContents.nightmareParadise({ lev, rewardLev: 2 }),
     ].filter(o => o.$$expPercent),
     expCoupons: [expCoupons.basic({ lev }), expCoupons.advanced({ lev })].filter(o => o.$$expPercent),
     elixirs: [

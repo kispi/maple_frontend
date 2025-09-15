@@ -89,6 +89,13 @@ export const weeklyContents = {
     base.$$expPercent = Math.floor(anglerCompanyData[lev as keyof typeof anglerCompanyData]?.[rewardLev] * 100000) / 1000 || 0
     return base
   },
+  nightmareParadise: ({ lev, rewardLev }: { lev: number }): ExpRow => {
+    const base = { img: 'nightmare_paradise.webp', key: 'nightmare_paradise', $$expPercent: 0 }
+    if (lev < 280) return base // 280 이상부터 가능
+
+    base.$$expPercent = '?' // TODO: 데이터 필요
+    return base
+  },
   vipAfk: ({ lev }: { lev: number }): ExpRow => {
     const base = { img: 'vip_afk.png', key: 'vip_afk', $$expPercent: 0 }
     if (lev < 200) return base // 200 미만도 가능하긴 한데 효율 나쁨

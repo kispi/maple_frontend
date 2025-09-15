@@ -1,4 +1,4 @@
-import { highMountainData, anglerCompanyData } from '~/assets/constants/data-epic-dungeon'
+import { highMountainData, anglerCompanyData, nightmareParadiseData } from '~/assets/constants/data-epic-dungeon'
 import { extremeMonsterPark, monsterPark } from '~/assets/constants/data-monster-park'
 import { vipAfkData } from '~/assets/constants/data-afk'
 import { elixirs, expCoupons, ExpRow } from '~/assets/constants/exp'
@@ -87,6 +87,43 @@ export const ModalAnglerCompany = ({
             <div className="td">{idx + 270}</div>
             {row.map((exp, idx) => <div key={idx} className="td">{Math.floor(exp * 10000) / 100}%</div>)}
           </div>)}
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+export const ModalNightmareParadise = ({
+  options,
+  onClose,
+}: {
+  options?: { lev: number },
+  onClose: () => void,
+}) => {
+  useAutoFocus()
+
+  return <div className="modal-nightmare-paradise modal-base-style modal-exp-table scrollable-body">
+    <ModalHeader title={modalTitle('NIGHTMARE_PARADISE', 'nightmare_paradise.webp')} onClose={() => onClose()} />
+    <div className="modal-body pretty-scrollbar">
+      <div className="table">
+        <div className="thead">
+          <div className="tr">
+            <div className="th">{helpers.$t('LEVEL')}</div>
+            <div className="th">{helpers.$t('DEFAULT')}</div>
+            <div className="th">Lv.1</div>
+            <div className="th">Lv.2</div>
+          </div>
+        </div>
+        <div className="tbody">
+          <div className="p-16 center">
+            COMING SOON
+          </div>
+          {/* {Object.values(nightmareParadiseData).map((row, idx) => <div
+            key={idx}
+            className={`tr ${options?.lev === idx + 280 ? 'selected' : ''}`}>
+            <div className="td">{idx + 280}</div>
+            {row.map((exp, idx) => <div key={idx} className="td">{Math.floor(exp * 10000) / 100}%</div>)}
+          </div>)} */}
         </div>
       </div>
     </div>
