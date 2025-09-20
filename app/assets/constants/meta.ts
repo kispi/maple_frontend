@@ -2,7 +2,7 @@ import helpers from '~/helpers'
 
 export const defaultMeta = {
   title: '에브리메이플',
-  description: '메이플스토리 경험치 컨텐츠 (일퀘, 몬파, 익몬, 하이마운틴, 앵글러 컴퍼니, VIP 사우나, MVP 리조트 등) 효율 / 캐릭터 정보를 확인할 수 있습니다.',
+  description: '메이플스토리 경험치 컨텐츠 (일퀘, 몬파, 익몬, 하이마운틴, 앵글러 컴퍼니, 악몽선경, VIP 사우나, MVP 리조트 등) 효율 / 캐릭터 정보를 확인할 수 있습니다.',
   image: helpers.withCdn('og-images/og-everymaple.png'),
 }
 

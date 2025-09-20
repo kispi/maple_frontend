@@ -9,6 +9,8 @@ import helpers from '~/helpers'
 import useAppStore from '~/store/app'
 import './modal-exp-tables.scss'
 
+const expFormat = (val: number) => (Math.floor(val * 1000000) / 10000).toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 })
+
 const createLevels = (from: number, count: number) => [...Array(count).keys()].map(idx => idx + from)
 
 const useAutoFocus = () => {
@@ -51,7 +53,7 @@ export const ModalHighMountain = ({
             key={idx}
             className={`tr ${options?.lev === idx + 260 ? 'selected' : ''}`}>
             <div className="td">{idx + 260}</div>
-            {row.map((exp, idx) => <div key={idx} className="td">{Math.floor(exp * 10000) / 100}%</div>)}
+            {row.map((exp, idx) => <div key={idx} className="td">{expFormat(exp)}%</div>)}
           </div>)}
         </div>
       </div>
@@ -85,7 +87,7 @@ export const ModalAnglerCompany = ({
             key={idx}
             className={`tr ${options?.lev === idx + 270 ? 'selected' : ''}`}>
             <div className="td">{idx + 270}</div>
-            {row.map((exp, idx) => <div key={idx} className="td">{Math.floor(exp * 10000) / 100}%</div>)}
+            {row.map((exp, idx) => <div key={idx} className="td">{expFormat(exp)}%</div>)}
           </div>)}
         </div>
       </div>
@@ -115,15 +117,12 @@ export const ModalNightmareParadise = ({
           </div>
         </div>
         <div className="tbody">
-          <div className="p-16 center">
-            COMING SOON
-          </div>
-          {/* {Object.values(nightmareParadiseData).map((row, idx) => <div
+          {Object.values(nightmareParadiseData).map((row, idx) => <div
             key={idx}
             className={`tr ${options?.lev === idx + 280 ? 'selected' : ''}`}>
             <div className="td">{idx + 280}</div>
-            {row.map((exp, idx) => <div key={idx} className="td">{Math.floor(exp * 10000) / 100}%</div>)}
-          </div>)} */}
+            {row.map((exp, idx) => <div key={idx} className="td">{expFormat(exp)}%</div>)}
+          </div>)}
         </div>
       </div>
     </div>

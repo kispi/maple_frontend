@@ -1,5 +1,5 @@
 import { levelExpTable } from './data-level-exp'
-import { RewardLevEpicDungeon, highMountainData, anglerCompanyData } from './data-epic-dungeon'
+import { RewardLevEpicDungeon, highMountainData, anglerCompanyData, nightmareParadiseData } from './data-epic-dungeon'
 import { vipAfkData } from './data-afk'
 import { extremeMonsterPark, monsterPark } from './data-monster-park'
 import { dailyQuestsData } from './data-daily-quests'
@@ -89,11 +89,11 @@ export const weeklyContents = {
     base.$$expPercent = Math.floor(anglerCompanyData[lev as keyof typeof anglerCompanyData]?.[rewardLev] * 100000) / 1000 || 0
     return base
   },
-  nightmareParadise: ({ lev, rewardLev }: { lev: number }): ExpRow => {
+  nightmareParadise: ({ lev, rewardLev }: { lev: number, rewardLev: RewardLevEpicDungeon }): ExpRow => {
     const base = { img: 'nightmare_paradise.webp', key: 'nightmare_paradise', $$expPercent: 0 }
     if (lev < 280) return base // 280 이상부터 가능
 
-    base.$$expPercent = '?' // TODO: 데이터 필요
+    base.$$expPercent = Math.floor(nightmareParadiseData[lev as keyof typeof nightmareParadiseData]?.[rewardLev] * 100000) / 1000 || 0
     return base
   },
   vipAfk: ({ lev }: { lev: number }): ExpRow => {
