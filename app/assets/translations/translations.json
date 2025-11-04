@@ -287,9 +287,29 @@
     "kr": "던전",
     "en": "Dungeon"
   },
+  "RARE": {
+    "kr": "레어",
+    "en": "Rare"
+  },
+  "EPIC": {
+    "kr": "에픽",
+    "en": "Epic"
+  },
+  "UNIQUE": {
+    "kr": "유니크",
+    "en": "Unique"
+  },
+  "LEGENDARY": {
+    "kr": "레전더리",
+    "en": "Legendary"
+  },
   "LEVEL": {
     "kr": "레벨",
     "en": "Level"
+  },
+  "MONSTER_LEVEL": {
+    "kr": "몬스터 레벨",
+    "en": "Monster Level"
   },
   "DEFAULT": {
     "kr": "기본",
@@ -310,6 +330,50 @@
   "EXP_CONTENTS": {
     "kr": "경험치 컨텐츠",
     "en": "EXP Contents"
+  },
+  "TREASURE_HUNTER": {
+    "kr": "트레져 헌터",
+    "en": "Treasure Hunter"
+  },
+  "TREASURE_HUNTER_GOLD": {
+    "kr": "트레져 헌터 (폴로, 프리토)",
+    "en": "Treasure Hunter (Pollo, Fritto)"
+  },
+  "TREASURE_HUNTER_DIAMOND": {
+    "kr": "트레져 헌터 (에스페시아)",
+    "en": "Treasure Hunter (Especia)"
+  },
+  "TREASURE_HUNTER_GOLD_RARE": {
+    "kr": "폴로, 프리토 (레어)",
+    "en": "Treasure Hunter Gold (Rare)"
+  },
+  "TREASURE_HUNTER_GOLD_EPIC": {
+    "kr": "폴로, 프리토 (에픽)",
+    "en": "Treasure Hunter Gold (Epic)"
+  },
+  "TREASURE_HUNTER_GOLD_UNIQUE": {
+    "kr": "폴로, 프리토 (유니크)",
+    "en": "Treasure Hunter Gold (Unique)"
+  },
+  "TREASURE_HUNTER_GOLD_LEGENDARY": {
+    "kr": "폴로, 프리토 (레전더리)",
+    "en": "Treasure Hunter Gold (Legendary)"
+  },
+  "TREASURE_HUNTER_DIAMOND_RARE": {
+    "kr": "에스페시아 (레어)",
+    "en": "Treasure Hunter Diamond (Rare)"
+  },
+  "TREASURE_HUNTER_DIAMOND_EPIC": {
+    "kr": "에스페시아 (에픽)",
+    "en": "Treasure Hunter Diamond (Epic)"
+  },
+  "TREASURE_HUNTER_DIAMOND_UNIQUE": {
+    "kr": "에스페시아 (유니크)",
+    "en": "Treasure Hunter Diamond (Unique)"
+  },
+  "TREASURE_HUNTER_DIAMOND_LEGENDARY": {
+    "kr": "에스페시아 (레전더리)",
+    "en": "Treasure Hunter Diamond (Legendary)"
   },
   "EQUIPMENTS": {
     "kr": "장비",

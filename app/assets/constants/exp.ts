@@ -2,6 +2,7 @@ import { levelExpTable } from './data-level-exp'
 import { RewardLevEpicDungeon, highMountainData, anglerCompanyData, nightmareParadiseData } from './data-epic-dungeon'
 import { vipAfkData } from './data-afk'
 import { extremeMonsterPark, monsterPark } from './data-monster-park'
+import { monsters } from './data-monsters'
 import { dailyQuestsData } from './data-daily-quests'
 import { advanced, basic } from './data-exp-coupons'
 import helpers from '~/helpers'
@@ -22,8 +23,6 @@ const expSumRequiredTo200 = levelExpTable.slice(0, 199).reduce((sum, exp) => sum
 export const dailyContents = {
   dailyQuestsExp: {
     arcaneRiver: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
-      if (lev >= 300) return []
-
       return dailyQuestsData.arcaneRiver.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'arcaneRiver',
@@ -31,8 +30,6 @@ export const dailyContents = {
       }))
     },
     tenebris: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
-      if (lev >= 300) return []
-
       return dailyQuestsData.tenebris.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'arcaneRiver',
@@ -40,8 +37,6 @@ export const dailyContents = {
       }))
     },
     grandis: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
-      if (lev >= 300) return []
-
       return dailyQuestsData.grandis.filter(o => o.reqLev <= lev).map(o => ({
         ...o,
         boyakRegion: 'grandis',
@@ -50,8 +45,6 @@ export const dailyContents = {
     },
   },
   monsterPark: ({ lev, additionalPercentage = 0 }: { lev: number, additionalPercentage?: number }): ExpRow[] => {
-    if (lev >= 300) return []
-
     const highestExpDungeon = monsterPark.filter(o => o.reqLev <= lev).sort((a, b) => b.exp - a.exp)[0]
     if (!highestExpDungeon) return []
 
@@ -126,6 +119,70 @@ export const expCoupons = {
 
     base.$$expPercent = helpers.asPercent(advanced[lev - 260] * 1000 / levelExpTable[lev - 1])
     return base
+  },
+}
+
+const createTreasureHunterExpPercent = (lev: number, multiple: number): number => {
+  if (lev < 200) return 0 // 200 미만은 제공하지 않음 (실제로는 사용 가능하긴 함)
+
+  const exp = monsters.find(m => m.lev === lev)?.exp
+  if (!exp) return createTreasureHunterExpPercent(lev - 1, multiple)
+
+  return helpers.asPercent((exp || 0) * multiple / levelExpTable[lev - 1])
+}
+
+export const treasureHunter = {
+  gold: {
+    rare: ({ lev }: { lev: number }): ExpRow => {
+      return { img: 'treasure_hunter_gold.webp', key: 'treasure_hunter_gold_rare', $$expPercent: createTreasureHunterExpPercent(lev, 3000) }
+    },
+    epic: ({ lev }: { lev: number }): ExpRow => {
+      return { img: 'treasure_hunter_gold.webp', key: 'treasure_hunter_gold_epic', $$expPercent: createTreasureHunterExpPercent(lev, 6000) }
+    },
+    unique: ({ lev }: { lev: number }): ExpRow => {
+      const base = { img: 'treasure_hunter_gold.webp', key: 'treasure_hunter_gold_unique', $$expPercent: 0 }
+      if (lev < 170) return base // 170 미만은 유니크 등급 등장 불가능
+
+      base.$$expPercent = createTreasureHunterExpPercent(lev, 12000)
+      return base
+    },
+    legendary: ({ lev }: { lev: number }): ExpRow => {
+      const base = { img: 'treasure_hunter_gold.webp', key: 'treasure_hunter_gold_legendary', $$expPercent: 0 }
+      if (lev < 200) return base // 200 미만은 레전드리 등급 등장 불가능
+
+      base.$$expPercent = createTreasureHunterExpPercent(lev, 24000)
+      return base
+    },
+  },
+  diamond: {
+    rare: ({ lev }: { lev: number }): ExpRow => {
+      const base = { img: 'treasure_hunter_diamond.webp', key: 'treasure_hunter_diamond_rare', $$expPercent: 0 }
+      if (lev < 230) return base // 230 미만은 다이아몬드 보물상자 사용 불가능
+
+      base.$$expPercent = createTreasureHunterExpPercent(lev, 30000)
+      return base
+    },
+    epic: ({ lev }: { lev: number }): ExpRow => {
+      const base = { img: 'treasure_hunter_diamond.webp', key: 'treasure_hunter_diamond_epic', $$expPercent: 0 }
+      if (lev < 230) return base // 230 미만은 다이아몬드 보물상자 사용 불가능
+
+      base.$$expPercent = createTreasureHunterExpPercent(lev, 60000)
+      return base
+    },
+    unique: ({ lev }: { lev: number }): ExpRow => {
+      const base = { img: 'treasure_hunter_diamond.webp', key: 'treasure_hunter_diamond_unique', $$expPercent: 0 }
+      if (lev < 230) return base // 230 미만은 다이아몬드 보물상자 사용 불가능
+
+      base.$$expPercent = createTreasureHunterExpPercent(lev, 120000)
+      return base
+    },
+    legendary: ({ lev }: { lev: number }): ExpRow => {
+      const base = { img: 'treasure_hunter_diamond.webp', key: 'treasure_hunter_diamond_legendary', $$expPercent: 0 }
+      if (lev < 230) return base // 230 미만은 다이아몬드 보물상자 사용 불가능
+
+      base.$$expPercent = createTreasureHunterExpPercent(lev, 240000)
+      return base
+    },
   },
 }
 

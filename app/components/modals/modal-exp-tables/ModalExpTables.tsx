@@ -1,7 +1,7 @@
 import { highMountainData, anglerCompanyData, nightmareParadiseData } from '~/assets/constants/data-epic-dungeon'
 import { extremeMonsterPark, monsterPark } from '~/assets/constants/data-monster-park'
 import { vipAfkData } from '~/assets/constants/data-afk'
-import { elixirs, expCoupons, ExpRow } from '~/assets/constants/exp'
+import { elixirs, expCoupons, ExpRow, treasureHunter } from '~/assets/constants/exp'
 import { levelExpTable } from '~/assets/constants/data-level-exp'
 import { useEffect } from 'react'
 import ModalHeader from '../ModalHeader'
@@ -284,6 +284,55 @@ export const ModalExpCouponAdvanced = ({
     </div>
   </div>
 }
+
+const createModalTreasureHunter = (grade: 'gold' | 'diamond') => {
+  const ModalTreasureHunter = ({
+    options,
+    onClose,
+  }: {
+    options?: { lev: number },
+    onClose: () => void,
+  }) => {
+    useAutoFocus()
+
+    return <div className="modal-exp-coupon-basic modal-base-style modal-exp-table scrollable-body">
+      <ModalHeader title={modalTitle(`TREASURE_HUNTER_${grade}`, `TREASURE_HUNTER_${grade}.webp`.toLowerCase())} onClose={() => onClose()} />
+      <div className="modal-body pretty-scrollbar">
+        <div className="center p-24">
+          <div>현재 최고 레벨 몬스터는 294이므로, 획득 가능한 최대 경험치는 294레벨 몬스터가 상한입니다.</div>
+        </div>
+        <div className="table">
+          <div className="thead">
+            <div className="tr">
+              <div className="th">{helpers.$t('MONSTER_LEVEL')}</div>
+              <div className="th">{helpers.$t('RARE')}</div>
+              <div className="th">{helpers.$t('EPIC')}</div>
+              <div className="th">{helpers.$t('UNIQUE')}</div>
+              <div className="th">{helpers.$t('LEGENDARY')}</div>
+            </div>
+          </div>
+          <div className="tbody">
+          {createLevels(grade === 'gold' ? 200 : 230, 100).map((lev, idx) => <div
+              key={idx}
+              className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
+              <div className="td">{lev}</div>
+              <div className="td">{treasureHunter[grade].rare({ lev }).$$expPercent}%</div>
+              <div className="td">{treasureHunter[grade].epic({ lev }).$$expPercent}%</div>
+              <div className="td">{treasureHunter[grade].unique({ lev }).$$expPercent}%</div>
+              <div className="td">{treasureHunter[grade].legendary({ lev }).$$expPercent}%</div>
+            </div>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  return ModalTreasureHunter
+}
+
+export const ModalTreasureHunterGold = createModalTreasureHunter('gold')
+
+export const ModalTreasureHunterDiamond = createModalTreasureHunter('diamond')
 
 const displayValue = (lev: number) => {
   const ticksPerHour = 720 // 1시간 = 5초 * 720틱
