@@ -300,7 +300,7 @@
     "en": "Unique"
   },
   "LEGENDARY": {
-    "kr": "레전더리",
+    "kr": "레전드리",
     "en": "Legendary"
   },
   "LEVEL": {
@@ -356,7 +356,7 @@
     "en": "Treasure Hunter Gold (Unique)"
   },
   "TREASURE_HUNTER_GOLD_LEGENDARY": {
-    "kr": "폴로, 프리토 (레전더리)",
+    "kr": "폴로, 프리토 (레전드리)",
     "en": "Treasure Hunter Gold (Legendary)"
   },
   "TREASURE_HUNTER_DIAMOND_RARE": {
@@ -372,7 +372,7 @@
     "en": "Treasure Hunter Diamond (Unique)"
   },
   "TREASURE_HUNTER_DIAMOND_LEGENDARY": {
-    "kr": "에스페시아 (레전더리)",
+    "kr": "에스페시아 (레전드리)",
     "en": "Treasure Hunter Diamond (Legendary)"
   },
   "EQUIPMENTS": {
