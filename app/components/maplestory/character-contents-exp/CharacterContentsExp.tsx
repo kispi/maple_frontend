@@ -142,19 +142,18 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
     const allArcaneMaxed = arcaneSymbols.length > 0 && arcaneSymbols.every(s => s.symbol_level >= 20)
     const authenticSymbols = symbols.filter(s => s.symbol_name.includes('어센틱'))
     const allAuthenticMaxed = authenticSymbols.length > 0 && authenticSymbols.every(s => s.symbol_level >= 11)
-    const isHighLevel = lev >= 275
 
     return {
       arcaneRiver: allArcaneMaxed,
       tenebris: allArcaneMaxed,
       grandis: allAuthenticMaxed,
-      monsterPark: isHighLevel,
+      monsterPark: false,
       weekly: false,
       expCoupons: false,
       treasureHunter: false,
       elixirs: false,
     }
-  }, [character, lev])
+  }, [character])
 
   const [folded, setFolded] = useState<FoldedState>(populatedFolded())
 

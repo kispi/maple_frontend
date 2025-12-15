@@ -109,4 +109,24 @@ export const monsterPark = [{
   reqLev: 270,
   exp: 52818835200,
   img: 'map_odium.png',
+}, {
+  key: 'shangri_la',
+  reqLev: 275,
+  exp: 76639838000,
+  img: 'map_shangri_la.png',
+}, {
+  key: 'arteria',
+  reqLev: 280,
+  exp: 107204032000,
+  img: 'map_arteria.png',
+}, {
+  key: 'carcion',
+  reqLev: 285,
+  exp: 156017856000,
+  img: 'map_carcion.png',
+}, {
+  key: 'tallahart',
+  reqLev: 290,
+  exp: 218575316000,
+  img: 'map_tallahart.webp',
 }]
