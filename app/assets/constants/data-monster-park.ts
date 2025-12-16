@@ -10,6 +10,8 @@ export const extremeMonsterPark = [
   3540,
   3554,
   3567,
+
+  // 270
   5670,
   5691,
   5712,
@@ -32,6 +34,8 @@ export const extremeMonsterPark = [
   10618,
   10755,
   10877,
+
+  // 290
   12223,
   12360,
   12515,
