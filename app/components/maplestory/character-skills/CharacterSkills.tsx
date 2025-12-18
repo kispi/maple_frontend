@@ -59,7 +59,7 @@ export const CharacterSkills = ({ character }: { character: CharacterInfo }) => 
   const eventSkills = useMemo(() => {
     return ((character.skills || [])
       .find(skill => skill.character_skill_grade === '0')?.character_skill || [])
-      .filter(skill => (skill.skill_name || '').includes('아지트') && skill.skill_effect !== '(Unknown)')
+      .filter(skill => (skill.skill_name || '').includes('고대의 힘') && skill.skill_effect !== '(Unknown)')
   }, [character.skills])
 
   const hexaSkills = useMemo(() => {
