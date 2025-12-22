@@ -239,12 +239,28 @@ export const elixirs = {
     base.$$expPercent = helpers.asPercent(levelExpTable[248] / levelExpTable[lev - 1])
     return base
   },
+  // 도성비
+  _260: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_260.webp', key: 'elixir_260', $$expPercent: 100 }
+    if (lev < 260) return base // 260 미만은 100%
+
+    base.$$expPercent = helpers.asPercent(levelExpTable[258] / levelExpTable[lev - 1])
+    return base
+  },
   // 초성비
   _270: ({ lev }: { lev: number }): ExpRow => {
     const base = { img: 'elixir_270.webp', key: 'elixir_270', $$expPercent: 100 }
     if (lev < 270) return base // 270 미만은 100%
 
     base.$$expPercent = helpers.asPercent(levelExpTable[268] / levelExpTable[lev - 1])
+    return base
+  },
+  // 전성비
+  _280: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_280.webp', key: 'elixir_280', $$expPercent: 100 }
+    if (lev < 280) return base // 280 미만은 100%
+
+    base.$$expPercent = helpers.asPercent(levelExpTable[278] / levelExpTable[lev - 1])
     return base
   },
 }

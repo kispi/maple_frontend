@@ -255,9 +255,17 @@
     "kr": "극한 성장의 비약",
     "en": "Extreme Elixir"
   },
+  "ELIXIR_260": {
+    "kr": "도약 성장의 비약",
+    "en": "Leap Elixir"
+  },
   "ELIXIR_270": {
     "kr": "초월 성장의 비약",
     "en": "Transcendent Elixir"
+  },
+  "ELIXIR_280": {
+    "kr": "전설 성장의 비약",
+    "en": "Legendary Elixir"
   },
   "GUILD": {
     "kr": "길드",

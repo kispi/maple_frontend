@@ -5,7 +5,8 @@ import {
   ModalHighMountain, ModalAnglerCompany, ModalNightmareParadise, ModalExtremeMonsterPark, ModalMvpAfk, ModalVipAfk,
   ModalMonsterPark, ModalExpCouponBasic, ModalExpCouponAdvanced, ModalTreasureHunterGold, ModalTreasureHunterDiamond,
   ModalElixir210, ModalElixir220, ModalElixir230,
-  ModalElixir240, ModalElixir250, ModalElixir270,
+  ModalElixir240, ModalElixir250, ModalElixir260,
+  ModalElixir270, ModalElixir280,
 } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
@@ -38,7 +39,9 @@ const MODAL_MAP = {
   elixir_230: ModalElixir230,
   elixir_240: ModalElixir240,
   elixir_250: ModalElixir250,
+  elixir_260: ModalElixir260,
   elixir_270: ModalElixir270,
+  elixir_280: ModalElixir280,
 }
 
 const gradeClass = (key: string) => {
@@ -188,7 +191,9 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
       elixirs._230({ lev }),
       elixirs._240({ lev }),
       elixirs._250({ lev }),
+      elixirs._260({ lev }),
       elixirs._270({ lev }),
+      elixirs._280({ lev }),
     ].filter(o => o.$$expPercent),
   }), [lev, expBoyak])
 
