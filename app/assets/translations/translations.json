@@ -223,6 +223,14 @@
     "kr": "상급 EXP 교환권",
     "en": "Advanced EXP Coupon"
   },
+  "ETC": {
+    "kr": "기타",
+    "en": "Etc"
+  },
+  "MECHA_BERRY": {
+    "kr": "메카베리 농장",
+    "en": "Mechaberry Farm"
+  },
   "ELIXIRS": {
     "kr": "성장의 비약",
     "en": "Elixirs"

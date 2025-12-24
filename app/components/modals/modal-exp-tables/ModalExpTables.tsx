@@ -1,7 +1,7 @@
 import { highMountainData, anglerCompanyData, nightmareParadiseData } from '~/assets/constants/data-epic-dungeon'
 import { extremeMonsterPark, monsterPark } from '~/assets/constants/data-monster-park'
 import { vipAfkData } from '~/assets/constants/data-afk'
-import { elixirs, expCoupons, ExpRow, treasureHunter } from '~/assets/constants/exp'
+import { elixirs, etc, expCoupons, ExpRow, treasureHunter } from '~/assets/constants/exp'
 import { levelExpTable } from '~/assets/constants/data-level-exp'
 import { useEffect } from 'react'
 import ModalHeader from '../ModalHeader'
@@ -278,6 +278,38 @@ export const ModalExpCouponAdvanced = ({
             className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
             <div className="td">{lev}</div>
             <div className="td">{expCoupons.advanced({ lev }).$$expPercent}%</div>
+          </div>)}
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+export const ModalEtcMechaberry = ({
+  options,
+  onClose,
+}: {
+  options?: { lev: number },
+  onClose: () => void,
+}) => {
+  useAutoFocus()
+
+  return <div className="modal-etc-mecha-berry modal-base-style modal-exp-table scrollable-body">
+    <ModalHeader title={modalTitle('MECHA_BERRY', 'etc_mecha_berry.png')} onClose={() => onClose()} />
+    <div className="modal-body pretty-scrollbar">
+      <div className="table">
+        <div className="thead">
+          <div className="tr">
+            <div className="th">{helpers.$t('LEVEL')}</div>
+            <div className="th">경험치</div>
+          </div>
+        </div>
+        <div className="tbody">
+        {createLevels(280, 20).map((lev, idx) => <div
+            key={idx}
+            className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
+            <div className="td">{lev}</div>
+            <div className="td">{etc.mechaBerry({ lev }).$$expPercent}%</div>
           </div>)}
         </div>
       </div>

@@ -1,12 +1,13 @@
 import { CharacterInfo } from '~/types'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { dailyContents, elixirs, expCoupons, ExpRow, treasureHunter, weeklyContents } from '~/assets/constants/exp'
+import { dailyContents, elixirs, etc, expCoupons, ExpRow, treasureHunter, weeklyContents } from '~/assets/constants/exp'
 import {
   ModalHighMountain, ModalAnglerCompany, ModalNightmareParadise, ModalExtremeMonsterPark, ModalMvpAfk, ModalVipAfk,
   ModalMonsterPark, ModalExpCouponBasic, ModalExpCouponAdvanced, ModalTreasureHunterGold, ModalTreasureHunterDiamond,
   ModalElixir210, ModalElixir220, ModalElixir230,
   ModalElixir240, ModalElixir250, ModalElixir260,
   ModalElixir270, ModalElixir280,
+  ModalEtcMechaberry,
 } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
@@ -34,6 +35,7 @@ const MODAL_MAP = {
   treasure_hunter_diamond_unique: ModalTreasureHunterDiamond,
   treasure_hunter_diamond_legendary: ModalTreasureHunterDiamond,
   elixir_random: null,
+  mecha_berry: ModalEtcMechaberry,
   elixir_210: ModalElixir210,
   elixir_220: ModalElixir220,
   elixir_230: ModalElixir230,
@@ -174,6 +176,9 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
       weeklyContents.nightmareParadise({ lev, rewardLev: 2 }),
     ].filter(o => o.$$expPercent),
     expCoupons: [expCoupons.basic({ lev }), expCoupons.advanced({ lev })].filter(o => o.$$expPercent),
+    etc: [
+      etc.mechaBerry({ lev }),
+    ],
     treasureHunter: [
       treasureHunter.gold.rare({ lev }),
       treasureHunter.gold.epic({ lev }),
@@ -256,6 +261,13 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
           toggleFold={() => setFolded(f => ({ ...f, expCoupons: !f.expCoupons }))}
           lev={lev}
         />
+        {lev >= 280 && <FoldableSection
+          title='ETC'
+          items={playable.etc}
+          folded={folded.etc}
+          toggleFold={() => setFolded(f => ({ ...f, etc: !f.etc }))}
+          lev={lev}
+        />}
         <FoldableSection
           title='ELIXIRS'
           items={playable.elixirs}

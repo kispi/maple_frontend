@@ -5,6 +5,7 @@ import { extremeMonsterPark, monsterPark } from './data-monster-park'
 import { monsters } from './data-monsters'
 import { dailyQuestsData } from './data-daily-quests'
 import { advanced, basic } from './data-exp-coupons'
+import { mechaBerry } from './data-etc'
 import helpers from '~/helpers'
 
 export type ExpRow = {
@@ -118,6 +119,17 @@ export const expCoupons = {
     if (lev < 260) return base // 260 미만은 EXP 쿠폰 사용 불가능
 
     base.$$expPercent = helpers.asPercent(advanced[lev - 260] * 1000 / levelExpTable[lev - 1])
+    return base
+  },
+}
+
+export const etc = {
+  mechaBerry: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'etc_mecha_berry.png', key: 'mecha_berry', $$expPercent: 0 }
+    if (lev < 280) return base // 280 미만은 사용 불가능
+
+    const monsterExp = mechaBerry[lev]
+    base.$$expPercent = helpers.asPercent(monsterExp / levelExpTable[lev - 1])
     return base
   },
 }
