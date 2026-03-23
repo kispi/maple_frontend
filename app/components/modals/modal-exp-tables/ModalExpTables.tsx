@@ -241,7 +241,7 @@ export const ModalExpCouponBasic = ({
           </div>
         </div>
         <div className="tbody">
-        {createLevels(200, 60).map((lev, idx) => <div
+          {createLevels(200, 60).map((lev, idx) => <div
             key={idx}
             className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
             <div className="td">{lev}</div>
@@ -273,7 +273,7 @@ export const ModalExpCouponAdvanced = ({
           </div>
         </div>
         <div className="tbody">
-        {createLevels(260, 40).map((lev, idx) => <div
+          {createLevels(260, 40).map((lev, idx) => <div
             key={idx}
             className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
             <div className="td">{lev}</div>
@@ -305,7 +305,7 @@ export const ModalEtcMechaberry = ({
           </div>
         </div>
         <div className="tbody">
-        {createLevels(280, 20).map((lev, idx) => <div
+          {createLevels(280, 20).map((lev, idx) => <div
             key={idx}
             className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
             <div className="td">{lev}</div>
@@ -344,7 +344,7 @@ const createModalTreasureHunter = (grade: 'gold' | 'diamond') => {
             </div>
           </div>
           <div className="tbody">
-          {createLevels(grade === 'gold' ? 200 : 230, 100).map((lev, idx) => <div
+            {createLevels(grade === 'gold' ? 200 : 230, 100).map((lev, idx) => <div
               key={idx}
               className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
               <div className="td">{lev}</div>
@@ -545,4 +545,18 @@ export const ModalElixir280 = createModalElixir({
   img: 'elixir_280.webp',
   startLevel: 280,
   foo: ({ lev }) => elixirs._280({ lev }),
+})
+
+export const ModalElixirRandom260 = createModalElixir({
+  title: 'ELIXIR_RANDOM_260',
+  img: 'elixir_random_260.webp',
+  startLevel: 260,
+  foo: ({ lev }) => elixirs._random_260({ lev }),
+})
+
+export const ModalElixir285 = createModalElixir({
+  title: 'ELIXIR_285',
+  img: 'elixir_285.webp',
+  startLevel: 285,
+  foo: ({ lev }) => elixirs._285({ lev }),
 })

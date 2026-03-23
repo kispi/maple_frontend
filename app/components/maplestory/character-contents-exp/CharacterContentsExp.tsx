@@ -8,6 +8,7 @@ import {
   ModalElixir240, ModalElixir250, ModalElixir260,
   ModalElixir270, ModalElixir280,
   ModalEtcMechaberry,
+  ModalElixirRandom260, ModalElixir285,
 } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
@@ -44,6 +45,8 @@ const MODAL_MAP = {
   elixir_260: ModalElixir260,
   elixir_270: ModalElixir270,
   elixir_280: ModalElixir280,
+  elixir_random_260: ModalElixirRandom260,
+  elixir_285: ModalElixir285,
 }
 
 const gradeClass = (key: string) => {
@@ -191,6 +194,7 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
     ].filter(o => o.$$expPercent),
     elixirs: [
       elixirs._random({ lev }),
+      elixirs._random_260({ lev }),
       elixirs._210({ lev }),
       elixirs._220({ lev }),
       elixirs._230({ lev }),
@@ -199,6 +203,7 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
       elixirs._260({ lev }),
       elixirs._270({ lev }),
       elixirs._280({ lev }),
+      elixirs._285({ lev }),
     ].filter(o => o.$$expPercent),
   }), [lev, expBoyak])
 

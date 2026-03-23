@@ -207,6 +207,18 @@ export const elixirs = {
     base.$$expPercent = helpers.asPercent(levelExpTable[198] / levelExpTable[lev - 1])
     return base
   },
+  // 진 익성비
+  _random_260: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_random_260.webp', key: 'elixir_random_260', $$expPercent: 100 }
+    if (lev < 200) {
+      base.$$expPercent = 0 // 200 미만은 사용 불가
+      return base
+    }
+    if (lev < 260) return base // 200~259는 100% (실제론 랜덤 상승이므로 대표로 100% 표시)
+
+    base.$$expPercent = helpers.asPercent(levelExpTable[258] / levelExpTable[lev - 1])
+    return base
+  },
   // TODO: 궁성비 (이건 부정확해서 수정 필요)
   _ultimateUnion: ({ lev }: { lev: number }): ExpRow => {
     const base = { img: 'elixir_ultimate_union.png', key: 'elixir_ultimate_union', $$expPercent: 0 }
@@ -273,6 +285,18 @@ export const elixirs = {
     if (lev < 280) return base // 280 미만은 100%
 
     base.$$expPercent = helpers.asPercent(levelExpTable[278] / levelExpTable[lev - 1])
+    return base
+  },
+  // 진 하성비
+  _285: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'elixir_285.webp', key: 'elixir_285', $$expPercent: 100 }
+    if (lev < 260) {
+      base.$$expPercent = 0 // 260 미만은 사용 불가
+      return base
+    }
+    if (lev < 285) return base // 260~284는 100%
+
+    base.$$expPercent = helpers.asPercent(levelExpTable[283] / levelExpTable[lev - 1])
     return base
   },
 }
