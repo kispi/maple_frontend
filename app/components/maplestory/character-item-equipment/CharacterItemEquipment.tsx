@@ -58,7 +58,7 @@ export const CharacterItemEquipmentSummary = ({
         alignItems: 'center',
         zIndex: 2,
       }}>
-      <ItemEquipmentDetail itemEquipment={selectedItemEquipment}/>
+      <ItemEquipmentDetail itemEquipment={selectedItemEquipment} />
     </div>}
   </>
 }
@@ -69,11 +69,37 @@ export const CharacterItemEquipment = ({
   character: CharacterInfo,
 }) => {
   const sortedItems = useMemo(() => {
-    const order = { '무기': -3, '보조무기': -2, '엠블렘': -1 } as Record<string, number>
+    const order: Record<string, number> = {
+      '무기': 10,
+      '보조무기': 20,
+      '엠블렘': 30,
+      '모자': 100,
+      '상의': 110,
+      '하의': 120,
+      '신발': 130,
+      '장갑': 140,
+      '망토': 150,
+      '어깨장식': 160,
+      '얼굴장식': 200,
+      '눈장식': 210,
+      '귀고리': 220,
+      '벨트': 230,
+      '반지1': 300,
+      '반지2': 310,
+      '반지3': 320,
+      '반지4': 330,
+      '예비 특수 반지': 340,
+      '펜던트': 400,
+      '펜던트2': 410,
+      '훈장': 500,
+      '뱃지': 510,
+      '포켓 아이템': 520,
+      '기계 심장': 530,
+    }
     const sorted = [...character.itemEquipment.item_equipment].sort((a, b) =>
-      (order[a.item_equipment_slot] || 0) - (order[b.item_equipment_slot] || 0)
+      (order[a.item_equipment_slot] ?? 999) - (order[b.item_equipment_slot] ?? 999)
     )
-  
+
     return sorted
   }, [character])
 
