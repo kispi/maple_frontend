@@ -12,26 +12,26 @@ const estimatedMinutesToLevelUp = ({
   // 200 미만은 무시
   let baseCase = null
 
-  if (currentLevel < 205) baseCase = { min: 23, max: 30 }
-  else if (currentLevel < 210) baseCase = { min: 23, max: 39 }
-  else if (currentLevel < 215) baseCase = { min: 23, max: 33 }
-  else if (currentLevel < 220) baseCase = { min: 42, max: 63 }
-  else if (currentLevel < 225) baseCase = { min: 53, max: 70 }
-  else if (currentLevel < 230) baseCase = { min: 1.8 * 60, max: 2.1 * 60 }
-  else if (currentLevel < 235) baseCase = { min: 2.1 * 60, max: 2.3 * 60 }
-  else if (currentLevel < 240) baseCase = { min: 2.7 * 60, max: 3.1 * 60 }
-  else if (currentLevel < 245) baseCase = { min: 3.7 * 60, max: 4.3 * 60 }
-  else if (currentLevel < 250) baseCase = { min: 5.4 * 60, max: 6 * 60 }
-  else if (currentLevel < 255) baseCase = { min: 8.6 * 60, max: 11.3 * 60 }
-  else if (currentLevel < 260) baseCase = { min: 8.6 * 60, max: 9.6 * 60 }
+  if (currentLevel < 205) baseCase = { min: 18, max: 30 }
+  else if (currentLevel < 210) baseCase = { min: 20, max: 31 }
+  else if (currentLevel < 215) baseCase = { min: 21, max: 31 }
+  else if (currentLevel < 220) baseCase = { min: 39, max: 55 }
+  else if (currentLevel < 225) baseCase = { min: 45, max: 60 }
+  else if (currentLevel < 230) baseCase = { min: 1.2 * 60, max: 1.6 * 60 }
+  else if (currentLevel < 235) baseCase = { min: 1.6 * 60, max: 1.7 * 60 }
+  else if (currentLevel < 240) baseCase = { min: 1.7 * 60, max: 2 * 60 }
+  else if (currentLevel < 245) baseCase = { min: 2.2 * 60, max: 2.5 * 60 }
+  else if (currentLevel < 250) baseCase = { min: 2.8 * 60, max: 3.2 * 60 }
+  else if (currentLevel < 255) baseCase = { min: 3.8 * 60, max: 4.3 * 60 }
+  else if (currentLevel < 260) baseCase = { min: 3.8 * 60, max: 4.3 * 60 }
   else if (currentLevel < 265) baseCase = { min: 8.2 * 60, max: 8.2 * 60 }
   else if (currentLevel < 270) baseCase = { min: 9.1 * 60, max: 9.1 * 60 }
   else if (currentLevel < 275) baseCase = { min: 17.8 * 60, max: 17.8 * 60 }
-  else if (currentLevel < 280) baseCase = { min: 32 * 60, max: 32 * 60 }
+  else if (currentLevel < 280) baseCase = { min: 32 * 60, max: 41 * 60 }
   else if (currentLevel < 285) baseCase = { min: 70 * 60, max: 99 * 60 }
   else if (currentLevel < 290) baseCase = { min: 160 * 60, max: 242 * 60 }
-  else if (currentLevel < 295) baseCase = { min: 380 * 60, max: 579 * 60 }
-  else if (currentLevel < 300) baseCase = { min: 1441 * 60, max: 3450 * 60 }
+  else if (currentLevel < 295) baseCase = { min: 342 * 60, max: 521 * 60 }
+  else if (currentLevel < 300) baseCase = { min: 700 * 60, max: 1340 * 60 }
 
   return baseCase ? {
     min: (baseCase.min * (100 - currentExpPercent)) / 100,
@@ -40,13 +40,11 @@ const estimatedMinutesToLevelUp = ({
 }
 
 const minToHour = (min: number) => {
-  const hour = Math.floor(min / 60)
-  const remain = min % 60
-  const result = hour + remain / 60
-  return Math.round((result < 5 ? result : Math.round(result)) * 100) / 100
+  const result = min / 60
+  return Math.round(result * 10) / 10
 }
 
-const HuntGuestimation = ({ expRate, level } : { expRate: string, level: number }) => {
+const HuntGuestimation = ({ expRate, level }: { expRate: string, level: number }) => {
   const requiredHuntTimes = estimatedMinutesToLevelUp({
     currentExpPercent: parseFloat(expRate),
     currentLevel: level,
@@ -61,7 +59,7 @@ const HuntGuestimation = ({ expRate, level } : { expRate: string, level: number 
   </span>
 }
 
-const ExpBar = ({ expRate, level, simple } : { expRate: string, level: number, simple?: boolean }) => {
+const ExpBar = ({ expRate, level, simple }: { expRate: string, level: number, simple?: boolean }) => {
   const refExpBar = useRef<HTMLAnchorElement>(null)
 
   const onMouseEnter = () => {
