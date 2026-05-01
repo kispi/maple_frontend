@@ -1,6 +1,7 @@
 import { CharacterInfo } from '~/types'
 import { AbilityInfo, CharacterAbility } from '~/types/ability'
 import { useEffect, useMemo, useState } from 'react'
+import { PresetSelector } from '../../common/preset-selector/PresetSelector'
 import helpers from '~/helpers'
 import './panel-ability.scss'
 
@@ -34,23 +35,12 @@ const PanelAbility = ({
 
   return <div className={`panel-ability f-dotum ${className || ''}`}>
     <CAbility abilityInfos={abilityInfo} />
-    <div className="preset-selector">
-      <div
-        onClick={() => setPresetNo(1)}
-        className={`no ${presetNo === 1 ? 'selected' : ''}`}>
-        1
-      </div>
-      <div
-        onClick={() => setPresetNo(2)}
-        className={`no ${presetNo === 2 ? 'selected' : ''}`}>
-        2
-      </div>
-      <div
-        onClick={() => setPresetNo(3)}
-        className={`no ${presetNo === 3 ? 'selected' : ''}`}>
-        3
-      </div>
-    </div>
+    <PresetSelector
+      className="m-t-16"
+      currentPreset={presetNo}
+      onSelect={setPresetNo}
+      showLabel={false}
+    />
   </div>
 }
 

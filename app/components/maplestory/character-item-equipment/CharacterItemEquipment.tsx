@@ -3,6 +3,7 @@ import { ItemEquipment } from '~/types/item-equipment'
 import { ItemEquipmentDetail } from './ItemEquipmentDetail'
 import { PanelSymbolEquipment } from './PanelSymbolEquipment'
 import { useMemo, useState } from 'react'
+import { PresetSelector } from '../../common/preset-selector/PresetSelector'
 import { specialRingNames } from '~/assets/constants/data-item-equipment'
 import helpers from '~/helpers'
 import './character-item-equipment.scss'
@@ -121,16 +122,11 @@ export const CharacterItemEquipment = ({
 
   return <div className="character-item-equipment flex g-24">
     <div className="items-sections flex-column g-24 flex-1">
-      <div className="preset-tabs flex g-8">
-        {[1, 2, 3].map(no => (
-          <button
-            key={no}
-            onClick={() => setActivePreset(no)}
-            className={activePreset === no ? 'active' : ''}>
-            프리셋 {no}
-          </button>
-        ))}
-      </div>
+      <PresetSelector
+        currentPreset={activePreset}
+        onSelect={setActivePreset}
+        className="m-b-8"
+      />
       {itemGroups.map((group, groupIndex) => (
         group.length > 0 && (
           <div key={groupIndex} className="items-grid">

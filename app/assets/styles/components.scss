@@ -51,30 +51,6 @@
   font-size: 12px;
 }
 
-.preset-selector {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
-
-  .no {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    color: var(--text-base);
-    background: var(--border-base);
-    user-select: none;
-    cursor: pointer;
-
-    &.selected {
-      background: var(--background-light);
-      border: 1px solid var(--text-base);
-    }
-  }
-}
 
 @media (max-width: 767px) {
   .card {
