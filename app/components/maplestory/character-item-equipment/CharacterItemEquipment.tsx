@@ -3,6 +3,7 @@ import { ItemEquipment } from '~/types/item-equipment'
 import { ItemEquipmentDetail } from './ItemEquipmentDetail'
 import { PanelSymbolEquipment } from './PanelSymbolEquipment'
 import { useMemo, useState } from 'react'
+import { specialRingNames } from '~/assets/constants/data-item-equipment'
 import helpers from '~/helpers'
 import './character-item-equipment.scss'
 
@@ -68,48 +69,79 @@ export const CharacterItemEquipment = ({
 }: {
   character: CharacterInfo,
 }) => {
-  const sortedItems = useMemo(() => {
-    const order: Record<string, number> = {
-      '무기': 10,
-      '보조무기': 20,
-      '엠블렘': 30,
-      '모자': 100,
-      '상의': 110,
-      '하의': 120,
-      '신발': 130,
-      '장갑': 140,
-      '망토': 150,
-      '어깨장식': 160,
-      '얼굴장식': 200,
-      '눈장식': 210,
-      '귀고리': 220,
-      '벨트': 230,
-      '반지1': 300,
-      '반지2': 310,
-      '반지3': 320,
-      '반지4': 330,
-      '예비 특수 반지': 340,
-      '펜던트': 400,
-      '펜던트2': 410,
-      '훈장': 500,
-      '뱃지': 510,
-      '포켓 아이템': 520,
-      '기계 심장': 530,
-    }
-    const sorted = [...character.itemEquipment.item_equipment].sort((a, b) =>
-      (order[a.item_equipment_slot] ?? 999) - (order[b.item_equipment_slot] ?? 999)
-    )
+  const [activePreset, setActivePreset] = useState<number>(character.itemEquipment.preset_no || 1)
 
-    return sorted
-  }, [character])
+  const items = useMemo(() => {
+    if (activePreset === 1) return character.itemEquipment.item_equipment_preset_1 || []
+    if (activePreset === 2) return character.itemEquipment.item_equipment_preset_2 || []
+    if (activePreset === 3) return character.itemEquipment.item_equipment_preset_3 || []
+    return character.itemEquipment.item_equipment
+  }, [character, activePreset])
+
+  const itemGroups = useMemo(() => {
+    const slotGroups = [
+      ['무기', '보조무기', '엠블렘'],
+      ['모자', '상의', '하의', '신발', '장갑', '망토'],
+      ['어깨장식', '얼굴장식', '눈장식', '귀고리', '벨트', '펜던트', '펜던트2'],
+      ['반지1', '반지2', '반지3', '반지4', '예비 특수 반지'],
+      ['훈장', '뱃지', '포켓 아이템', '기계 심장'],
+    ]
+
+    const allDefinedSlots = slotGroups.flat()
+
+    const groups = slotGroups.map(slots => {
+      const groupItems = items.filter(item => slots.includes(item.item_equipment_slot))
+
+      groupItems.sort((a, b) => {
+        // 반지 그룹 특수 정렬: 특수 반지 -> 예비 특수 반지 -> 나머지
+        if (slots.includes('반지1')) {
+          const aIsSpecial = specialRingNames[a.item_name] ?? false
+          const bIsSpecial = specialRingNames[b.item_name] ?? false
+
+          const aScore = aIsSpecial ? 0 : (a.item_equipment_slot === '예비 특수 반지' ? 1 : 2)
+          const bScore = bIsSpecial ? 0 : (b.item_equipment_slot === '예비 특수 반지' ? 1 : 2)
+
+          if (aScore !== bScore) return aScore - bScore
+        }
+
+        return slots.indexOf(a.item_equipment_slot) - slots.indexOf(b.item_equipment_slot)
+      })
+
+      return groupItems
+    })
+
+    // 정의되지 않은 슬롯의 아이템들도 하단에 추가
+    const otherItems = items.filter(item => !allDefinedSlots.includes(item.item_equipment_slot))
+    if (otherItems.length > 0) {
+      groups.push(otherItems)
+    }
+
+    return groups
+  }, [items])
 
   return <div className="character-item-equipment flex g-24">
-    <div className="items-grid">
-      {sortedItems.map((itemEquipment, index) => (
-        <CharacterItemEquipmentSummary
-          key={index}
-          itemEquipment={itemEquipment}
-        />
+    <div className="items-sections flex-column g-24 flex-1">
+      <div className="preset-tabs flex g-8">
+        {[1, 2, 3].map(no => (
+          <button
+            key={no}
+            onClick={() => setActivePreset(no)}
+            className={activePreset === no ? 'active' : ''}>
+            프리셋 {no}
+          </button>
+        ))}
+      </div>
+      {itemGroups.map((group, groupIndex) => (
+        group.length > 0 && (
+          <div key={groupIndex} className="items-grid">
+            {group.map((itemEquipment, index) => (
+              <CharacterItemEquipmentSummary
+                key={`${groupIndex}-${index}`}
+                itemEquipment={itemEquipment}
+              />
+            ))}
+          </div>
+        )
       ))}
     </div>
     <PanelSymbolEquipment character={character} />
