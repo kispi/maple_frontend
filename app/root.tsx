@@ -97,6 +97,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
   )
 }
 
+import { useState } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 export default function App() {
-  return <Outlet />
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60,
+        refetchOnWindowFocus: false,
+      },
+    },
+  }))
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Outlet />
+    </QueryClientProvider>
+  )
 }

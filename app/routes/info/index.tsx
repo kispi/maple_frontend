@@ -1,9 +1,9 @@
 import { CharacterInfo } from '~/types'
 import { useLoaderData, useNavigate, useSearchParams } from '@remix-run/react'
 import { MetaFunction } from '@remix-run/node'
-import { useEffect, useMemo } from 'react'
-import { $http } from '~/modules/axios'
-import useMapleStore, { zustandCacheMaple } from '~/store/maple'
+import { useEffect } from 'react'
+import { $http } from '~/modules/http-client'
+import { useCharacterQuery } from '~/components/maplestory/search-character/useSearchCharacter'
 import useAppStore from '~/store/app'
 import helpers from '~/helpers'
 import CharacterBasicInfo from '~/components/maplestory/character-basic-info/CharacterBasicInfo'
@@ -34,13 +34,9 @@ export const loader = async ({ request }: { request: Request }) => {
   const name = url.searchParams.get('name')
   if (!name) return { preparedCharacter: null }
 
-  const preparedCharacter = zustandCacheMaple().get(name)
-  if (preparedCharacter) return { preparedCharacter }
-
   try {
     const data = await $http.get('maple/info', { params: { character_name: name }}) as CharacterInfo
-    const preparedCharacter = data
-    return { preparedCharacter }
+    return { preparedCharacter: data }
   } catch (e) {
     return { preparedCharacter: null }
   }
@@ -67,15 +63,13 @@ const Index = () => {
 
   const [searchParams] = useSearchParams()
 
-  const { selectedCharacter } = useMapleStore()
-
   const { preparedCharacter } = useLoaderData<{ preparedCharacter: CharacterInfo | undefined }>()
 
-  const navigate = useNavigate()
+  const name = searchParams.get('name') || ''
 
-  const currentCharacter = useMemo<CharacterInfo | undefined>(() => {
-    return selectedCharacter || preparedCharacter
-  }, [selectedCharacter, preparedCharacter])
+  const { data: currentCharacter } = useCharacterQuery(name, preparedCharacter)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!searchParams.get('name')) {

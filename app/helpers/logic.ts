@@ -49,6 +49,17 @@ const logic = {
 
     return map[kr as keyof typeof map]
   },
+  isValidNickname: (nickname: string): boolean => {
+    if (!(nickname || '').trim()) return false
+
+    if (nickname.includes(' ')) return false
+
+    const byteLength = [...(nickname || '').trim()].reduce((acc, char) => {
+      return acc + (char.charCodeAt(0) > 127 ? 2 : 1);
+    }, 0)
+
+    return byteLength >= 4 && byteLength <= 12
+  },
 }
 
 export default logic

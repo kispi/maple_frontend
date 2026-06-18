@@ -1,78 +1,9 @@
-import { CharacterInfo, DefaultError } from '~/types'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { useMatches, useNavigate, useSearchParams } from '@remix-run/react'
 import helpers from '~/helpers'
-import useMapleStore from '~/store/maple'
+import { useSearchCharacter } from './useSearchCharacter'
 import './search-character.scss'
 
 const SearchCharacter = () => {
-  const [searchParams] = useSearchParams()
-
-  const [characterName, setCharacterName] = useState('')
-
-  const [isComposing, setIsComposing] = useState(false)
-
-  const { loadCharacter, setSelectedCharacter } = useMapleStore()
-
-  const navigate = useNavigate()
-
-  const matches = useMatches()
-
-  const ssrMode = useRef(true)
-
-  const preparedCharacter = (matches.find(m => m.id === 'routes/info')?.data as { preparedCharacter?: CharacterInfo })?.preparedCharacter
-
-  const refInput = useRef<HTMLInputElement>(null)
-
-  const queryName = searchParams.get('name')
-
-  const getCharacterInfo = useCallback(async (name: string) => {
-    if (refInput.current) refInput.current.blur()
-
-    try {
-      await loadCharacter(name)
-      setCharacterName(name) // 성공 시 입력값 업데이트
-    } catch (e) {
-      return Promise.reject(e)
-    }
-  }, [loadCharacter, refInput])
-
-  const onSearch = async () => {
-    if (isComposing) return // 컴포지션 중에는 실행 안 함
-
-    if (!characterName || characterName === queryName) return // 빈 값이거나 동일하면 중단
-
-    try {
-      await getCharacterInfo(characterName) // 먼저 fetch 시도
-      navigate({ pathname: '/info', search: `?name=${characterName}` }) // 성공 시 라우트 변경
-    } catch (e) {
-      // 에러 시 라우트 변경 안 함
-      const error = e as DefaultError
-      helpers.toast.error(error.data.statusCode ? helpers.$t('ERROR_FAILED') : error.data.message)
-    }
-  }
-
-  useEffect(() => {
-    // SSR 모드 처리
-    if (preparedCharacter?.basic.character_name === queryName && ssrMode.current) {
-      ssrMode.current = false
-      setCharacterName(queryName || '') // SSR에서 초기값 설정
-      return
-    }
-
-    // 뒤로가기나 쿼리 파라미터 변경 시 처리
-    if (queryName && queryName !== characterName) {
-      getCharacterInfo(queryName).catch(() => {
-        // 에러 시 초기화
-        setSelectedCharacter(null)
-        navigate('/', { replace: true })
-      })
-    } else if (!queryName) {
-      setSelectedCharacter(null)
-      setCharacterName('')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryName, preparedCharacter, getCharacterInfo, setSelectedCharacter])
+  const { characterName, setCharacterName, setIsComposing, onSearch, refInput } = useSearchCharacter()
 
   return (
     <div className="search-character input-wrapper">

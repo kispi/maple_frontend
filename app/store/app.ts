@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { $http } from '~/modules/axios'
 import { Modal, Toast, Tooltip } from '~/types'
 import helpers from '../helpers'
 
@@ -38,13 +37,7 @@ type AppState = {
   }
   setSettings: (settings: AppState['settings']) => void
 
-  config: {
-    emojis: Record<string, { emoji: string }>
-    ip: string
-    maxlength: { nickname: number, postTitle: number, profileImageUrl: number, replyContent: number }
-    version: { frontend?: string, backend?: string }
-  }
-  loadConfig: () => Promise<object>
+
 }
 
 const useAppStore = create<AppState>((set) => ({
@@ -124,21 +117,6 @@ const useAppStore = create<AppState>((set) => ({
     return { settings: newSettings }
   }),
 
-  config: {
-    emojis: {},
-    ip: '',
-    maxlength: { nickname: 0, postTitle: 0, profileImageUrl: 0, replyContent: 0 },
-    version: { frontend: '', backend: '' },
-  },
-  loadConfig: async () => {
-    try {
-      const data = await $http.get('config') as AppState['config']
-      set({ config: data })
-      return data
-    } catch (e) {
-      return Promise.reject(e)
-    }
-  },
 }))
 
 export default useAppStore
