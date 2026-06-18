@@ -25,6 +25,7 @@ export interface FetchConfig {
   params?: Record<string, string>
   headers?: Record<string, string>
   timeout?: number
+  request?: Request
 }
 
 export interface InternalRequestConfig extends FetchConfig {
@@ -100,6 +101,16 @@ class HttpClient {
     }
 
     promise = promise.then(async (cfg: InternalRequestConfig) => {
+      if (cfg.request && typeof cfg.request.headers?.get === 'function') {
+        const clientIp = cfg.request.headers.get('x-forwarded-for')?.split(',')[0].trim() || cfg.request.headers.get('x-real-ip') || ''
+        if (clientIp) {
+          cfg.headers = {
+            ...(cfg.headers || {}),
+            'ssr-proxy-from': clientIp,
+          }
+        }
+      }
+
       const timeoutMs = cfg.timeout ?? this.timeout
       let fullUrl = cfg.url.startsWith('http') ? cfg.url : `${this.baseURL}/${cfg.url.replace(/^\//, '')}`
       

@@ -35,7 +35,10 @@ export const loader = async ({ request }: { request: Request }) => {
   if (!name) return { preparedCharacter: null }
 
   try {
-    const data = await $http.get('maple/info', { params: { character_name: name }}) as CharacterInfo
+    const data = await $http.get('maple/info', {
+      params: { character_name: name },
+      request,
+    }) as CharacterInfo
     return { preparedCharacter: data }
   } catch (e) {
     return { preparedCharacter: null }
