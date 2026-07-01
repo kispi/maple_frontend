@@ -7,7 +7,7 @@ import {
   ModalElixir210, ModalElixir220, ModalElixir230,
   ModalElixir240, ModalElixir250, ModalElixir260,
   ModalElixir270, ModalElixir280,
-  ModalEtcMechaberry,
+  ModalEtcMechaberry, ModalEtcBlueberry,
   ModalElixirRandom260, ModalElixir285,
 } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
@@ -36,6 +36,7 @@ const MODAL_MAP = {
   treasure_hunter_diamond_unique: ModalTreasureHunterDiamond,
   treasure_hunter_diamond_legendary: ModalTreasureHunterDiamond,
   elixir_random: null,
+  blue_berry: ModalEtcBlueberry,
   mecha_berry: ModalEtcMechaberry,
   elixir_210: ModalElixir210,
   elixir_220: ModalElixir220,
@@ -160,6 +161,7 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
       expCoupons: false,
       treasureHunter: false,
       elixirs: false,
+      etc: false,
     }
   }, [character])
 
@@ -180,8 +182,9 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
     ].filter(o => o.$$expPercent),
     expCoupons: [expCoupons.basic({ lev }), expCoupons.advanced({ lev })].filter(o => o.$$expPercent),
     etc: [
+      etc.blueBerry({ lev }),
       etc.mechaBerry({ lev }),
-    ],
+    ].filter(o => o.$$expPercent),
     treasureHunter: [
       treasureHunter.gold.rare({ lev }),
       treasureHunter.gold.epic({ lev }),
@@ -266,7 +269,7 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
           toggleFold={() => setFolded(f => ({ ...f, expCoupons: !f.expCoupons }))}
           lev={lev}
         />
-        {lev >= 280 && <FoldableSection
+        {lev >= 260 && <FoldableSection
           title='ETC'
           items={playable.etc}
           folded={folded.etc}

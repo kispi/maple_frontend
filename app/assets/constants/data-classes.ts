@@ -131,17 +131,23 @@ export const classesData = [{
   key: 'blaster',
   name: '블래스터',
 }, {
-  category: 'resistance',
+  category: 'demon',
   classType: 'warrior',
   img: 'class_demonslayer.webp',
   key: 'demonslayer',
   name: '데몬슬레이어',
 }, {
-  category: 'resistance',
+  category: 'demon',
   classType: 'warrior',
   img: 'class_demonavenger.webp',
   key: 'demonavenger',
   name: '데몬어벤져',
+}, {
+  category: 'demon',
+  classType: 'magician',
+  img: 'class_lethe.webp',
+  key: 'lethe',
+  name: '레테',
 }, {
   category: 'resistance',
   classType: 'magician',

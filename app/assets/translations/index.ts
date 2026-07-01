@@ -6,6 +6,6 @@ const list = [
   errors,
   translations,
 ]
-list.forEach(json => Object.keys(json).forEach(key => result[key] = json[key]))
+list.forEach(json => Object.keys(json).forEach(key => result[key] = (json as Record<string, any>)[key]))
 
 export default result

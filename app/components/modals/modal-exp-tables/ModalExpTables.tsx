@@ -285,6 +285,38 @@ export const ModalExpCouponAdvanced = ({
   </div>
 }
 
+export const ModalEtcBlueberry = ({
+  options,
+  onClose,
+}: {
+  options?: { lev: number },
+  onClose: () => void,
+}) => {
+  useAutoFocus()
+
+  return <div className="modal-etc-blue-berry modal-base-style modal-exp-table scrollable-body">
+    <ModalHeader title={modalTitle('BLUE_BERRY', 'etc_blue_berry.png')} onClose={() => onClose()} />
+    <div className="modal-body pretty-scrollbar">
+      <div className="table">
+        <div className="thead">
+          <div className="tr">
+            <div className="th">{helpers.$t('LEVEL')}</div>
+            <div className="th">경험치</div>
+          </div>
+        </div>
+        <div className="tbody">
+          {createLevels(260, 40).map((lev, idx) => <div
+            key={idx}
+            className={`tr ${options?.lev === lev ? 'selected' : ''}`}>
+            <div className="td">{lev}</div>
+            <div className="td">{etc.blueBerry({ lev }).$$expPercent}%</div>
+          </div>)}
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
 export const ModalEtcMechaberry = ({
   options,
   onClose,

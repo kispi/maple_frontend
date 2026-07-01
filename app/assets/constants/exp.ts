@@ -5,7 +5,7 @@ import { extremeMonsterPark, monsterPark } from './data-monster-park'
 import { monsters } from './data-monsters'
 import { dailyQuestsData } from './data-daily-quests'
 import { advanced, basic } from './data-exp-coupons'
-import { mechaBerry } from './data-etc'
+import { blueBerry, mechaBerry } from './data-etc'
 import helpers from '~/helpers'
 
 export type ExpRow = {
@@ -73,7 +73,7 @@ export const weeklyContents = {
     const base = { img: 'high_mountain.png', key: 'high_mountain', $$expPercent: 0 }
     if (lev < 260) return base // 260 이상부터 가능
 
-    base.$$expPercent = Math.floor(highMountainData[lev as keyof typeof highMountainData]?.[rewardLev] * 100000) / 1000 || 0
+    base.$$expPercent = Math.floor(highMountainData[lev as unknown as keyof typeof highMountainData]?.[rewardLev] * 100000) / 1000 || 0
     return base
   },
   anglerCompany: ({ lev, rewardLev }: { lev: number; rewardLev: RewardLevEpicDungeon }): ExpRow => {
@@ -124,6 +124,14 @@ export const expCoupons = {
 }
 
 export const etc = {
+  blueBerry: ({ lev }: { lev: number }): ExpRow => {
+    const base = { img: 'etc_blue_berry.png', key: 'blue_berry', $$expPercent: 0 }
+    if (lev < 260) return base // 260 미만은 사용 불가능
+
+    const monsterExp = blueBerry[lev]
+    base.$$expPercent = helpers.asPercent(monsterExp / levelExpTable[lev - 1])
+    return base
+  },
   mechaBerry: ({ lev }: { lev: number }): ExpRow => {
     const base = { img: 'etc_mecha_berry.png', key: 'mecha_berry', $$expPercent: 0 }
     if (lev < 280) return base // 280 미만은 사용 불가능
