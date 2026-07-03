@@ -8,12 +8,17 @@ import {
   useRouteError,
 } from '@remix-run/react'
 import type { LinksFunction, MetaFunction } from '@remix-run/node'
+import { useEffect, useRef, useState } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createMetaTags } from './assets/constants/meta'
 import AppHeader from './components/app/app-header/AppHeader'
 import AppAddons from './components/app/addons/AppAddons'
 import AppFooter from './components/app/app-footer/AppFooter'
 import ClientOnly from './components/app/ClientOnly'
 import useAppStore from './store/app'
+import helpers from '~/helpers'
+import { useConfigQuery } from '~/components/maplestory/search-character/useSearchCharacter'
+import ModalBasic from './components/modals/ModalBasic'
 import '~/assets/styles/index.scss'
 import './font-awesome.css'
 import './root.scss'
@@ -70,37 +75,8 @@ export const ErrorBoundary = () => {
   </div>
 }
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const Layout = ({ children }: { children: React.ReactNode }) => {
   const { settings } = useAppStore()
-
-  return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body className={`theme-${settings.theme}`}>
-        <AppHeader />
-        <div className="app-body layout-centered">
-          <main>{children}</main>
-        </div>
-        <AppFooter />
-        <ClientOnly>
-          <AppAddons />
-        </ClientOnly>
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  )
-}
-
-import { useState } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-export default function App() {
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {
@@ -112,7 +88,57 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <html lang="en">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+        <body className={`theme-${settings.theme}`}>
+          <AppHeader />
+          <div className="app-body layout-centered">
+            <main>{children}</main>
+          </div>
+          <AppFooter />
+          <ClientOnly>
+            <AppAddons />
+          </ClientOnly>
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </html>
     </QueryClientProvider>
   )
+}
+
+
+const useCheckMaintenance = () => {
+  const { data: config } = useConfigQuery()
+  const hasOpenedMaintenanceModal = useRef(false)
+
+  useEffect(() => {
+    if (config?.isMaintaining && !hasOpenedMaintenanceModal.current) {
+      hasOpenedMaintenanceModal.current = true
+      helpers.modal.open({
+        component: ModalBasic,
+        options: {
+          title: helpers.$t('MAINTENANCE_TITLE'),
+          body: helpers.$t('UNDER_MAINTENANCE'),
+          buttons: [
+            {
+              text: helpers.$t('CONFIRM'),
+              class: 'btn-primary',
+            },
+          ],
+        },
+      })
+    }
+  }, [config?.isMaintaining])
+}
+
+export default function App() {
+  useCheckMaintenance()
+
+  return <Outlet />
 }

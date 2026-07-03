@@ -12,6 +12,7 @@ import {
 } from '~/components/modals/modal-exp-tables/ModalExpTables'
 import helpers from '~/helpers'
 import BadgeGlass from '~/components/common/badge-glass/BadgeGlass'
+import { useConfigQuery } from '~/components/maplestory/search-character/useSearchCharacter'
 import './character-contents-exp.scss'
 
 type ExpBoyak = { arcaneRiver: number, grandis: number, monsterPark: number }
@@ -127,10 +128,14 @@ const FoldableSection = ({ title, items, folded, toggleFold, lev, boyak }: {
 export const CharacterContentsExp = ({ character }: { character: CharacterInfo }) => {
   const lev = character.basic.character_level
 
+  const { data: config } = useConfigQuery()
+
   const expBoyak = useMemo(() => {
-    const zeroth = (character.skills.find(o => o.character_skill_grade === '0')?.character_skill || [])
-      .find(o => (o.skill_name || '').includes(import.meta.env.VITE_EVENT_SKILL_NAME) && o.skill_effect !== '(Unknown)')
-    if (!zeroth) return { arcaneRiver: 0, grandis: 0, monsterPark: 0 }
+    const eventNames = config?.eventNames || []
+    const matchingZerothSkills = (character.skills.find(o => o.character_skill_grade === '0')?.character_skill || [])
+      .filter(o => eventNames.some(name => (o.skill_name || '').includes(name)) && o.skill_effect !== '(Unknown)')
+
+    const totalBonus = { arcaneRiver: 0, grandis: 0, monsterPark: 0 }
 
     const patterns = [
       { key: 'arcaneRiver', regex: /아케인리버 일일퀘스트 완료 시 획득 경험치 (\d+\.?\d*)%/g },
@@ -138,12 +143,16 @@ export const CharacterContentsExp = ({ character }: { character: CharacterInfo }
       { key: 'monsterPark', regex: /몬스터파크 퇴장 시 획득하는 경험치 (\d+\.?\d*)%/g },
     ]
 
-    return patterns.reduce((bonus, { key, regex }) => {
-      bonus[key as keyof ExpBoyak] = [...zeroth.skill_effect.matchAll(regex)]
-        .reduce((sum, match) => sum + parseFloat(match[1]), 0)
-      return bonus
-    }, { arcaneRiver: 0, grandis: 0, monsterPark: 0 } as ExpBoyak)
-  }, [character])
+    for (const skill of matchingZerothSkills) {
+      for (const { key, regex } of patterns) {
+        const matches = [...skill.skill_effect.matchAll(regex)]
+        const skillBonus = matches.reduce((sum, match) => sum + parseFloat(match[1]), 0)
+        totalBonus[key as keyof ExpBoyak] += skillBonus
+      }
+    }
+
+    return totalBonus
+  }, [character, config?.eventNames])
 
   const populatedFolded = useCallback(() => {
     const symbols = character.symbolEquipment?.symbol || []

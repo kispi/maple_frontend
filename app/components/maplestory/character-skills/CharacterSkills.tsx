@@ -2,9 +2,8 @@ import { CharacterSkill, TypeSkill } from '~/types/skill'
 import { CharacterInfo } from '~/types'
 import { useMemo, useRef } from 'react'
 import helpers from '~/helpers'
+import { useConfigQuery } from '~/components/maplestory/search-character/useSearchCharacter'
 import './character-skills.scss'
-
-const keywordsToFilter = ['새벽']
 
 const onMouseEnter = ({
   skill,
@@ -56,25 +55,25 @@ export const IconSkill = ({
 }
 
 export const CharacterSkills = ({ character }: { character: CharacterInfo }) => {
+  const { data: config } = useConfigQuery()
+
   const eventSkills = useMemo(() => {
+    const eventNames = config?.eventNames || []
     return ((character.skills || [])
       .find(skill => skill.character_skill_grade === '0')?.character_skill || [])
-      .filter(skill => (skill.skill_name || '').includes(import.meta.env.VITE_EVENT_SKILL_NAME) && skill.skill_effect !== '(Unknown)')
-  }, [character.skills])
+      .filter(skill => eventNames.some(name => (skill.skill_name || '').includes(name)) && skill.skill_effect !== '(Unknown)')
+  }, [character.skills, config?.eventNames])
 
   const hexaSkills = useMemo(() => {
     const filtered = (character.skills || []).find(skill => skill.character_skill_grade === '6')
     if (!filtered) return null
 
-    // 새벽과 황혼은 맨 뒤로
-    filtered.character_skill = filtered.character_skill.filter(skill =>
-      keywordsToFilter.every(keyword => !skill.skill_name.includes(keyword))
-    ).sort((a, b) => {
-      if (a.skill_name.includes('솔 야누스')) return 1;
-      if (b.skill_name.includes('솔 야누스')) return -1;
-      if (a.skill_name.includes('스탯')) return 1;
-      if (b.skill_name.includes('스탯')) return -1;
-      return 0; // 기본 순서 유지
+    filtered.character_skill = filtered.character_skill.sort((a, b) => {
+      if (a.skill_name.includes('솔 야누스')) return 1
+      if (b.skill_name.includes('솔 야누스')) return -1
+      if (a.skill_name.includes('스탯')) return 1
+      if (b.skill_name.includes('스탯')) return -1
+      return 0
     })
 
     return filtered

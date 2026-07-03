@@ -414,5 +414,17 @@
   "SKILLS": {
     "kr": "스킬",
     "en": "Skills"
+  },
+  "CONFIRM": {
+    "kr": "확인",
+    "en": "Confirm"
+  },
+  "MAINTENANCE_TITLE": {
+    "kr": "시스템 점검 안내",
+    "en": "System Maintenance Notice"
+  },
+  "UNDER_MAINTENANCE": {
+    "kr": "현재 Nexon OpenAPI 점검 중입니다 😢",
+    "en": "Nexon OpenAPI is currently under maintenance 😢"
   }
 }

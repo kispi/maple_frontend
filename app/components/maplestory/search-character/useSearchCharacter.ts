@@ -92,3 +92,11 @@ export const useCharacterQuery = (name: string, initialData?: CharacterInfo) => 
     enabled: !!name,
   })
 }
+
+export const useConfigQuery = () => {
+  return useQuery({
+    queryKey: ['config'],
+    queryFn: () => $http.get('config') as Promise<{ eventNames: string[], isMaintaining: boolean }>,
+    staleTime: 1000 * 60 * 10,
+  })
+}
