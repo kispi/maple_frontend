@@ -88,7 +88,7 @@ export const useCharacterQuery = (name: string, initialData?: CharacterInfo) => 
     queryKey: ['character', name],
     queryFn: () => $http.get('maple/info', { params: { character_name: name } }) as Promise<CharacterInfo>,
     staleTime: 1000 * 60,
-    initialData: initialData || undefined,
+    initialData: (initialData && initialData.basic?.character_name === name) ? initialData : undefined,
     enabled: !!name,
   })
 }
